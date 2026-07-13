@@ -1,12 +1,12 @@
 #!/usr/bin/env python
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
-"""Resolve concrete PTB-XL parent record IDs from the user's PTB-XL copy.
+"""Resolve concrete PTB-XL parent record IDs from your local PTB-XL copy.
 
 Reads ``ptbxl_database.csv`` and writes deterministic selections to
-``recipes/source_ids/``. Challenge-2011 record IDs are taken from that database's
-``RECORDS`` file. Run this once against your local PhysioNet copy before
-``make regenerate``; the selection is seeded and reproducible.
+``recipes/source_ids/``: 52 clean parents (30 real-noise + 22 engineering) and 15
+naturally-noisy records (the naturally-poor group). The selection is seeded and
+reproducible. Run once before ``make regenerate``.
 """
 
 from __future__ import annotations
@@ -19,13 +19,16 @@ from torsade.selection import quality_flags, select_ptbxl
 
 SEED = 20260713
 N_CLEAN = 30 + 22  # real-noise parents + engineering parents
-N_NOISY = 5  # noisy PTB-XL naturally-poor records
+N_NOISY = 15  # naturally-poor group (all from PTB-XL quality flags)
+
+DEFAULT_PTBXL = "/data/physionet/ptb-xl-1.0.3"
 
 
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="select_sources", description=__doc__)
-    p.add_argument("--ptbxl", required=True, help="PTB-XL root (contains ptbxl_database.csv).")
-    p.add_argument("--challenge2011", default=None, help="CinC Challenge 2011 root (RECORDS file).")
+    p.add_argument(
+        "--ptbxl", default=DEFAULT_PTBXL, help="PTB-XL root (contains ptbxl_database.csv)."
+    )
     args = p.parse_args(argv)
 
     repo = Path(__file__).resolve().parents[1]
@@ -57,13 +60,6 @@ def main(argv: list[str] | None = None) -> int:
     write_ids("ptbxl_clean.csv", clean)
     write_ids("ptbxl_noisy.csv", noisy, with_flags=True)
     print(f"Wrote {len(clean)} clean + {len(noisy)} noisy PTB-XL ids to {out_dir}")
-
-    if args.challenge2011:
-        records = Path(args.challenge2011) / "RECORDS"
-        if records.exists():
-            names = [ln.strip() for ln in records.read_text().splitlines() if ln.strip()][:10]
-            (out_dir / "challenge2011.csv").write_text("record\n" + "\n".join(names) + "\n")
-            print(f"Wrote {len(names)} Challenge-2011 ids")
     return 0
 
 

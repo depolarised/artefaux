@@ -104,27 +104,25 @@ Boston, MA, USA (pp. 381–384).
 
 ---
 
-### 4. PhysioNet/CinC Challenge 2011 v1.0.0
+### 4. Motion Artifact Contaminated ECG Database (MACECGDB) v1.0.0
 
-**License:** PhysioNet Open Access Data Use Agreement  
-**Restrictions:** Scholarly, educational, and research use; no commercial use without explicit permission.
+**License:** Open Data Commons Attribution License v1.0 (ODC-BY-1.0)  
+**Restrictions:** Attribution required; redistribution of derived data must preserve attribution.
 
 **Citation:**
 ```
-Silva, I., Moody, G. B., & Celi, L. A. (2011).
-"Improving the quality of ECGs collected using mobile phones and other wireless devices."
-In Proceedings of the 2011 Computing in Cardiology (CinC) Conference,
-Hangzhou, China (pp. 273–276).
+Behravan, V., Glover, N. E., Farry, R., Shoaib, M., & Chiang, P. Y. (2015).
+Motion Artifact Contaminated ECG Database (version 1.0.0). PhysioNet.
+https://doi.org/10.13026/C2JP4G
 ```
 
-**Access:** https://doi.org/10.13026/tnya-rb03
+**Access:** https://doi.org/10.13026/C2JP4G
 
-**How Torsade uses CinC Challenge 2011:**
-- Source of 10 naturally poor 12-lead ECG recordings (pre-identified as unacceptable for clinical interpretation).
-- Included as-is without clean parent or further corruption.
-- Used to represent real-world signal degradation (equipment failure, extreme artefact, data corruption).
+**How Torsade uses MACECGDB:**
+- Source of real motion traces (standing / walking / single-jump) for a few "wild" engineering extremes via the `motion_swing` recipe op.
+- Unlike NSTDB, the underlying cardiac signal is **not** suppressed, so these motion traces carry residual ECG — a harder, more ECG-like adversarial artefact — and are labelled as a motion source, not clean noise.
 
-**Your obligation:** If you use CinC Challenge 2011 data via Torsade, comply with the PhysioNet Open Access Data Use Agreement and cite the Silva et al. (2011) paper.
+**Your obligation:** If you use MACECGDB data via Torsade, comply with the ODC-BY-1.0 license and cite the Behravan et al. (2015) database.
 
 ---
 
@@ -142,7 +140,7 @@ https://doi.org/10.1161/01.CIR.101.23.e215
 **Access:** https://physionet.org/
 
 **How Torsade uses PhysioNet:**
-- Distribution platform for all four source datasets (PTB-XL, NSTDB, CinC Challenge 2011).
+- Distribution platform for the source datasets (PTB-XL, PTB-XL+, NSTDB, MACECGDB).
 - Provides data integrity (checksums, version control) and persistent DOI assignments.
 
 **Your obligation:** Acknowledge PhysioNet as the repository infrastructure when citing source datasets.
@@ -179,7 +177,7 @@ corpus for ECG signal-quality validation.
   year         = {2026},
   version      = {1.0.0},
   date         = {2026-07-13},
-  url          = {https://github.com/wizofe/torsade},
+  url          = {https://github.com/depolarised/torsade},
   license      = {GPL-3.0-or-later},
 }
 ```
@@ -237,12 +235,12 @@ Torsade corpus definition, manifest, labels, and documentation are licensed unde
 If you use Torsade, you must:
 
 1. **Cite Torsade** (the corpus and generation engine).
-2. **Cite each source dataset** used in your experiments (PTB-XL, NSTDB, CinC Challenge 2011, PTB-XL+).
-3. **Comply with PhysioNet terms** (responsible, ethical use; retain source attributions). The source datasets used here are openly licensed (CC-BY-4.0 / ODC-BY-1.0 / open access) and permit reuse — including commercial — provided attribution is retained.
+2. **Cite each source dataset** used in your experiments (PTB-XL, PTB-XL+, NSTDB, MACECGDB).
+3. **Comply with PhysioNet terms** (responsible, ethical use; retain source attributions). The source datasets used here are openly licensed (CC-BY-4.0 / ODC-BY-1.0) and permit reuse — including commercial — provided attribution is retained.
 4. **Comply with each source license:**
    - PTB-XL and PTB-XL+: CC-BY-4.0 (attribution required).
    - NSTDB: ODC-BY-1.0 (attribution required).
-   - CinC Challenge 2011: PhysioNet open access (attribution required).
+   - MACECGDB: ODC-BY-1.0 (attribution required).
 5. **Do not claim clinical validity** without independent validation on clinically representative datasets.
 6. **Do not redistribute** derived signals from source datasets; users must regenerate via the provided recipes.
 
@@ -254,4 +252,4 @@ For licensing questions or requests for alternative licensing arrangements (e.g.
 
 **Ioannis Valasakis**  
 Email: tungolcild@gmail.com  
-GitHub: https://github.com/wizofe
+GitHub: https://github.com/depolarised

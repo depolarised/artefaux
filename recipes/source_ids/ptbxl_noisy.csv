@@ -1,0 +1,16 @@
+ecg_id,filename_hr,quality_flags
+10646,records500/10000/10646_hr,electrodes_problems
+10652,records500/10000/10652_hr,burst_noise
+11176,records500/11000/11176_hr,static_noise
+12587,records500/12000/12587_hr,static_noise
+13777,records500/13000/13777_hr,static_noise
+14197,records500/14000/14197_hr,static_noise
+16149,records500/16000/16149_hr,baseline_drift
+16981,records500/16000/16981_hr,static_noise
+17281,records500/17000/17281_hr,static_noise
+17293,records500/17000/17293_hr,baseline_drift
+19487,records500/19000/19487_hr,static_noise
+20478,records500/20000/20478_hr,static_noise
+359,records500/00000/00359_hr,static_noise
+6320,records500/06000/06320_hr,baseline_drift
+6968,records500/06000/06968_hr,static_noise

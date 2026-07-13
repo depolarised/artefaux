@@ -1,7 +1,9 @@
 .PHONY: setup test lint format corpus figures download select regenerate smoke clean
 
 PY := .venv/bin/python
-SOURCES ?= data/sources
+PTBXL ?= /data/physionet/ptb-xl-1.0.3
+MACECGDB ?= /data/physionet/motion-artifact-contaminated-ecg-database-1.0.0
+NSTDB ?= data/sources/nstdb
 OUT ?= out/torsade-v1
 SEED ?= 20260713
 
@@ -26,14 +28,14 @@ corpus:  ## Regenerate the shipped corpus definition (recipes/corpus.yaml + mani
 figures:  ## Regenerate the documentation figures
 	$(PY) scripts/make_figures.py --out figures
 
-download:  ## Fetch the small open sources (NSTDB, CinC Challenge 2011)
-	$(PY) scripts/download_sources.py --out $(SOURCES)
+download:  ## Fetch NSTDB (the only source not in the local PhysioNet mirror)
+	$(PY) scripts/download_sources.py --out $(NSTDB)
 
-select:  ## Resolve PTB-XL source ids from your local copy (needs $(SOURCES)/ptbxl)
-	$(PY) scripts/select_sources.py --ptbxl $(SOURCES)/ptbxl --challenge2011 $(SOURCES)/challenge2011
+select:  ## Resolve PTB-XL source ids from your local copy
+	$(PY) scripts/select_sources.py --ptbxl $(PTBXL)
 
 regenerate:  ## Build the full corpus from local sources into $(OUT)
-	$(PY) scripts/generate.py --sources $(SOURCES) --out $(OUT) --master-seed $(SEED)
+	$(PY) scripts/generate.py --ptbxl-dir $(PTBXL) --macecgdb-dir $(MACECGDB) --nstdb-dir $(NSTDB) --out $(OUT) --master-seed $(SEED)
 
 smoke:  ## Build a synthetic corpus (no download) — proves the pipeline end to end
 	$(PY) scripts/generate.py --synthetic --out out/smoke --master-seed $(SEED)

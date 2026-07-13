@@ -33,44 +33,41 @@ def _rid(prefix: str, i: int) -> str:
 # --- 15 naturally poor ------------------------------------------------------
 
 
+_POOR_FLAG_CYCLE = (
+    ("electrodes_problems",),
+    ("static_noise", "burst_noise"),
+    ("baseline_drift",),
+    ("static_noise",),
+    ("burst_noise", "baseline_drift"),
+    ("electrodes_problems", "static_noise"),
+)
+
+
 def _naturally_poor() -> list[RecordSpec]:
+    """15 naturally-noisy PTB-XL records, selected by technical-validation quality flags.
+
+    All 15 come from PTB-XL's technical-validation quality flags
+    (``static_noise`` / ``burst_noise`` / ``baseline_drift`` / ``electrodes_problems``),
+    which mark ~5k genuinely noisy real 12-lead ECGs under an open licence.
+    """
     specs: list[RecordSpec] = []
-    # 10 from CinC Challenge 2011 (unacceptable-for-interpretation), 5 noisy PTB-XL.
-    for i in range(10):
+    for i in range(15):
+        flags = _POOR_FLAG_CYCLE[i % len(_POOR_FLAG_CYCLE)]
+        severe = "electrodes_problems" in flags and i % 3 == 0
         specs.append(
             RecordSpec(
                 record_id=_rid("nat", i + 1),
                 group="naturally_poor",
-                source=SourceSpec(dataset="challenge2011", rhythm_class="unknown"),
+                source=SourceSpec(
+                    dataset="ptbxl", ptbxl_quality_flags=flags, rhythm_class="unknown"
+                ),
                 seed_index=100 + i,
                 steps=(),
                 expected={
-                    "record_quality": "reject" if i < 6 else "limited",
-                    "lead_quality": {"default": "bad" if i < 6 else "borderline"},
-                    "noiseguard_discard": i < 6,
-                    "reason_codes": ["GATE_REJECT"] if i < 6 else [],
-                },
-            )
-        )
-    poor_flags = [
-        ("electrodes_problems",),
-        ("static_noise", "burst_noise"),
-        ("baseline_drift",),
-        ("static_noise",),
-        ("burst_noise", "baseline_drift"),
-    ]
-    for i, flags in enumerate(poor_flags):
-        specs.append(
-            RecordSpec(
-                record_id=_rid("nat", 11 + i),
-                group="naturally_poor",
-                source=SourceSpec(dataset="ptbxl", ptbxl_quality_flags=flags, rhythm_class="sinus"),
-                seed_index=110 + i,
-                steps=(),
-                expected={
-                    "record_quality": "limited",
-                    "lead_quality": {"default": "borderline"},
-                    "noiseguard_discard": False,
+                    "record_quality": "reject" if severe else "limited",
+                    "lead_quality": {"default": "bad" if severe else "borderline"},
+                    "noiseguard_discard": severe,
+                    "reason_codes": ["GATE_REJECT"] if severe else [],
                 },
             )
         )
@@ -158,7 +155,11 @@ def _engineering() -> list[RecordSpec]:
     # (id_suffix, steps, expected)
     single: list[tuple[str, tuple[dict, ...], dict]] = [
         ("emg_v1", ({"op": "swing", "leads": ["V1"], "p2p_mv": 6.0},), _limited({"V1": "bad"})),
-        ("motion_v2", ({"op": "swing", "leads": ["V2"], "p2p_mv": 8.0},), _limited({"V2": "bad"})),
+        (
+            "macecg_walk_v2",
+            ({"op": "motion_swing", "leads": ["V2"], "p2p_mv": 8.0, "noise_type": "walk"},),
+            _limited({"V2": "bad"}),
+        ),
         (
             "intermittent_v6",
             ({"op": "intermittent_lead_off", "leads": ["V6"]},),
@@ -174,8 +175,16 @@ def _engineering() -> list[RecordSpec]:
             _limited({"II": "borderline"}),
         ),
         (
-            "overload_v3",
-            ({"op": "swing", "leads": ["V3"], "p2p_mv": 30.0, "rail_mv": 5.0},),
+            "macecg_jump_overload_v3",
+            (
+                {
+                    "op": "motion_swing",
+                    "leads": ["V3"],
+                    "p2p_mv": 30.0,
+                    "rail_mv": 5.0,
+                    "noise_type": "jump",
+                },
+            ),
             _limited(
                 {"V3": "bad"}, data_integrity_failure=True, integrity_failure_type="rail_saturation"
             ),
@@ -333,7 +342,7 @@ def _engineering() -> list[RecordSpec]:
             "compound_wild",
             (
                 {"op": "electrode", "electrode": "LA", "kind": "motion", "amplitude_mv": 0.8},
-                {"op": "swing", "leads": ["V2"], "p2p_mv": 8.0},
+                {"op": "motion_swing", "leads": ["V2"], "p2p_mv": 8.0, "noise_type": "walk"},
                 {"op": "lead_off", "leads": ["V5"], "interval_s": [4.0, 7.0]},
             ),
             _limited(

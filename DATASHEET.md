@@ -3,7 +3,7 @@
 **Version:** 1.0.0  
 **Release date:** 2026-07-13  
 **Maintainer:** Ioannis Valasakis (wizofe)  
-**Repository:** https://github.com/wizofe/torsade  
+**Repository:** https://github.com/depolarised/torsade  
 **License:** Code (GPL-3.0-or-later); manifest, labels, documentation (CC-BY-4.0)
 
 ## 1. Motivation
@@ -37,10 +37,10 @@ Torsade v1 contains **~67 test records** (derived from publicly available source
 
 | Category | Count | Source | Corruption Type | Clean Parent |
 |----------|-------|--------|-----------------|--------------|
-| Naturally poor | 15 | CinC Challenge 2011 (10) + PTB-XL quality flags (5) | Inherent signal degradation | No |
+| Naturally poor | 15 | PTB-XL technical-validation quality flags | Inherent signal degradation | No |
 | Real-noise SNR ladder | 30 | PTB-XL 500 Hz base + NSTDB noise | EM, MA, BW at {−6, 0, 6, 12, 18} dB SNR | Yes (PTB-XL) |
-| Engineering extremes: single-lead | 11 | Synthetic corruption | Clipping, flatline, lead-off, NaN, swings, step-recovery, polarity inversion, intermittent lead-off | Varies |
-| Engineering extremes: multi-lead | 11 | Electrode-domain models | Limb/chest electrode corruption (RA/LA/LL) | Varies |
+| Engineering extremes: single-lead | 11 | PTB-XL parents + deterministic corruption | Clipping, flatline, lead-off, NaN, swings, step-recovery, polarity inversion, intermittent lead-off | Varies |
+| Engineering extremes: multi-lead | 11 | Electrode-domain models (+ MACECGDB motion) | Limb/chest electrode corruption (RA/LA/LL); real standing/walking/jumping motion swings | Varies |
 
 **Total records: ~67**  
 **Paired clean parents: ~50–55**
@@ -78,11 +78,11 @@ Torsade v1 contains **~67 test records** (derived from publicly available source
    - Retrieved from PhysioNet: https://doi.org/10.13026/c2dv-6e40
    - Torsade uses these as primary noise sources for SNR ladder and real-noise pairs; resamples to 500 Hz.
 
-4. **PhysioNet/CinC Challenge 2011 v1.0.0** (Silva, Moody, Celi 2011)
-   - Open access (PhysioNet Data Use Agreement); no commercial restriction.
-   - 649 12-lead ECG recordings selected for poor signal quality (unacceptable for clinical interpretation).
-   - Retrieved from PhysioNet: https://doi.org/10.13026/tnya-rb03
-   - Torsade uses 10 of these as naturally poor records (no clean parent).
+4. **Motion Artifact Contaminated ECG Database (MACECGDB) v1.0.0** (Behravan, Glover, Farry, Shoaib, Chiang 2015)
+   - Open Data Commons Attribution License v1.0 (ODC-BY-1.0); attribution required.
+   - Four-channel ECG recorded from one healthy 25-year-old subject during standing, walking, and a single jump, 500 Hz, 16-bit, analog gain 100×. Unlike NSTDB, the underlying cardiac signal is **not** suppressed — these are real ambulatory ECGs contaminated by motion.
+   - Retrieved from PhysioNet: https://doi.org/10.13026/C2JP4G
+   - Torsade uses these motion traces for a few "wild" engineering extremes (`motion_swing`), where a harder, ECG-like adversarial artefact is wanted rather than near-pure noise.
 
 5. **PhysioNet** (Goldberger et al., *Circulation* 2000)
    - Repository and associated infrastructure.
@@ -98,7 +98,7 @@ Torsade v1 contains **~67 test records** (derived from publicly available source
 
 ### Data acquisition
 
-**Naturally poor records:** Retrieved directly from CinC Challenge 2011 (previously curated as high-artefact set) and PTB-XL with pre-computed quality flags indicating known degradation.
+**Naturally poor records:** All 15 selected from PTB-XL by its technical-validation quality flags (`static_noise`, `burst_noise`, `baseline_drift`, `electrodes_problems`), which mark records with known real-world degradation.
 
 **Real-noise pairs:** PTB-XL records selected at random (stratified by rhythm class) and paired with NSTDB noise segments, resampled to 500 Hz and mixed according to the SNR ladder (−6, 0, 6, 12, 18 dB).
 
@@ -161,7 +161,7 @@ Each record receives **three layers of labels**:
 
 - **Corruption-truth labels** are **deterministic** — generated directly from the applied recipe; no post-hoc adjudication.
 - **Expected-behaviour labels** are **prescriptive** — authored to reflect design intent for how a well-tuned gate or detector **should** respond.
-- **Clinically-derived labels** (rhythm, Glasgow statements, quality flags) are **sourced** from published datasets (PTB-XL, PTB-XL+, CinC Challenge).
+- **Clinically-derived labels** (rhythm, Glasgow statements, quality flags) are **sourced** from published datasets (PTB-XL, PTB-XL+).
 
 See `docs/LABEL_SCHEMA.md` for the complete schema and JSON examples.
 
@@ -183,13 +183,13 @@ See `docs/LABEL_SCHEMA.md` for the complete schema and JSON examples.
 ### Prohibited uses
 
 - Diagnostic inference: Never apply ECG interpretation algorithms trained on or validated against Torsade to real patient data without independent clinical validation on datasets representative of the intended use population.
-- Redistribution of derived signals: The corpus does NOT redistribute NSTDB, PTB-XL, or CinC Challenge records; users must obtain these independently and regenerate via the provided recipes.
+- Redistribution of derived signals: The corpus does NOT redistribute NSTDB, PTB-XL, PTB-XL+, or MACECGDB records; users must obtain these independently and regenerate via the provided recipes.
 
 ## 6. Distribution
 
 ### Availability
 
-- **Code:** https://github.com/wizofe/torsade (GPL-3.0-or-later).
+- **Code:** https://github.com/depolarised/torsade (GPL-3.0-or-later).
 - **Corpus definition (recipes, manifest, labels):** Distributed with the repository (CC-BY-4.0).
 - **Derived signals:** Users must fetch source datasets from PhysioNet and regenerate via `make download && make regenerate`.
 
@@ -197,16 +197,17 @@ See `docs/LABEL_SCHEMA.md` for the complete schema and JSON examples.
 
 - **Code:** GPL-3.0-or-later.
 - **Manifest, labels, and documentation:** CC-BY-4.0 (Attribution 4.0 International).
-- **Source data:** Each source carries its own license (PTB-XL: CC-BY-4.0; NSTDB: ODC-BY-1.0; CinC Challenge 2011: PhysioNet open access; PTB-XL+: CC-BY-4.0). Users must comply with each source's terms.
+- **Source data:** Each source carries its own license (PTB-XL: CC-BY-4.0; PTB-XL+: CC-BY-4.0; NSTDB: ODC-BY-1.0; MACECGDB: ODC-BY-1.0). Users must comply with each source's terms.
 
 ### Access and reproducibility
 
 Torsade requires **no credentialed access.** All source datasets are openly available (with the exception of MIMIC, which is explicitly excluded). A user with internet access and sufficient disk space can:
 
 ```bash
-git clone https://github.com/wizofe/torsade.git
+git clone https://github.com/depolarised/torsade.git
 cd torsade
-make download     # Fetches PhysioNet source files
+make download     # Fetches NSTDB (PTB-XL/PTB-XL+/MACECGDB read from local mirror)
+make select       # Resolves PTB-XL parent ids from the local copy
 make regenerate   # Builds corpus deterministically
 ```
 
@@ -224,7 +225,7 @@ Each major version pins source dataset versions in the manifest:
 - PTB-XL v1.0.3
 - PTB-XL+ v1.0.1
 - NSTDB v1.0.0
-- CinC Challenge 2011 v1.0.0
+- MACECGDB v1.0.0
 
 If source datasets are updated, a new Torsade version is required to maintain reproducibility.
 
@@ -237,7 +238,7 @@ If source datasets are updated, a new Torsade version is required to maintain re
 
 ### Contact and reporting issues
 
-- **GitHub Issues:** https://github.com/wizofe/torsade/issues
+- **GitHub Issues:** https://github.com/depolarised/torsade/issues
 - **Maintainer:** Ioannis Valasakis (wizofe), tungolcild@gmail.com
 
 ## 8. Limitations and Caveats

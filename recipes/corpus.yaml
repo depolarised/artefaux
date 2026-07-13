@@ -5,11 +5,12 @@ records:
 - record_id: torsade_nat_001
   group: naturally_poor
   source:
-    dataset: challenge2011
+    dataset: ptbxl
     record_id: null
     rhythm_class: unknown
     glasgow_statements: []
-    ptbxl_quality_flags: []
+    ptbxl_quality_flags:
+    - electrodes_problems
     age_years: null
     sex: null
   seed_index: 100
@@ -25,114 +26,16 @@ records:
 - record_id: torsade_nat_002
   group: naturally_poor
   source:
-    dataset: challenge2011
+    dataset: ptbxl
     record_id: null
     rhythm_class: unknown
     glasgow_statements: []
-    ptbxl_quality_flags: []
+    ptbxl_quality_flags:
+    - static_noise
+    - burst_noise
     age_years: null
     sex: null
   seed_index: 101
-  steps: []
-  expected:
-    record_quality: reject
-    lead_quality:
-      default: bad
-    noiseguard_discard: true
-    reason_codes:
-    - GATE_REJECT
-  has_clean_parent: false
-- record_id: torsade_nat_003
-  group: naturally_poor
-  source:
-    dataset: challenge2011
-    record_id: null
-    rhythm_class: unknown
-    glasgow_statements: []
-    ptbxl_quality_flags: []
-    age_years: null
-    sex: null
-  seed_index: 102
-  steps: []
-  expected:
-    record_quality: reject
-    lead_quality:
-      default: bad
-    noiseguard_discard: true
-    reason_codes:
-    - GATE_REJECT
-  has_clean_parent: false
-- record_id: torsade_nat_004
-  group: naturally_poor
-  source:
-    dataset: challenge2011
-    record_id: null
-    rhythm_class: unknown
-    glasgow_statements: []
-    ptbxl_quality_flags: []
-    age_years: null
-    sex: null
-  seed_index: 103
-  steps: []
-  expected:
-    record_quality: reject
-    lead_quality:
-      default: bad
-    noiseguard_discard: true
-    reason_codes:
-    - GATE_REJECT
-  has_clean_parent: false
-- record_id: torsade_nat_005
-  group: naturally_poor
-  source:
-    dataset: challenge2011
-    record_id: null
-    rhythm_class: unknown
-    glasgow_statements: []
-    ptbxl_quality_flags: []
-    age_years: null
-    sex: null
-  seed_index: 104
-  steps: []
-  expected:
-    record_quality: reject
-    lead_quality:
-      default: bad
-    noiseguard_discard: true
-    reason_codes:
-    - GATE_REJECT
-  has_clean_parent: false
-- record_id: torsade_nat_006
-  group: naturally_poor
-  source:
-    dataset: challenge2011
-    record_id: null
-    rhythm_class: unknown
-    glasgow_statements: []
-    ptbxl_quality_flags: []
-    age_years: null
-    sex: null
-  seed_index: 105
-  steps: []
-  expected:
-    record_quality: reject
-    lead_quality:
-      default: bad
-    noiseguard_discard: true
-    reason_codes:
-    - GATE_REJECT
-  has_clean_parent: false
-- record_id: torsade_nat_007
-  group: naturally_poor
-  source:
-    dataset: challenge2011
-    record_id: null
-    rhythm_class: unknown
-    glasgow_statements: []
-    ptbxl_quality_flags: []
-    age_years: null
-    sex: null
-  seed_index: 106
   steps: []
   expected:
     record_quality: limited
@@ -141,14 +44,119 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: torsade_nat_008
+- record_id: torsade_nat_003
   group: naturally_poor
   source:
-    dataset: challenge2011
+    dataset: ptbxl
     record_id: null
     rhythm_class: unknown
     glasgow_statements: []
-    ptbxl_quality_flags: []
+    ptbxl_quality_flags:
+    - baseline_drift
+    age_years: null
+    sex: null
+  seed_index: 102
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_004
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - static_noise
+    age_years: null
+    sex: null
+  seed_index: 103
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_005
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - burst_noise
+    - baseline_drift
+    age_years: null
+    sex: null
+  seed_index: 104
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_006
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - electrodes_problems
+    - static_noise
+    age_years: null
+    sex: null
+  seed_index: 105
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_007
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - electrodes_problems
+    age_years: null
+    sex: null
+  seed_index: 106
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_008
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - static_noise
+    - burst_noise
     age_years: null
     sex: null
   seed_index: 107
@@ -163,11 +171,12 @@ records:
 - record_id: torsade_nat_009
   group: naturally_poor
   source:
-    dataset: challenge2011
+    dataset: ptbxl
     record_id: null
     rhythm_class: unknown
     glasgow_statements: []
-    ptbxl_quality_flags: []
+    ptbxl_quality_flags:
+    - baseline_drift
     age_years: null
     sex: null
   seed_index: 108
@@ -182,11 +191,12 @@ records:
 - record_id: torsade_nat_010
   group: naturally_poor
   source:
-    dataset: challenge2011
+    dataset: ptbxl
     record_id: null
     rhythm_class: unknown
     glasgow_statements: []
-    ptbxl_quality_flags: []
+    ptbxl_quality_flags:
+    - static_noise
     age_years: null
     sex: null
   seed_index: 109
@@ -203,10 +213,11 @@ records:
   source:
     dataset: ptbxl
     record_id: null
-    rhythm_class: sinus
+    rhythm_class: unknown
     glasgow_statements: []
     ptbxl_quality_flags:
-    - electrodes_problems
+    - burst_noise
+    - baseline_drift
     age_years: null
     sex: null
   seed_index: 110
@@ -216,17 +227,18 @@ records:
     lead_quality:
       default: borderline
     noiseguard_discard: false
+    reason_codes: []
   has_clean_parent: false
 - record_id: torsade_nat_012
   group: naturally_poor
   source:
     dataset: ptbxl
     record_id: null
-    rhythm_class: sinus
+    rhythm_class: unknown
     glasgow_statements: []
     ptbxl_quality_flags:
+    - electrodes_problems
     - static_noise
-    - burst_noise
     age_years: null
     sex: null
   seed_index: 111
@@ -236,35 +248,39 @@ records:
     lead_quality:
       default: borderline
     noiseguard_discard: false
+    reason_codes: []
   has_clean_parent: false
 - record_id: torsade_nat_013
   group: naturally_poor
   source:
     dataset: ptbxl
     record_id: null
-    rhythm_class: sinus
+    rhythm_class: unknown
     glasgow_statements: []
     ptbxl_quality_flags:
-    - baseline_drift
+    - electrodes_problems
     age_years: null
     sex: null
   seed_index: 112
   steps: []
   expected:
-    record_quality: limited
+    record_quality: reject
     lead_quality:
-      default: borderline
-    noiseguard_discard: false
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
   has_clean_parent: false
 - record_id: torsade_nat_014
   group: naturally_poor
   source:
     dataset: ptbxl
     record_id: null
-    rhythm_class: sinus
+    rhythm_class: unknown
     glasgow_statements: []
     ptbxl_quality_flags:
     - static_noise
+    - burst_noise
     age_years: null
     sex: null
   seed_index: 113
@@ -274,16 +290,16 @@ records:
     lead_quality:
       default: borderline
     noiseguard_discard: false
+    reason_codes: []
   has_clean_parent: false
 - record_id: torsade_nat_015
   group: naturally_poor
   source:
     dataset: ptbxl
     record_id: null
-    rhythm_class: sinus
+    rhythm_class: unknown
     glasgow_statements: []
     ptbxl_quality_flags:
-    - burst_noise
     - baseline_drift
     age_years: null
     sex: null
@@ -294,6 +310,7 @@ records:
     lead_quality:
       default: borderline
     noiseguard_discard: false
+    reason_codes: []
   has_clean_parent: false
 - record_id: torsade_noise_001
   group: real_noise
@@ -1328,7 +1345,7 @@ records:
       overrides:
         V1: bad
   has_clean_parent: true
-- record_id: torsade_eng_002_motion_v2
+- record_id: torsade_eng_002_macecg_walk_v2
   group: engineering
   source:
     dataset: ptbxl
@@ -1340,10 +1357,11 @@ records:
     sex: null
   seed_index: 302
   steps:
-  - op: swing
+  - op: motion_swing
     leads:
     - V2
     p2p_mv: 8.0
+    noise_type: walk
   expected:
     record_quality: limited
     lead_quality:
@@ -1399,7 +1417,7 @@ records:
       overrides:
         II: borderline
   has_clean_parent: true
-- record_id: torsade_eng_005_overload_v3
+- record_id: torsade_eng_005_macecg_jump_overload_v3
   group: engineering
   source:
     dataset: ptbxl
@@ -1411,11 +1429,12 @@ records:
     sex: null
   seed_index: 305
   steps:
-  - op: swing
+  - op: motion_swing
     leads:
     - V3
     p2p_mv: 30.0
     rail_mv: 5.0
+    noise_type: jump
   expected:
     record_quality: limited
     lead_quality:
@@ -1852,10 +1871,11 @@ records:
     electrode: LA
     kind: motion
     amplitude_mv: 0.8
-  - op: swing
+  - op: motion_swing
     leads:
     - V2
     p2p_mv: 8.0
+    noise_type: walk
   - op: lead_off
     leads:
     - V5

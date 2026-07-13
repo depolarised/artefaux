@@ -16,17 +16,21 @@ provenance) needed to regenerate a ~65–70 record stress corpus **bit-exactly**
 It does **not** redistribute derived signals — you fetch the sources and regenerate locally:
 
 ```bash
-make download      # fetch PTB-XL(+), NSTDB, and CinC Challenge 2011 from PhysioNet
+make download      # fetch NSTDB (the only source not in a local PhysioNet mirror)
+make select        # resolve PTB-XL parent record ids from your local PTB-XL copy
 make regenerate    # build the corpus (WFDB records + labels + manifest) into ./out
 ```
+
+PTB-XL (500 Hz), PTB-XL+, and MACECGDB are read from a local PhysioNet mirror
+(`/data/physionet/...` by default; override the `PTBXL`/`MACECGDB` Make variables).
 
 ## Corpus composition (v1)
 
 | Group | n | Source | Corruption |
 |---|---:|---|---|
-| Naturally poor | 15 | CinC Challenge 2011 + noisy PTB-XL | none (inherently bad) |
+| Naturally poor | 15 | PTB-XL quality-flagged records | none (inherently noisy) |
 | Real-noise pairs | 30 | clean PTB-XL + NSTDB `em`/`ma`/`bw` | SNR ladder {−6, 0, 6, 12, 18} dB |
-| Engineering extremes | 20–25 | clean PTB-XL parents | single-lead + multi-lead mixed failures |
+| Engineering extremes | 22 | clean PTB-XL parents (+ MACECGDB motion) | single-lead + multi-lead mixed failures |
 
 Each record carries three label layers: **clinical parent** (rhythm/Uni-G statements), **corruption truth**
 (electrodes/leads, SNR, seed, amplitude bookkeeping), and **expected behaviour** (per-lead and record-level,

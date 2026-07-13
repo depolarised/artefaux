@@ -7,16 +7,15 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .build import generate_corpus
+from .build import (
+    DEFAULT_MACECGDB_DIR,
+    DEFAULT_NSTDB_DIR,
+    DEFAULT_PTBXL_DIR,
+    DEFAULT_SOURCE_IDS_DIR,
+    generate_corpus,
+)
 
 DEFAULT_MASTER_SEED = 20260713
-
-# NSTDB and Challenge 2011 are small and directly downloadable; PTB-XL(+) are
-# large and are fetched separately (see docs/GENERATION.md).
-DOWNLOADABLE = {
-    "nstdb": "nstdb",
-    "challenge2011": "challenge-2011/1.0.0",
-}
 
 
 def generate_main(argv: list[str] | None = None) -> int:
@@ -24,18 +23,28 @@ def generate_main(argv: list[str] | None = None) -> int:
         prog="torsade-generate", description="Generate the Torsade noise & lead-failure corpus."
     )
     p.add_argument("--out", required=True, help="Output directory for records/labels/manifest.")
-    p.add_argument("--sources", default=None, help="Root dir with ptbxl/ nstdb/ challenge2011/.")
+    p.add_argument("--ptbxl-dir", default=str(DEFAULT_PTBXL_DIR), help="PTB-XL 1.0.3 root.")
+    p.add_argument("--macecgdb-dir", default=str(DEFAULT_MACECGDB_DIR), help="MACECGDB 1.0.0 root.")
+    p.add_argument("--nstdb-dir", default=str(DEFAULT_NSTDB_DIR), help="NSTDB 1.0.0 root.")
+    p.add_argument(
+        "--source-ids-dir",
+        default=str(DEFAULT_SOURCE_IDS_DIR),
+        help="Directory of resolved PTB-XL ids (from `make select`).",
+    )
     p.add_argument("--master-seed", type=int, default=DEFAULT_MASTER_SEED)
     p.add_argument(
         "--synthetic",
         action="store_true",
-        help="Build from synthetic parents/noise (no PhysioNet download needed).",
+        help="Build from synthetic parents/noise (no data needed).",
     )
     args = p.parse_args(argv)
     manifest = generate_corpus(
         args.out,
         master_seed=args.master_seed,
-        sources_dir=args.sources,
+        ptbxl_dir=args.ptbxl_dir,
+        macecgdb_dir=args.macecgdb_dir,
+        nstdb_dir=args.nstdb_dir,
+        source_ids_dir=args.source_ids_dir,
         synthetic=args.synthetic,
     )
     print(
@@ -46,25 +55,17 @@ def generate_main(argv: list[str] | None = None) -> int:
 
 def download_main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(
-        prog="torsade-download", description="Download the small open PhysioNet noise sources."
+        prog="torsade-download",
+        description="Download NSTDB (the only source not in the local PhysioNet mirror).",
     )
-    p.add_argument("--out", required=True, help="Root dir to download into.")
-    p.add_argument(
-        "--datasets",
-        nargs="*",
-        default=list(DOWNLOADABLE),
-        choices=list(DOWNLOADABLE),
-        help="Which small datasets to fetch (PTB-XL is fetched separately).",
-    )
+    p.add_argument("--out", required=True, help="Directory to download NSTDB into.")
     args = p.parse_args(argv)
 
     import wfdb
 
     out = Path(args.out)
-    for name in args.datasets:
-        target = out / name
-        target.mkdir(parents=True, exist_ok=True)
-        print(f"Downloading {name} -> {target} ...")
-        wfdb.dl_database(DOWNLOADABLE[name], str(target))
-    print("Done. Fetch PTB-XL (500 Hz) and PTB-XL+ separately; see docs/GENERATION.md.")
+    out.mkdir(parents=True, exist_ok=True)
+    print(f"Downloading NSTDB -> {out} ...")
+    wfdb.dl_database("nstdb", str(out))
+    print("Done. PTB-XL, PTB-XL+, and MACECGDB are expected in the local PhysioNet mirror.")
     return 0

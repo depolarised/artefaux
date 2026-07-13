@@ -4,7 +4,7 @@
 
 Used for smoke-testing generation without any PhysioNet download and for the
 worked examples in the figures. Not part of the released corpus — real parents
-come from PTB-XL / CinC Challenge 2011.
+come from PTB-XL.
 """
 
 from __future__ import annotations

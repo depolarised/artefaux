@@ -56,7 +56,7 @@ def fig_composition(out: Path) -> Path:
     labels = ["naturally_poor", "real_noise", "engineering"]
     values = [counts[k] for k in labels]
     pretty = [
-        "Naturally poor\n(Challenge 2011 + noisy PTB-XL)",
+        "Naturally poor\n(PTB-XL quality flags)",
         "Real-noise pairs\n(PTB-XL + NSTDB)",
         "Engineering extremes\n(single + multi-lead)",
     ]

@@ -41,7 +41,7 @@ class ParentECG:
 
     signal: np.ndarray  # (12, T) float64 mV
     fs: int
-    source_dataset: str  # "ptbxl" | "challenge2011"
+    source_dataset: str  # "ptbxl"
     source_id: str
     lead_names: tuple[str, ...] = CANONICAL_LEAD_ORDER
     metadata: Mapping[str, Any] = field(default_factory=dict)
@@ -139,7 +139,7 @@ def load_wfdb_parent(
     )
 
 
-def load_nstdb_noise(
+def load_noise_segment(
     record_path: str | Path,
     noise_type: str,
     n_samples: int,
@@ -148,10 +148,11 @@ def load_nstdb_noise(
     start_sample: int = 0,
     target_fs: int = TARGET_FS,
 ) -> NoiseSegment:
-    """Read a single channel of an NSTDB record, resample, and extract a segment.
+    """Read one channel of a WFDB noise record, resample, and extract a segment.
 
-    The segment wraps around the (resampled) record if ``start_sample + n_samples``
-    exceeds its length, so any ``start_sample`` yields a full ``n_samples`` segment.
+    Works for both NSTDB (360 Hz em/ma/bw) and MACECGDB (500 Hz motion). The segment
+    wraps around the (resampled) record if ``start_sample + n_samples`` exceeds its
+    length, so any ``start_sample`` yields a full ``n_samples`` segment.
     """
     if wfdb is None:  # pragma: no cover
         raise RuntimeError("wfdb is required to read source records")
@@ -171,4 +172,49 @@ def load_nstdb_noise(
         source_record=record_path.stem,
         source_channel=channel,
         start_sample=start_sample,
+    )
+
+
+def load_nstdb_noise(
+    record_path: str | Path,
+    noise_type: str,
+    n_samples: int,
+    *,
+    channel: int = 0,
+    start_sample: int = 0,
+    target_fs: int = TARGET_FS,
+) -> NoiseSegment:
+    """Read an NSTDB (em/ma/bw) noise record; resamples 360 Hz -> ``target_fs``."""
+    return load_noise_segment(
+        record_path,
+        noise_type,
+        n_samples,
+        channel=channel,
+        start_sample=start_sample,
+        target_fs=target_fs,
+    )
+
+
+def load_macecgdb_noise(
+    record_path: str | Path,
+    motion_type: str,
+    n_samples: int,
+    *,
+    channel: int = 0,
+    start_sample: int = 0,
+    target_fs: int = TARGET_FS,
+) -> NoiseSegment:
+    """Read a MACECGDB motion record (4-channel, already 500 Hz).
+
+    MACECGDB is ambulatory ECG contaminated by real standing/walking/jumping motion;
+    unlike NSTDB it does *not* suppress the underlying cardiac signal, so it carries
+    residual ECG. Used for "wild" real-motion cases, not the primary SNR ladder.
+    """
+    return load_noise_segment(
+        record_path,
+        motion_type,
+        n_samples,
+        channel=channel,
+        start_sample=start_sample,
+        target_fs=target_fs,
     )

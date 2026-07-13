@@ -9,8 +9,8 @@ abstract: >-
   not a clinically representative cohort.
 message: >-
   If you use Torsade, please cite it as below and additionally cite the source
-  datasets (PTB-XL, PTB-XL+, MIT-BIH NSTDB, PhysioNet/CinC Challenge 2011) as
-  documented in ATTRIBUTION.md.
+  datasets (PTB-XL, PTB-XL+, MIT-BIH NSTDB, MACECGDB) as documented in
+  ATTRIBUTION.md.
 type: software
 license: GPL-3.0-or-later
 version: 1.0.0
@@ -112,26 +112,28 @@ references:
       baseline wander (bw). Primary noise source for SNR-ladder mixing; resampled
       from 360 Hz to 500 Hz. Distributed by PhysioNet under ODC-BY-1.0
       (attribution required).
-  - type: conference-paper
-    title: >-
-      Improving the Quality of ECGs Collected Using Mobile Phones: The
-      PhysioNet/Computing in Cardiology Challenge 2011
+  - type: data
+    title: "Motion Artifact Contaminated ECG Database"
     authors:
-      - family-names: Silva
-        given-names: Ikaro
-      - family-names: Moody
-        given-names: George B.
-      - family-names: Celi
-        given-names: Leo A.
-    year: 2011
-    collection-title: "Computing in Cardiology"
-    volume: 38
-    start: 273
-    end: 276
-    url: "https://physionet.org/content/challenge-2011/1.0.0/"
+      - family-names: Behravan
+        given-names: Vahid
+      - family-names: Glover
+        given-names: Neil E.
+      - family-names: Farry
+        given-names: Rutger
+      - family-names: Shoaib
+        given-names: Mohammed
+      - family-names: Chiang
+        given-names: Patrick Y.
+    year: 2015
+    doi: "10.13026/C2JP4G"
+    license: ODC-BY-1.0
+    url: "https://physionet.org/content/macecgdb/1.0.0/"
     notes: >-
-      Source of naturally poor 12-lead ECGs judged unacceptable for
-      interpretation; used as-is (no added corruption). PhysioNet open access.
+      Real motion-contaminated ECG (standing / walking / single jump) in which
+      the underlying cardiac signal is not suppressed. Used for a few "wild"
+      engineering-extreme motion swings. Distributed by PhysioNet under
+      ODC-BY-1.0 (attribution required).
   - type: article
     title: >-
       PhysioBank, PhysioToolkit, and PhysioNet: Components of a New Research

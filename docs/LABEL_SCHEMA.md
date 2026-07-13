@@ -11,7 +11,7 @@ What the underlying ECG *is*, inherited from the untouched parent.
 
 | Field | Meaning |
 |---|---|
-| `source_dataset` | `ptbxl` \| `challenge2011` |
+| `source_dataset` | `ptbxl` (parents) \| `nstdb` \| `macecgdb` (noise sources) |
 | `source_record_id` | Resolved source record id (or `null` before selection) |
 | `age_years`, `sex` | De-identified demographics (id/name never stored) |
 | `rhythm_class` | e.g. `sinus`, `afib`, `pac_pvc`, `bbb_conduction`, `st_t`, `flutter_svt` |

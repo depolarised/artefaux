@@ -18,6 +18,7 @@ from typing import Any
 
 import numpy as np
 
+from .amplitude import amplitude_record
 from .constants import CANONICAL_LEAD_ORDER, LEAD_INDEX, TARGET_FS
 from .electrode_domain import corrupt_electrode_domain
 from .engineering import (
@@ -108,7 +109,13 @@ def apply_recipe(
             snr = float(step["snr_db"])
             start, end = _interval_samples(step.get("interval_s"), n, fs)
             duration = end - start
-            noise = noise_provider(step, duration, rng)
+            # Resolve the noise segment offset here (not inside the provider) so the
+            # exact source segment is captured in the audit trail. Drawing it from the
+            # same rng at this point keeps the output byte-identical to a provider draw.
+            src = dict(step.get("noise_source", {}))
+            if src.get("start_sample") is None:
+                src["start_sample"] = int(rng.integers(0, 100_000))
+            noise = noise_provider({**step, "noise_source": src}, duration, rng)
             alphas, measured = [], []
             for lead in leads:
                 idx = LEAD_INDEX[lead]
@@ -116,19 +123,52 @@ def apply_recipe(
                 sig[idx] = res.signal
                 alphas.append(res.alpha)
                 measured.append(res.snr_measured_db)
-            src = step.get("noise_source", {})
             log.append(
                 CorruptionStep(
                     op=op,
                     leads_affected=tuple(leads),
                     noise_type=step.get("noise_type"),
-                    noise_source_record=src.get("record"),
+                    noise_source_record=src.get("record", step.get("noise_type")),
                     noise_source_start_sample=src.get("start_sample"),
                     interval_s=(start / fs, end / fs),
                     snr_requested_db=snr,
                     snr_measured_db=float(np.mean(measured)),
                     alpha=float(np.mean(alphas)),
                     params={"leads": leads},
+                )
+            )
+
+        elif op == "motion_swing":
+            leads = list(step["leads"])
+            p2p = float(step["p2p_mv"])
+            rail = step.get("rail_mv")
+            start, end = _interval_samples(step.get("interval_s"), n, fs)
+            amp_records = []
+            for lead in leads:
+                idx = LEAD_INDEX[lead]
+                trace = noise_provider(step, end - start, rng)
+                ptp = float(np.ptp(trace)) or 1.0
+                seg = sig[idx, start:end] + trace * (p2p / ptp)
+                if rail is not None:
+                    seg = np.clip(seg, -rail, rail)
+                before = sig[idx].copy()
+                sig[idx, start:end] = seg
+                amp_records.append(
+                    amplitude_record(lead, before, sig[idx], fs, rail_mv=rail).as_dict()
+                )
+            log.append(
+                CorruptionStep(
+                    op="motion_swing",
+                    leads_affected=tuple(leads),
+                    noise_type=step.get("noise_type"),
+                    interval_s=(start / fs, end / fs),
+                    params={
+                        "requested_p2p_mv": p2p,
+                        "rail_mv": rail,
+                        "data_integrity_failure": rail is not None,
+                        "integrity_failure_type": "rail_saturation" if rail is not None else None,
+                    },
+                    amplitude=tuple(amp_records),
                 )
             )
 

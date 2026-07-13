@@ -27,6 +27,13 @@ the *measured* post-quantization SNR are recorded in the label.
 The same physical noise trace is scaled per-lead to the target SNR when a step
 contaminates several leads, mirroring a single acquisition seeing one disturbance.
 
+**Noise sources.** The 30 SNR-ladder pairs use **NSTDB** `em`/`ma`/`bw`, whose
+records suppress the underlying ECG so the added signal is near-pure artefact. A few
+"wild" engineering cases instead use **MACECGDB** — real standing/walking/jumping
+motion (`motion_swing` op). MACECGDB is *ambulatory ECG* and does not suppress the
+cardiac signal, so it carries residual ECG; that makes it a harder, more ECG-like
+adversarial artefact, and it is labelled as a motion source, not as clean noise.
+
 ## 2. Electrode-domain corruption (`electrode_domain`)
 
 A loose electrode corrupts a *set* of leads. Torsade models this exactly:
@@ -84,16 +91,15 @@ on read — so the *expected behaviour* for these cases is about the reader's ha
 
 ## 5. Obtaining the sources
 
-```bash
-make download        # NSTDB + CinC Challenge 2011 (small; via wfdb.dl_database)
-```
-
-PTB-XL (500 Hz hi-res) and PTB-XL+ are large; fetch them separately from PhysioNet
-(`ptb-xl/1.0.3` and `ptb-xl-plus/1.0.1`) and place them under
-`data/sources/ptbxl/`. Then:
+PTB-XL (500 Hz hi-res), PTB-XL+, and MACECGDB are read from a local PhysioNet mirror
+(default `/data/physionet/{ptb-xl-1.0.3, ptb-xl-plus-1.0.1,
+motion-artifact-contaminated-ecg-database-1.0.0}`; override with the `PTBXL` /
+`MACECGDB` Make variables). The **only** source not typically mirrored is NSTDB, so
+that is the one thing `make download` fetches:
 
 ```bash
-python scripts/select_sources.py --ptbxl data/sources/ptbxl --challenge2011 data/sources/challenge2011
+make download        # NSTDB only (small; via wfdb.dl_database)
+make select          # resolve PTB-XL parent ids from your local copy (seeded)
 make regenerate      # builds records/, labels/, manifest, provenance into ./out
 ```
 

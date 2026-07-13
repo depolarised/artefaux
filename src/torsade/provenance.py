@@ -49,7 +49,7 @@ def sha256_file(path: str | Path, *, _chunk: int = 1 << 20) -> str:
 class SourceRef:
     """A pinned source dataset."""
 
-    dataset: str  # "ptbxl" | "ptbxl_plus" | "nstdb" | "challenge2011"
+    dataset: str  # "ptbxl" | "ptbxl_plus" | "nstdb" | "macecgdb"
     version: str
     url: str
     license: str
@@ -62,10 +62,10 @@ DEFAULT_SOURCES: tuple[SourceRef, ...] = (
     ),
     SourceRef("nstdb", "1.0.0", "https://physionet.org/content/nstdb/1.0.0/", "ODC-BY-1.0"),
     SourceRef(
-        "challenge2011",
+        "macecgdb",
         "1.0.0",
-        "https://physionet.org/content/challenge-2011/1.0.0/",
-        "PhysioNet Open Access",
+        "https://physionet.org/content/macecgdb/1.0.0/",
+        "ODC-BY-1.0",
     ),
 )
 
