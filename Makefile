@@ -1,4 +1,4 @@
-.PHONY: setup test lint format corpus figures download select regenerate smoke clean
+.PHONY: setup test lint format corpus figures report download select regenerate smoke clean
 
 PY := .venv/bin/python
 PTBXL ?= /data/physionet/ptb-xl-1.0.3
@@ -27,6 +27,9 @@ corpus:  ## Regenerate the shipped corpus definition (recipes/corpus.yaml + mani
 
 figures:  ## Regenerate the documentation figures
 	$(PY) scripts/make_figures.py --out figures
+
+report:  ## Regenerate the corpus report (Markdown; add PDF=1 to also render a PDF via pandoc)
+	$(PY) scripts/reports/generate_corpus_report.py $(if $(PDF),--pdf,)
 
 download:  ## Fetch NSTDB (the only source not in the local PhysioNet mirror)
 	$(PY) scripts/download_sources.py --out $(NSTDB)
