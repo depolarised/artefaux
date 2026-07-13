@@ -1,0 +1,1256 @@
+{
+  "counts_by_group": {
+    "engineering": 22,
+    "naturally_poor": 15,
+    "real_noise": 30
+  },
+  "n_records": 67,
+  "records": [
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_001",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_002",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_003",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_004",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_005",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_006",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_007",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_008",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_009",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_010",
+      "rhythm_class": "unknown",
+      "snr_db": [],
+      "source_dataset": "challenge2011",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_011",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_012",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_013",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_014",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "naturally_poor",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": null,
+      "record_id": "torsade_nat_015",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_001_clean",
+      "record_id": "torsade_noise_001",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_002_clean",
+      "record_id": "torsade_noise_002",
+      "rhythm_class": "afib",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_003_clean",
+      "record_id": "torsade_noise_003",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_004_clean",
+      "record_id": "torsade_noise_004",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_005_clean",
+      "record_id": "torsade_noise_005",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_006_clean",
+      "record_id": "torsade_noise_006",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_007_clean",
+      "record_id": "torsade_noise_007",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_008_clean",
+      "record_id": "torsade_noise_008",
+      "rhythm_class": "afib",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_009_clean",
+      "record_id": "torsade_noise_009",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_010_clean",
+      "record_id": "torsade_noise_010",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_011_clean",
+      "record_id": "torsade_noise_011",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_012_clean",
+      "record_id": "torsade_noise_012",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_013_clean",
+      "record_id": "torsade_noise_013",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_014_clean",
+      "record_id": "torsade_noise_014",
+      "rhythm_class": "afib",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_015_clean",
+      "record_id": "torsade_noise_015",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_016_clean",
+      "record_id": "torsade_noise_016",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_017_clean",
+      "record_id": "torsade_noise_017",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_018_clean",
+      "record_id": "torsade_noise_018",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_019_clean",
+      "record_id": "torsade_noise_019",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_020_clean",
+      "record_id": "torsade_noise_020",
+      "rhythm_class": "afib",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_021_clean",
+      "record_id": "torsade_noise_021",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_022_clean",
+      "record_id": "torsade_noise_022",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_023_clean",
+      "record_id": "torsade_noise_023",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_024_clean",
+      "record_id": "torsade_noise_024",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_025_clean",
+      "record_id": "torsade_noise_025",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_026_clean",
+      "record_id": "torsade_noise_026",
+      "rhythm_class": "afib",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_027_clean",
+      "record_id": "torsade_noise_027",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_028_clean",
+      "record_id": "torsade_noise_028",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_029_clean",
+      "record_id": "torsade_noise_029",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        12.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "diagnostic",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_noise_030_clean",
+      "record_id": "torsade_noise_030",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        18.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "swing"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_001_emg_v1_clean",
+      "record_id": "torsade_eng_001_emg_v1",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "swing"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_002_motion_v2_clean",
+      "record_id": "torsade_eng_002_motion_v2",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "intermittent_lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_003_intermittent_v6_clean",
+      "record_id": "torsade_eng_003_intermittent_v6",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "step_recovery"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_004_step_ii_clean",
+      "record_id": "torsade_eng_004_step_ii",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "overload_swing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_005_overload_v3_clean",
+      "record_id": "torsade_eng_005_overload_v3",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "flatline"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_006_flatline_v4_clean",
+      "record_id": "torsade_eng_006_flatline_v4",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "constant_adc"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_007_constant_v5_clean",
+      "record_id": "torsade_eng_007_constant_v5",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "digital_missing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_008_missing_v6_clean",
+      "record_id": "torsade_eng_008_missing_v6",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "flatline"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 5,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_009_flatline_i_clean",
+      "record_id": "torsade_eng_009_flatline_i",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 1,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_010_leadoff_v2_clean",
+      "record_id": "torsade_eng_010_leadoff_v2",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "swing"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_011_emg_burst_v5_clean",
+      "record_id": "torsade_eng_011_emg_burst_v5",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "precordial"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_012_couple_v1v2_clean",
+      "record_id": "torsade_eng_012_couple_v1v2",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        0.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "precordial"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_013_couple_v4v5_clean",
+      "record_id": "torsade_eng_013_couple_v4v5",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "precordial"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_014_triple_v1v2v3_clean",
+      "record_id": "torsade_eng_014_triple_v1v2v3",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        -6.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 4,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_015_electrode_la_clean",
+      "record_id": "torsade_eng_015_electrode_la",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_016_electrode_ra_clean",
+      "record_id": "torsade_eng_016_electrode_ra",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "overload_swing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_017_saturate_v2v3_clean",
+      "record_id": "torsade_eng_017_saturate_v2v3",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "overload_swing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_018_saturate_v4v5v6_clean",
+      "record_id": "torsade_eng_018_saturate_v4v5v6",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_019_electrode_ll_clean",
+      "record_id": "torsade_eng_019_electrode_ll",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain",
+        "swing",
+        "lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 5,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_020_compound_wild_clean",
+      "record_id": "torsade_eng_020_compound_wild",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "opposite_polarity"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_021_reversal_i_clean",
+      "record_id": "torsade_eng_021_reversal_i",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "digital_missing",
+        "overload_swing",
+        "step_recovery"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "torsade_eng_022_mixed_integrity_clean",
+      "record_id": "torsade_eng_022_mixed_integrity",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    }
+  ]
+}

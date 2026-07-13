@@ -1,0 +1,1940 @@
+version: 1
+master_seed: 20260713
+target_fs: 500
+records:
+- record_id: torsade_nat_001
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 100
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_002
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 101
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_003
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 102
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_004
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 103
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_005
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 104
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_006
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 105
+  steps: []
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+    reason_codes:
+    - GATE_REJECT
+  has_clean_parent: false
+- record_id: torsade_nat_007
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 106
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_008
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 107
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_009
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 108
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_010
+  group: naturally_poor
+  source:
+    dataset: challenge2011
+    record_id: null
+    rhythm_class: unknown
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 109
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+    reason_codes: []
+  has_clean_parent: false
+- record_id: torsade_nat_011
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - electrodes_problems
+    age_years: null
+    sex: null
+  seed_index: 110
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: false
+- record_id: torsade_nat_012
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - static_noise
+    - burst_noise
+    age_years: null
+    sex: null
+  seed_index: 111
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: false
+- record_id: torsade_nat_013
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - baseline_drift
+    age_years: null
+    sex: null
+  seed_index: 112
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: false
+- record_id: torsade_nat_014
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - static_noise
+    age_years: null
+    sex: null
+  seed_index: 113
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: false
+- record_id: torsade_nat_015
+  group: naturally_poor
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags:
+    - burst_noise
+    - baseline_drift
+    age_years: null
+    sex: null
+  seed_index: 114
+  steps: []
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: false
+- record_id: torsade_noise_001
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 200
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: -6
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_002
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: afib
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 201
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 0
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_003
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: pac_pvc
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 202
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 6
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_004
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: bbb_conduction
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 203
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 12
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_005
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: st_t
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 204
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 18
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        I: good
+        II: good
+        III: good
+        aVR: good
+        aVL: good
+        aVF: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_006
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: flutter_svt
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 205
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: -6
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_007
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 206
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 0
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_008
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: afib
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 207
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 6
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_009
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: pac_pvc
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 208
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 12
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        V1: good
+        V2: good
+        V3: good
+        V4: good
+        V5: good
+        V6: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_010
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: bbb_conduction
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 209
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 18
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_011
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: st_t
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 210
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: -6
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_012
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: flutter_svt
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 211
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 0
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_013
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 212
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 6
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_014
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: afib
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 213
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 12
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        I: good
+        II: good
+        III: good
+        aVR: good
+        aVL: good
+        aVF: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_015
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: pac_pvc
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 214
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 18
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        V1: good
+        V2: good
+        V3: good
+        V4: good
+        V5: good
+        V6: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_016
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: bbb_conduction
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 215
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: -6
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_017
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: st_t
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 216
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 0
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_018
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: flutter_svt
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 217
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 6
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_019
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 218
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 12
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_020
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: afib
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 219
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 18
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        I: good
+        II: good
+        III: good
+        aVR: good
+        aVL: good
+        aVF: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_021
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: pac_pvc
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 220
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: -6
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_022
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: bbb_conduction
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 221
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 0
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_023
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: st_t
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 222
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 6
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_024
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: flutter_svt
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 223
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 12
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        V1: good
+        V2: good
+        V3: good
+        V4: good
+        V5: good
+        V6: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_025
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 224
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 18
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_026
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: afib
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 225
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: -6
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_027
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: pac_pvc
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 226
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 0
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_noise_028
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: bbb_conduction
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 227
+  steps:
+  - op: nstdb_mix
+    leads: all
+    noise_type: em
+    snr_db: 6
+    noise_source:
+      record: em
+      channel: 0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: borderline
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_029
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: st_t
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 228
+  steps:
+  - op: nstdb_mix
+    leads:
+    - I
+    - II
+    - III
+    - aVR
+    - aVL
+    - aVF
+    noise_type: ma
+    snr_db: 12
+    noise_source:
+      record: ma
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        I: good
+        II: good
+        III: good
+        aVR: good
+        aVL: good
+        aVF: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_noise_030
+  group: real_noise
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: flutter_svt
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 229
+  steps:
+  - op: nstdb_mix
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    noise_type: bw
+    snr_db: 18
+    noise_source:
+      record: bw
+      channel: 0
+  expected:
+    record_quality: diagnostic
+    lead_quality:
+      default: good
+      overrides:
+        V1: good
+        V2: good
+        V3: good
+        V4: good
+        V5: good
+        V6: good
+    noiseguard_discard: false
+  has_clean_parent: true
+- record_id: torsade_eng_001_emg_v1
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 301
+  steps:
+  - op: swing
+    leads:
+    - V1
+    p2p_mv: 6.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+  has_clean_parent: true
+- record_id: torsade_eng_002_motion_v2
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 302
+  steps:
+  - op: swing
+    leads:
+    - V2
+    p2p_mv: 8.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+  has_clean_parent: true
+- record_id: torsade_eng_003_intermittent_v6
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 303
+  steps:
+  - op: intermittent_lead_off
+    leads:
+    - V6
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V6: bad
+    data_integrity_failure: true
+    integrity_failure_type: intermittent_lead_off
+  has_clean_parent: true
+- record_id: torsade_eng_004_step_ii
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 304
+  steps:
+  - op: step_recovery
+    leads:
+    - II
+    step_mv: 4.0
+    tau_s: 1.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        II: borderline
+  has_clean_parent: true
+- record_id: torsade_eng_005_overload_v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 305
+  steps:
+  - op: swing
+    leads:
+    - V3
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V3: bad
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+  has_clean_parent: true
+- record_id: torsade_eng_006_flatline_v4
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 306
+  steps:
+  - op: flatline
+    leads:
+    - V4
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V4: bad
+    data_integrity_failure: true
+    integrity_failure_type: flatline_zero
+  has_clean_parent: true
+- record_id: torsade_eng_007_constant_v5
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 307
+  steps:
+  - op: constant_adc
+    leads:
+    - V5
+    value_mv: 1.2
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V5: bad
+    data_integrity_failure: true
+    integrity_failure_type: constant_adc
+  has_clean_parent: true
+- record_id: torsade_eng_008_missing_v6
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 308
+  steps:
+  - op: digital_missing
+    leads:
+    - V6
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V6: bad
+    data_integrity_failure: true
+    integrity_failure_type: digital_missing_channel
+  has_clean_parent: true
+- record_id: torsade_eng_009_flatline_i
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 309
+  steps:
+  - op: flatline
+    leads:
+    - I
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    data_integrity_failure: true
+    integrity_failure_type: flatline_zero
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - LEAD_I_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+    - FULL_12_LEAD_INTERPRETATION_NOT_ALLOWED
+  has_clean_parent: true
+- record_id: torsade_eng_010_leadoff_v2
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 310
+  steps:
+  - op: lead_off
+    leads:
+    - V2
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+    data_integrity_failure: true
+    integrity_failure_type: lead_off
+  has_clean_parent: true
+- record_id: torsade_eng_011_emg_burst_v5
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 311
+  steps:
+  - op: swing
+    leads:
+    - V5
+    p2p_mv: 5.0
+    interval_s:
+    - 3.0
+    - 6.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V5: borderline
+  has_clean_parent: true
+- record_id: torsade_eng_012_couple_v1v2
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 312
+  steps:
+  - op: precordial
+    shared_weights:
+      V1: 0.8
+      V2: 0.7
+    snr_db: 0.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+  has_clean_parent: true
+- record_id: torsade_eng_013_couple_v4v5
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 313
+  steps:
+  - op: precordial
+    shared_weights:
+      V4: 0.8
+      V5: 0.7
+    snr_db: 6.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V4: borderline
+        V5: borderline
+  has_clean_parent: true
+- record_id: torsade_eng_014_triple_v1v2v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 314
+  steps:
+  - op: precordial
+    shared_weights:
+      V1: 0.7
+      V2: 0.7
+      V3: 0.7
+    snr_db: -6.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: torsade_eng_015_electrode_la
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 315
+  steps:
+  - op: electrode
+    electrode: LA
+    kind: motion
+    amplitude_mv: 1.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    reason_codes:
+    - LEAD_I_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+  has_clean_parent: true
+- record_id: torsade_eng_016_electrode_ra
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 316
+  steps:
+  - op: electrode
+    electrode: RA
+    kind: offset
+    amplitude_mv: 3.0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: borderline
+      overrides:
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - BOTH_LIMB_LEADS_BAD
+    - GATE_REJECT
+  has_clean_parent: true
+- record_id: torsade_eng_017_saturate_v2v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 317
+  steps:
+  - op: swing
+    leads:
+    - V2
+    - V3
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+        V3: bad
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+  has_clean_parent: true
+- record_id: torsade_eng_018_saturate_v4v5v6
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 318
+  steps:
+  - op: swing
+    leads:
+    - V4
+    - V5
+    - V6
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+  has_clean_parent: true
+- record_id: torsade_eng_019_electrode_ll
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 319
+  steps:
+  - op: electrode
+    electrode: LL
+    kind: motion
+    amplitude_mv: 1.2
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        II: bad
+        III: bad
+        aVF: bad
+        V1: borderline
+        V4: borderline
+        V6: borderline
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - LEAD_II_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+  has_clean_parent: true
+- record_id: torsade_eng_020_compound_wild
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 320
+  steps:
+  - op: electrode
+    electrode: LA
+    kind: motion
+    amplitude_mv: 0.8
+  - op: swing
+    leads:
+    - V2
+    p2p_mv: 8.0
+  - op: lead_off
+    leads:
+    - V5
+    interval_s:
+    - 4.0
+    - 7.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        III: bad
+        aVL: bad
+        V2: bad
+        V5: bad
+        V1: borderline
+        V3: borderline
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: lead_off
+  has_clean_parent: true
+- record_id: torsade_eng_021_reversal_i
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 321
+  steps:
+  - op: opposite_polarity
+    leads:
+    - I
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: borderline
+    reason_codes:
+    - LEAD_REVERSAL_SUSPECTED
+  has_clean_parent: true
+- record_id: torsade_eng_022_mixed_integrity
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 322
+  steps:
+  - op: digital_missing
+    leads:
+    - V1
+  - op: swing
+    leads:
+    - V6
+    p2p_mv: 25.0
+    rail_mv: 5.0
+  - op: step_recovery
+    leads:
+    - II
+    step_mv: 3.0
+    tau_s: 1.5
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V6: bad
+        II: borderline
+    data_integrity_failure: true
+    integrity_failure_type: digital_missing_channel
+  has_clean_parent: true

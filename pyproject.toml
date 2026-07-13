@@ -1,0 +1,64 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "torsade"
+version = "1.0.0"
+description = "Torsade — a deterministic generator and reproducible corpus definition for ECG noise & lead-failure stress testing."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "Ioannis Valasakis" }]
+keywords = ["ecg", "noise", "signal-quality", "lead-failure", "stress-test", "physionet", "nstdb", "ptb-xl"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: Medical Science Apps.",
+]
+dependencies = [
+    "numpy>=1.24",
+    "scipy>=1.10",
+    "wfdb>=4.1",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.4",
+    "black>=24.0",
+]
+figures = [
+    "matplotlib>=3.8",
+]
+
+[project.urls]
+Homepage = "https://github.com/depolarised/torsade"
+Repository = "https://github.com/depolarised/torsade"
+
+[project.scripts]
+torsade-download = "torsade.cli:download_main"
+torsade-generate = "torsade.cli:generate_main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/torsade"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP", "B"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]

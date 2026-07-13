@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.venv/
+
+# Torsade generated output and downloaded sources (never committed)
+/out/
+/data/
+
+# OS / editor
+.DS_Store

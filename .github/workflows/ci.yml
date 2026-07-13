@@ -1,0 +1,40 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv venv --python ${{ matrix.python-version }} .venv
+
+      - name: Install
+        run: uv pip install -e ".[dev,figures]"
+
+      - name: Lint
+        run: |
+          .venv/bin/ruff check src tests scripts
+          .venv/bin/black --check src tests scripts
+
+      - name: Test
+        run: .venv/bin/python -m pytest -q
+
+      - name: Corpus definition is in sync
+        run: |
+          .venv/bin/python scripts/export_corpus.py
+          git diff --exit-code recipes/corpus.yaml manifest.json manifest.csv
+
+      - name: Smoke-generate (synthetic, no download)
+        run: .venv/bin/python scripts/generate.py --synthetic --out out/smoke

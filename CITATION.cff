@@ -1,0 +1,167 @@
+cff-version: 1.2.0
+title: "Torsade: A Deterministic ECG Noise and Lead-Failure Stress-Test Corpus"
+abstract: >-
+  A richly-labelled, deterministically reproducible stress-test corpus and
+  generation engine for validating ECG signal-quality gates and noise detectors.
+  Torsade mixes real recorded noise (MIT-BIH NSTDB) into clean 12-lead ECGs
+  (PTB-XL) and adds engineered electrode-domain and lead-failure corruptions to
+  systematically exercise signal-processing robustness. It is a stress-test set,
+  not a clinically representative cohort.
+message: >-
+  If you use Torsade, please cite it as below and additionally cite the source
+  datasets (PTB-XL, PTB-XL+, MIT-BIH NSTDB, PhysioNet/CinC Challenge 2011) as
+  documented in ATTRIBUTION.md.
+type: software
+license: GPL-3.0-or-later
+version: 1.0.0
+date-released: "2026-07-13"
+authors:
+  - family-names: Valasakis
+    given-names: Ioannis
+    email: tungolcild@gmail.com
+    alias: depolarised
+repository-code: "https://github.com/depolarised/torsade"
+repository-artifact: "https://github.com/depolarised/torsade/releases/tag/v1.0.0"
+keywords:
+  - ECG
+  - electrocardiography
+  - signal quality
+  - noise detection
+  - lead failure
+  - artefact
+  - stress testing
+  - robustness validation
+references:
+  - type: article
+    title: "PTB-XL, a large publicly available electrocardiography dataset"
+    authors:
+      - family-names: Wagner
+        given-names: Patrick
+      - family-names: Strodthoff
+        given-names: Nils
+      - family-names: Bousseljot
+        given-names: Ralf-Dieter
+      - family-names: Kreiseler
+        given-names: Dieter
+      - family-names: Lunze
+        given-names: Fatima I.
+      - family-names: Samek
+        given-names: Wojciech
+      - family-names: Schaeffter
+        given-names: Tobias
+    year: 2020
+    doi: "10.1038/s41597-020-0495-6"
+    journal: "Scientific Data"
+    volume: 7
+    license: CC-BY-4.0
+    url: "https://physionet.org/content/ptb-xl/1.0.3/"
+    notes: >-
+      Source of clean 12-lead ECG parents (500 Hz) for the real-noise pairs and
+      engineering cases, plus age/sex/rhythm metadata and quality flags.
+  - type: article
+    title: "PTB-XL+, a comprehensive electrocardiographic feature dataset"
+    authors:
+      - family-names: Strodthoff
+        given-names: Nils
+      - family-names: Mehari
+        given-names: Temesgen
+      - family-names: Nagel
+        given-names: Claudia
+      - family-names: Aston
+        given-names: Philip J.
+      - family-names: Sundar
+        given-names: Ashish
+      - family-names: Graff
+        given-names: Claus
+      - family-names: Kanters
+        given-names: Jorgen K.
+      - family-names: Haverkamp
+        given-names: Wilhelm
+      - family-names: Dossel
+        given-names: Olaf
+      - family-names: Loewe
+        given-names: Axel
+      - family-names: Bar
+        given-names: Markus
+      - family-names: Schaeffter
+        given-names: Tobias
+    year: 2023
+    doi: "10.1038/s41597-023-02153-8"
+    journal: "Scientific Data"
+    volume: 10
+    license: CC-BY-4.0
+    url: "https://physionet.org/content/ptb-xl-plus/1.0.1/"
+    notes: >-
+      Augmented feature and interpretation layer for PTB-XL, including Glasgow
+      (Uni-G) ECG statements used as clinical ground truth for parent records.
+  - type: data
+    title: "The MIT-BIH Noise Stress Test Database"
+    authors:
+      - family-names: Moody
+        given-names: George B.
+      - family-names: Muldrow
+        given-names: W. K.
+      - family-names: Mark
+        given-names: Roger G.
+    year: 1984
+    doi: "10.13026/C2HS3T"
+    license: ODC-BY-1.0
+    url: "https://physionet.org/content/nstdb/1.0.0/"
+    notes: >-
+      Real recorded noise — electrode motion (em), muscle artefact (ma), and
+      baseline wander (bw). Primary noise source for SNR-ladder mixing; resampled
+      from 360 Hz to 500 Hz. Distributed by PhysioNet under ODC-BY-1.0
+      (attribution required).
+  - type: conference-paper
+    title: >-
+      Improving the Quality of ECGs Collected Using Mobile Phones: The
+      PhysioNet/Computing in Cardiology Challenge 2011
+    authors:
+      - family-names: Silva
+        given-names: Ikaro
+      - family-names: Moody
+        given-names: George B.
+      - family-names: Celi
+        given-names: Leo A.
+    year: 2011
+    collection-title: "Computing in Cardiology"
+    volume: 38
+    start: 273
+    end: 276
+    url: "https://physionet.org/content/challenge-2011/1.0.0/"
+    notes: >-
+      Source of naturally poor 12-lead ECGs judged unacceptable for
+      interpretation; used as-is (no added corruption). PhysioNet open access.
+  - type: article
+    title: >-
+      PhysioBank, PhysioToolkit, and PhysioNet: Components of a New Research
+      Resource for Complex Physiologic Signals
+    authors:
+      - family-names: Goldberger
+        given-names: Ary L.
+      - family-names: Amaral
+        given-names: Luis A. N.
+      - family-names: Glass
+        given-names: Leon
+      - family-names: Hausdorff
+        given-names: Jeffrey M.
+      - family-names: Ivanov
+        given-names: Plamen Ch.
+      - family-names: Mark
+        given-names: Roger G.
+      - family-names: Mietus
+        given-names: Joseph E.
+      - family-names: Moody
+        given-names: George B.
+      - family-names: Peng
+        given-names: Chung-Kang
+      - family-names: Stanley
+        given-names: H. Eugene
+    year: 2000
+    doi: "10.1161/01.CIR.101.23.e215"
+    journal: "Circulation"
+    volume: 101
+    issue: 23
+    start: 215
+    url: "https://physionet.org/"
+    notes: "The PhysioNet resource that hosts and versions all source datasets."
