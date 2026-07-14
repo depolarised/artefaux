@@ -52,7 +52,7 @@ PTB-XL parent ids shown here are those in `recipes/source_ids/` (reproducible, s
 | Engineering extremes | 22 | clean PTB-XL parents (+ MACECGDB motion) | single-lead (12) + multi-lead (10) |
 | **Total** | **67** | | 11 labelled data-integrity failures |
 
-Each record carries three label layers — **clinical parent** (rhythm / Uni-G statements / quality flags),
+Each record carries three label layers — **clinical parent** (authored rhythm class + PTB-XL quality flags; the Uni-G statement field is reserved and empty in v1),
 **corruption truth** (electrodes/leads, requested + measured SNR, noise segment, seed, $\alpha$, amplitude
 bookkeeping), and **expected behaviour** (per-lead and record-level, mapped to the `signalguard`
 `QualityLabel` / `RecordQuality` and `noiseguard` discard vocabularies).
@@ -66,7 +66,7 @@ bookkeeping), and **expected behaviour** (per-lead and record-level, mapped to t
 | Dataset | Role | Version | License |
 |:--|:--|:--|:--|
 | PTB-XL | clean + naturally-poor parents (500 Hz) | 1.0.3 | CC-BY-4.0 |
-| PTB-XL+ | Uni-G statements / rhythm metadata | 1.0.1 | CC-BY-4.0 |
+| PTB-XL+ | Uni-G/Glasgow layer — *cited and pinned, not consumed by v1* | 1.0.1 | CC-BY-4.0 |
 | MIT-BIH NSTDB | `em`/`ma`/`bw` noise for the SNR ladder | 1.0.0 | ODC-BY-1.0 |
 | MACECGDB | real standing/walking/jumping motion | 1.0.0 | ODC-BY-1.0 |
 

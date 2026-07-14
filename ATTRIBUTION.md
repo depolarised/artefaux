@@ -50,9 +50,9 @@ https://doi.org/10.1038/s41597-020-0495-6
 **Access:** https://doi.org/10.13026/g4xw-ba04
 
 **How Torsade uses PTB-XL:**
-- Source of ~50 clean 12-lead ECG recordings for real-noise pairing.
-- Used to provide clinical metadata (age, sex, rhythm class).
-- Clinical ground truth provided by PTB-XL+ annotations (Glasgow/Uni-G statements).
+- Source of clean 12-lead ECG parents for the real-noise pairs and engineering cases.
+- Source of the naturally-poor records, selected via its technical-validation quality-flag columns
+  (`static_noise`/`burst_noise`/`baseline_drift`/`electrodes_problems`).
 
 **Your obligation:** If you use PTB-XL via Torsade, you must cite the Wagner et al. (2020) paper and provide the PhysioNet DOI.
 
@@ -64,19 +64,20 @@ https://doi.org/10.1038/s41597-020-0495-6
 
 **Citation:**
 ```
-Strodthoff, N., Wagner, P., Wenzel, M., & Samek, W. (2021).
-"Deep neural networks for interpretable medical image analysis."
-Zenodo. https://doi.org/10.5281/zenodo.4916206
+Strodthoff, N., Mehari, T., Nagel, C., Aston, P. J., Sundar, A., Graff, C.,
+Kanters, J. K., Haverkamp, W., Dössel, O., Loewe, A., Bär, M., & Schaeffter, T. (2023).
+"PTB-XL+, a comprehensive electrocardiographic feature dataset."
+Scientific Data, 10, 279. https://doi.org/10.1038/s41597-023-02153-8
 ```
 
-**Access:** https://zenodo.org/record/4916206
+**Access:** https://physionet.org/content/ptb-xl-plus/1.0.1/
 
 **How Torsade uses PTB-XL+:**
-- Augmented signal-quality annotations (static_noise, burst_noise, baseline_drift, electrodes_problems).
-- Glasgow ECG statement labels (e.g., "Left ventricular hypertrophy" from automated interpretation).
-- Structured quality flags provide ground truth for naturally poor records.
+- **Cited and version-pinned only — not consumed by Torsade v1.** It is the provenance of the Uni-G/Glasgow
+  interpretation layer, for which the `glasgow_statements` label field is reserved. That field ships **empty**;
+  wiring it is deferred to a future version. (The PTB-XL quality flags come from PTB-XL itself, not PTB-XL+.)
 
-**Your obligation:** If you use PTB-XL+ annotations via Torsade, cite the Strodthoff et al. source.
+**Your obligation:** If a future version consumes PTB-XL+ annotations, cite the Strodthoff et al. (2023) source.
 
 ---
 

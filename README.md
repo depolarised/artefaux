@@ -32,7 +32,7 @@ PTB-XL (500 Hz), PTB-XL+, and MACECGDB are read from a local PhysioNet mirror
 | Real-noise pairs | 30 | clean PTB-XL + NSTDB `em`/`ma`/`bw` | SNR ladder {−6, 0, 6, 12, 18} dB |
 | Engineering extremes | 22 | clean PTB-XL parents (+ MACECGDB motion) | single-lead + multi-lead mixed failures |
 
-Each record carries three label layers: **clinical parent** (rhythm/Uni-G statements), **corruption truth**
+Each record carries three label layers: **clinical parent** (authored rhythm class + PTB-XL quality flags; the Uni-G statement field is reserved and empty in v1), **corruption truth**
 (electrodes/leads, SNR, seed, amplitude bookkeeping), and **expected behaviour** (per-lead and record-level,
 mapped to the internal `signalguard`/`noiseguard` vocabularies).
 

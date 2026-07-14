@@ -4,8 +4,8 @@
 
 Every Torsade record carries three layers of ground truth:
 
-1. **Clinical parent** — what the underlying ECG *is* (rhythm, Uni-G statements),
-   inherited from the untouched parent.
+1. **Clinical parent** — what the underlying ECG *is* (authored rhythm class; the
+   ``glasgow_statements`` Uni-G field is reserved and empty in v1), from the parent.
 2. **Corruption truth** — exactly what was done to it (leads/electrodes, artefact
    type, interval, SNR, seed, scaling, amplitude bookkeeping).
 3. **Expected behaviour** — how a well-behaved quality gate *should* respond,

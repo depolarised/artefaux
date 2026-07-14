@@ -14,8 +14,8 @@ What the underlying ECG *is*, inherited from the untouched parent.
 | `source_dataset` | `ptbxl` (parents) \| `nstdb` \| `macecgdb` (noise sources) |
 | `source_record_id` | Resolved source record id (or `null` before selection) |
 | `age_years`, `sex` | De-identified demographics (id/name never stored) |
-| `rhythm_class` | e.g. `sinus`, `afib`, `pac_pvc`, `bbb_conduction`, `st_t`, `flutter_svt` |
-| `glasgow_statements` | Uni-G interpretation statements (from PTB-XL+) |
+| `rhythm_class` | **Authored/representative** intended rhythm (`sinus`, `afib`, `pac_pvc`, `bbb_conduction`, `st_t`, `flutter_svt`) — *not* read from the source record |
+| `glasgow_statements` | Reserved for the PTB-XL+ Uni-G statement layer — **empty in v1** (not yet wired) |
 | `ptbxl_quality_flags` | Native PTB-XL flags for naturally-poor records |
 | `has_clean_parent` | Whether an untouched paired parent is shipped |
 

@@ -92,8 +92,9 @@ references:
     license: CC-BY-4.0
     url: "https://physionet.org/content/ptb-xl-plus/1.0.1/"
     notes: >-
-      Augmented feature and interpretation layer for PTB-XL, including Glasgow
-      (Uni-G) ECG statements used as clinical ground truth for parent records.
+      Augmented Uni-G/Glasgow feature and interpretation layer for PTB-XL. Cited and
+      version-pinned; not consumed by Torsade v1 (the glasgow_statements field is reserved
+      and ships empty). PTB-XL quality flags come from PTB-XL itself, not this layer.
   - type: data
     title: "The MIT-BIH Noise Stress Test Database"
     authors:
