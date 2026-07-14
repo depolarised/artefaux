@@ -10,5 +10,12 @@ __pycache__/
 /out/
 /data/
 
+# Local ECG-review rendering — depends on the internal ecg-suite (ecg_io + signalpaper),
+# so it is kept out of the self-contained public repo. Regenerate with the workspace
+# `/ecg-review-report` command. (The tabular corpus report in reports/ is committed.)
+/scripts/reports/render_ecg_review.py
+/reports/*_ecg_review.pdf
+/reports/*_ecg_review.index.csv
+
 # OS / editor
 .DS_Store
