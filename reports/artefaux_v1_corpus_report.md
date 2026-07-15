@@ -240,7 +240,7 @@ Confirmed end-to-end on the local PhysioNet mirror (PTB-XL 1.0.3, MACECGDB 1.0.0
 - **Data integrity:** digital-missing (NaN) round-trips through WFDB — the affected channel reads back
   all-NaN while intact leads stay finite.
 - **Determinism:** two independent full regenerations are **byte-identical**.
-- **Quality gates:** 57 unit/integration tests pass; `ruff` + `black` clean.
+- **Quality gates:** 61 unit/integration tests pass; `ruff` + `black` clean.
 
 ---
 
