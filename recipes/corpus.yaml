@@ -2,7 +2,7 @@ version: 1
 master_seed: 20260713
 target_fs: 500
 records:
-- record_id: artefaux_nat_001
+- record_id: nlf_nat_001
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -23,7 +23,7 @@ records:
     reason_codes:
     - GATE_REJECT
   has_clean_parent: false
-- record_id: artefaux_nat_002
+- record_id: nlf_nat_002
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -44,7 +44,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_003
+- record_id: nlf_nat_003
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -64,7 +64,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_004
+- record_id: nlf_nat_004
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -84,7 +84,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_005
+- record_id: nlf_nat_005
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -105,7 +105,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_006
+- record_id: nlf_nat_006
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -126,7 +126,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_007
+- record_id: nlf_nat_007
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -147,7 +147,7 @@ records:
     reason_codes:
     - GATE_REJECT
   has_clean_parent: false
-- record_id: artefaux_nat_008
+- record_id: nlf_nat_008
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -168,7 +168,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_009
+- record_id: nlf_nat_009
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -188,7 +188,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_010
+- record_id: nlf_nat_010
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -208,7 +208,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_011
+- record_id: nlf_nat_011
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -229,7 +229,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_012
+- record_id: nlf_nat_012
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -250,7 +250,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_013
+- record_id: nlf_nat_013
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -271,7 +271,7 @@ records:
     reason_codes:
     - GATE_REJECT
   has_clean_parent: false
-- record_id: artefaux_nat_014
+- record_id: nlf_nat_014
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -292,7 +292,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_nat_015
+- record_id: nlf_nat_015
   group: naturally_poor
   source:
     dataset: ptbxl
@@ -312,7 +312,7 @@ records:
     noiseguard_discard: false
     reason_codes: []
   has_clean_parent: false
-- record_id: artefaux_noise_001
+- record_id: nlf_noise_001
   group: real_noise
   source:
     dataset: ptbxl
@@ -337,7 +337,7 @@ records:
       default: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_002
+- record_id: nlf_noise_002
   group: real_noise
   source:
     dataset: ptbxl
@@ -375,7 +375,7 @@ records:
         aVF: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_003
+- record_id: nlf_noise_003
   group: real_noise
   source:
     dataset: ptbxl
@@ -413,7 +413,7 @@ records:
         V6: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_004
+- record_id: nlf_noise_004
   group: real_noise
   source:
     dataset: ptbxl
@@ -438,7 +438,7 @@ records:
       default: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_005
+- record_id: nlf_noise_005
   group: real_noise
   source:
     dataset: ptbxl
@@ -476,7 +476,7 @@ records:
         aVF: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_006
+- record_id: nlf_noise_006
   group: real_noise
   source:
     dataset: ptbxl
@@ -514,7 +514,7 @@ records:
         V6: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_007
+- record_id: nlf_noise_007
   group: real_noise
   source:
     dataset: ptbxl
@@ -539,7 +539,7 @@ records:
       default: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_008
+- record_id: nlf_noise_008
   group: real_noise
   source:
     dataset: ptbxl
@@ -577,7 +577,7 @@ records:
         aVF: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_009
+- record_id: nlf_noise_009
   group: real_noise
   source:
     dataset: ptbxl
@@ -615,7 +615,7 @@ records:
         V6: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_010
+- record_id: nlf_noise_010
   group: real_noise
   source:
     dataset: ptbxl
@@ -640,7 +640,7 @@ records:
       default: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_011
+- record_id: nlf_noise_011
   group: real_noise
   source:
     dataset: ptbxl
@@ -678,7 +678,7 @@ records:
         aVF: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_012
+- record_id: nlf_noise_012
   group: real_noise
   source:
     dataset: ptbxl
@@ -716,7 +716,7 @@ records:
         V6: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_013
+- record_id: nlf_noise_013
   group: real_noise
   source:
     dataset: ptbxl
@@ -741,7 +741,7 @@ records:
       default: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_014
+- record_id: nlf_noise_014
   group: real_noise
   source:
     dataset: ptbxl
@@ -779,7 +779,7 @@ records:
         aVF: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_015
+- record_id: nlf_noise_015
   group: real_noise
   source:
     dataset: ptbxl
@@ -817,7 +817,7 @@ records:
         V6: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_016
+- record_id: nlf_noise_016
   group: real_noise
   source:
     dataset: ptbxl
@@ -842,7 +842,7 @@ records:
       default: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_017
+- record_id: nlf_noise_017
   group: real_noise
   source:
     dataset: ptbxl
@@ -880,7 +880,7 @@ records:
         aVF: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_018
+- record_id: nlf_noise_018
   group: real_noise
   source:
     dataset: ptbxl
@@ -918,7 +918,7 @@ records:
         V6: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_019
+- record_id: nlf_noise_019
   group: real_noise
   source:
     dataset: ptbxl
@@ -943,7 +943,7 @@ records:
       default: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_020
+- record_id: nlf_noise_020
   group: real_noise
   source:
     dataset: ptbxl
@@ -981,7 +981,7 @@ records:
         aVF: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_021
+- record_id: nlf_noise_021
   group: real_noise
   source:
     dataset: ptbxl
@@ -1019,7 +1019,7 @@ records:
         V6: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_022
+- record_id: nlf_noise_022
   group: real_noise
   source:
     dataset: ptbxl
@@ -1044,7 +1044,7 @@ records:
       default: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_023
+- record_id: nlf_noise_023
   group: real_noise
   source:
     dataset: ptbxl
@@ -1082,7 +1082,7 @@ records:
         aVF: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_024
+- record_id: nlf_noise_024
   group: real_noise
   source:
     dataset: ptbxl
@@ -1120,7 +1120,7 @@ records:
         V6: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_025
+- record_id: nlf_noise_025
   group: real_noise
   source:
     dataset: ptbxl
@@ -1145,7 +1145,7 @@ records:
       default: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_026
+- record_id: nlf_noise_026
   group: real_noise
   source:
     dataset: ptbxl
@@ -1183,7 +1183,7 @@ records:
         aVF: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_027
+- record_id: nlf_noise_027
   group: real_noise
   source:
     dataset: ptbxl
@@ -1221,7 +1221,7 @@ records:
         V6: borderline
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_noise_028
+- record_id: nlf_noise_028
   group: real_noise
   source:
     dataset: ptbxl
@@ -1246,7 +1246,7 @@ records:
       default: borderline
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_029
+- record_id: nlf_noise_029
   group: real_noise
   source:
     dataset: ptbxl
@@ -1284,7 +1284,7 @@ records:
         aVF: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_noise_030
+- record_id: nlf_noise_030
   group: real_noise
   source:
     dataset: ptbxl
@@ -1322,7 +1322,7 @@ records:
         V6: good
     noiseguard_discard: false
   has_clean_parent: true
-- record_id: artefaux_eng_001_emg_v1
+- record_id: nlf_eng_001_emg_v1
   group: engineering
   source:
     dataset: ptbxl
@@ -1345,7 +1345,7 @@ records:
       overrides:
         V1: bad
   has_clean_parent: true
-- record_id: artefaux_eng_002_macecg_walk_v2
+- record_id: nlf_eng_002_macecg_walk_v2
   group: engineering
   source:
     dataset: ptbxl
@@ -1369,7 +1369,7 @@ records:
       overrides:
         V2: bad
   has_clean_parent: true
-- record_id: artefaux_eng_003_intermittent_v6
+- record_id: nlf_eng_003_intermittent_v6
   group: engineering
   source:
     dataset: ptbxl
@@ -1393,7 +1393,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: intermittent_lead_off
   has_clean_parent: true
-- record_id: artefaux_eng_004_step_ii
+- record_id: nlf_eng_004_step_ii
   group: engineering
   source:
     dataset: ptbxl
@@ -1417,7 +1417,7 @@ records:
       overrides:
         II: borderline
   has_clean_parent: true
-- record_id: artefaux_eng_005_macecg_jump_overload_v3
+- record_id: nlf_eng_005_macecg_jump_overload_v3
   group: engineering
   source:
     dataset: ptbxl
@@ -1444,7 +1444,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: rail_saturation
   has_clean_parent: true
-- record_id: artefaux_eng_006_flatline_v4
+- record_id: nlf_eng_006_flatline_v4
   group: engineering
   source:
     dataset: ptbxl
@@ -1468,7 +1468,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: flatline_zero
   has_clean_parent: true
-- record_id: artefaux_eng_007_constant_v5
+- record_id: nlf_eng_007_constant_v5
   group: engineering
   source:
     dataset: ptbxl
@@ -1493,7 +1493,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: constant_adc
   has_clean_parent: true
-- record_id: artefaux_eng_008_missing_v6
+- record_id: nlf_eng_008_missing_v6
   group: engineering
   source:
     dataset: ptbxl
@@ -1517,7 +1517,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: digital_missing_channel
   has_clean_parent: true
-- record_id: artefaux_eng_009_flatline_i
+- record_id: nlf_eng_009_flatline_i
   group: engineering
   source:
     dataset: ptbxl
@@ -1554,7 +1554,7 @@ records:
     - DERIVED_LIMB_LEADS_CONTAMINATED
     - FULL_12_LEAD_INTERPRETATION_NOT_ALLOWED
   has_clean_parent: true
-- record_id: artefaux_eng_010_leadoff_v2
+- record_id: nlf_eng_010_leadoff_v2
   group: engineering
   source:
     dataset: ptbxl
@@ -1578,7 +1578,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: lead_off
   has_clean_parent: true
-- record_id: artefaux_eng_011_emg_burst_v5
+- record_id: nlf_eng_011_emg_burst_v5
   group: engineering
   source:
     dataset: ptbxl
@@ -1604,7 +1604,7 @@ records:
       overrides:
         V5: borderline
   has_clean_parent: true
-- record_id: artefaux_eng_012_couple_v1v2
+- record_id: nlf_eng_012_couple_v1v2
   group: engineering
   source:
     dataset: ptbxl
@@ -1629,7 +1629,7 @@ records:
         V1: bad
         V2: bad
   has_clean_parent: true
-- record_id: artefaux_eng_013_couple_v4v5
+- record_id: nlf_eng_013_couple_v4v5
   group: engineering
   source:
     dataset: ptbxl
@@ -1654,7 +1654,7 @@ records:
         V4: borderline
         V5: borderline
   has_clean_parent: true
-- record_id: artefaux_eng_014_triple_v1v2v3
+- record_id: nlf_eng_014_triple_v1v2v3
   group: engineering
   source:
     dataset: ptbxl
@@ -1682,7 +1682,7 @@ records:
         V3: bad
     noiseguard_discard: true
   has_clean_parent: true
-- record_id: artefaux_eng_015_electrode_la
+- record_id: nlf_eng_015_electrode_la
   group: engineering
   source:
     dataset: ptbxl
@@ -1722,7 +1722,7 @@ records:
     - LEAD_I_BAD
     - DERIVED_LIMB_LEADS_CONTAMINATED
   has_clean_parent: true
-- record_id: artefaux_eng_016_electrode_ra
+- record_id: nlf_eng_016_electrode_ra
   group: engineering
   source:
     dataset: ptbxl
@@ -1759,7 +1759,7 @@ records:
     - BOTH_LIMB_LEADS_BAD
     - GATE_REJECT
   has_clean_parent: true
-- record_id: artefaux_eng_017_saturate_v2v3
+- record_id: nlf_eng_017_saturate_v2v3
   group: engineering
   source:
     dataset: ptbxl
@@ -1787,7 +1787,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: rail_saturation
   has_clean_parent: true
-- record_id: artefaux_eng_018_saturate_v4v5v6
+- record_id: nlf_eng_018_saturate_v4v5v6
   group: engineering
   source:
     dataset: ptbxl
@@ -1818,7 +1818,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: rail_saturation
   has_clean_parent: true
-- record_id: artefaux_eng_019_electrode_ll
+- record_id: nlf_eng_019_electrode_ll
   group: engineering
   source:
     dataset: ptbxl
@@ -1855,7 +1855,7 @@ records:
     - LEAD_II_BAD
     - DERIVED_LIMB_LEADS_CONTAMINATED
   has_clean_parent: true
-- record_id: artefaux_eng_020_compound_wild
+- record_id: nlf_eng_020_compound_wild
   group: engineering
   source:
     dataset: ptbxl
@@ -1898,7 +1898,7 @@ records:
     data_integrity_failure: true
     integrity_failure_type: lead_off
   has_clean_parent: true
-- record_id: artefaux_eng_021_reversal_i
+- record_id: nlf_eng_021_reversal_i
   group: engineering
   source:
     dataset: ptbxl
@@ -1922,7 +1922,7 @@ records:
     reason_codes:
     - LEAD_REVERSAL_SUSPECTED
   has_clean_parent: true
-- record_id: artefaux_eng_022_mixed_integrity
+- record_id: nlf_eng_022_mixed_integrity
   group: engineering
   source:
     dataset: ptbxl

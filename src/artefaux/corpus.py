@@ -18,7 +18,7 @@ from dataclasses import asdict
 
 import yaml
 
-from .constants import CHEST_LEADS, LIMB_LEADS, SNR_LADDER_DB
+from .constants import CHEST_LEADS, CORPUS_PREFIX, LIMB_LEADS, SNR_LADDER_DB
 from .recipes import RecordSpec, SourceSpec
 
 # Rhythm/morphology spread for the real-noise parents (draft table, condensed).
@@ -27,7 +27,7 @@ _NOISE_TYPES = ("em", "ma", "bw")
 
 
 def _rid(prefix: str, i: int) -> str:
-    return f"artefaux_{prefix}_{i:03d}"
+    return f"{CORPUS_PREFIX}_{prefix}_{i:03d}"
 
 
 # --- 15 naturally poor ------------------------------------------------------
@@ -386,7 +386,7 @@ def _engineering() -> list[RecordSpec]:
         idx += 1
         specs.append(
             RecordSpec(
-                record_id=f"artefaux_eng_{idx:03d}_{suffix}",
+                record_id=f"{CORPUS_PREFIX}_eng_{idx:03d}_{suffix}",
                 group="engineering",
                 source=SourceSpec(dataset="ptbxl", rhythm_class="sinus"),
                 seed_index=300 + idx,

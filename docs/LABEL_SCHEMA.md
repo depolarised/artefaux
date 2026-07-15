@@ -58,7 +58,7 @@ discard model; `signalguard` is a graded gate. A record can be `limited` for
 
 ```json
 {
-  "record_id": "artefaux_eng_005_overload_v3",
+  "record_id": "nlf_eng_005_overload_v3",
   "group": "engineering",
   "fs": 500,
   "n_samples": 5000,

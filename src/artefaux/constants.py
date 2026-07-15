@@ -10,6 +10,13 @@ assume them without re-checking.
 
 from __future__ import annotations
 
+# --- Corpus identity -------------------------------------------------------
+
+# Neutral, non-branded namespace for corpus record IDs: "nlf" = ECG
+# Noise & Lead-Failure. Prefixing keeps IDs collision-safe when records are
+# pooled with other datasets, without carrying the tool name into the data.
+CORPUS_PREFIX = "nlf"
+
 # --- Lead layout -----------------------------------------------------------
 
 CANONICAL_LEAD_ORDER: tuple[str, ...] = (

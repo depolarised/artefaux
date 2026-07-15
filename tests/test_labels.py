@@ -22,7 +22,7 @@ def _example_label() -> RecordLabel:
     lead_quality = {ld: "good" for ld in CANONICAL_LEAD_ORDER}
     lead_quality["V2"] = "bad"
     return RecordLabel(
-        record_id="artefaux_eng_001",
+        record_id="nlf_eng_001",
         group="engineering",
         fs=500,
         n_samples=5000,
