@@ -5,6 +5,12 @@ records exactly what was done; the **expected behaviour** records what a correct
 quality gate should do — authored deterministically from the recipe, not by running
 any detector.
 
+Each label's top-level `record_id` follows `nlf_<group>_<nnn>` — the neutral corpus
+namespace `nlf` (ECG **N**oise & **L**ead-**F**ailure), the group (`nat`, `noise`, or
+`eng`), and a zero-padded index; engineering records append a short failure suffix
+(e.g. `nlf_eng_005_overload_v3`). The namespace is deliberately non-branded so record
+ids stay collision-safe when pooled with other datasets.
+
 ## Layer 1 — clinical parent
 
 What the underlying ECG *is*, inherited from the untouched parent.
