@@ -1,12 +1,15 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
-"""The Artefaux v1 corpus definition, as data.
+"""The Artefaux v2 corpus definition, as data.
 
-``build_corpus_specs()`` returns all ~67 record specs: 15 naturally-poor,
-30 real-noise pairs across the SNR ladder, and 22 engineering extremes split into
-single-lead and multi-lead-mixed failures. Source record IDs are left ``None`` here;
-they are resolved against the user's PhysioNet copy by the selection step (see
-``scripts/select_sources.py``) and pinned in ``provenance.json``.
+``build_corpus_specs()`` returns all 85 record specs: 15 naturally-poor, 30 real-noise
+pairs across the aggressive low SNR ladder, and 40 engineering extremes (11 single-lead
++ 11 multi-lead + 18 v2 extreme cases). v2 reweights the corpus toward clinically-
+unusable ("discard") records: the real-noise ladder drops the clean end and concentrates
+on the accept/reject decision region, and the engineering group grows with high-amplitude
+saturation, multi-lead integrity failures, and compound multi-mode records. Source record
+IDs are left ``None`` here; they are resolved against the user's PhysioNet copy by the
+selection step (see ``scripts/select_sources.py``) and pinned in ``provenance.json``.
 
 This module is the single source of truth for the corpus; ``recipes/corpus.yaml``
 is generated from it so the two never drift.
@@ -78,14 +81,24 @@ def _naturally_poor() -> list[RecordSpec]:
 
 
 def _real_noise_expected(snr: int, leads: str) -> dict:
+    """Expected gate behaviour for the v2 aggressive low ladder ``{-6,-4,-2,0,+2}`` dB.
+
+    The ladder is concentrated on the accept/reject decision region. Bands (for
+    whole-record contamination):
+
+    * ``snr <= -6``    -> ``reject``  / ``bad``        / discard  (signal buried in noise)
+    * ``-6 < snr <= -2`` -> ``limited`` / ``bad``        / discard  (leads clinically unusable)
+    * ``snr == 0``     -> ``limited`` / ``borderline`` / discard  (signal ~ noise power)
+    * ``snr >= +2``    -> ``limited`` / ``borderline`` / keep     (near-boundary specificity anchor)
+    """
     if snr <= -6:
         rq, dq, discard = "reject", "bad", True
+    elif snr <= -2:
+        rq, dq, discard = "limited", "bad", True
     elif snr == 0:
         rq, dq, discard = "limited", "borderline", True
-    elif snr == 6:
+    else:  # +2 dB and above: the single near-boundary keep anchor
         rq, dq, discard = "limited", "borderline", False
-    else:  # 12, 18 dB
-        rq, dq, discard = "diagnostic", "good", False
 
     if leads == "all":
         return {
@@ -93,11 +106,11 @@ def _real_noise_expected(snr: int, leads: str) -> dict:
             "lead_quality": {"default": dq},
             "noiseguard_discard": discard,
         }
-    # Subset contamination: only the touched leads degrade.
+    # Subset contamination: only the touched leads degrade; the untouched half keeps
+    # the record interpretable, so the record stays "limited" rather than "reject".
     touched = CHEST_LEADS if leads == "chest" else LIMB_LEADS
-    rq_sub = "diagnostic" if snr >= 12 else "limited"
     return {
-        "record_quality": rq_sub,
+        "record_quality": "limited",
         "lead_quality": {"default": "good", "overrides": {ld: dq for ld in touched}},
         "noiseguard_discard": discard and snr <= 0,
     }
@@ -139,7 +152,7 @@ def _real_noise() -> list[RecordSpec]:
     return specs
 
 
-# --- 22 engineering extremes (11 single-lead + 11 multi-lead) ---------------
+# --- 40 engineering extremes (11 single-lead + 11 multi-lead + 18 v2 extreme) ----
 
 
 def _limited(overrides: dict, **extra) -> dict:
@@ -380,9 +393,279 @@ def _engineering() -> list[RecordSpec]:
         ),
     ]
 
+    # --- v2: 18 additional extreme cases (ids 023-040), biased to discard/reject ----
+    # High-amplitude multi-lead saturation, multi-lead integrity failures (flat / stuck /
+    # NaN / lead-off / dropout), harder electrode failures, gross baseline excursions, and
+    # compound "wild" multi-mode records. Appended after single + multi so the existing
+    # ids 001-022 (and their seeds) stay byte-stable.
+    extreme: list[tuple[str, tuple[dict, ...], dict]] = [
+        (
+            "saturate_v1v2v3",
+            ({"op": "swing", "leads": ["V1", "V2", "V3"], "p2p_mv": 30.0, "rail_mv": 5.0},),
+            _limited(
+                {"V1": "bad", "V2": "bad", "V3": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="rail_saturation",
+            ),
+        ),
+        (
+            "saturate_precordial_all",
+            (
+                {
+                    "op": "swing",
+                    "leads": ["V1", "V2", "V3", "V4", "V5", "V6"],
+                    "p2p_mv": 32.0,
+                    "rail_mv": 5.0,
+                },
+            ),
+            {
+                "record_quality": "reject",
+                "lead_quality": {
+                    "default": "good",
+                    "overrides": {ld: "bad" for ld in ("V1", "V2", "V3", "V4", "V5", "V6")},
+                },
+                "noiseguard_discard": True,
+                "data_integrity_failure": True,
+                "integrity_failure_type": "rail_saturation",
+                "reason_codes": ["ALL_PRECORDIAL_SATURATED", "GATE_REJECT"],
+            },
+        ),
+        (
+            "emg_v2v3_severe",
+            ({"op": "swing", "leads": ["V2", "V3"], "p2p_mv": 12.0},),
+            _limited({"V2": "bad", "V3": "bad"}, noiseguard_discard=True),
+        ),
+        (
+            "flatline_v5v6",
+            ({"op": "flatline", "leads": ["V5", "V6"]},),
+            _limited(
+                {"V5": "bad", "V6": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="flatline_zero",
+            ),
+        ),
+        (
+            "constant_v2v3",
+            ({"op": "constant_adc", "leads": ["V2", "V3"], "value_mv": 2.0},),
+            _limited(
+                {"V2": "bad", "V3": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="constant_adc",
+            ),
+        ),
+        (
+            "missing_v1v2v3",
+            ({"op": "digital_missing", "leads": ["V1", "V2", "V3"]},),
+            _limited(
+                {"V1": "bad", "V2": "bad", "V3": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="digital_missing_channel",
+            ),
+        ),
+        (
+            "leadoff_v4v5v6",
+            ({"op": "lead_off", "leads": ["V4", "V5", "V6"]},),
+            _limited(
+                {"V4": "bad", "V5": "bad", "V6": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="lead_off",
+            ),
+        ),
+        (
+            "intermittent_v2v5",
+            ({"op": "intermittent_lead_off", "leads": ["V2", "V5"]},),
+            _limited(
+                {"V2": "bad", "V5": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="intermittent_lead_off",
+            ),
+        ),
+        (
+            "flatline_ii",
+            ({"op": "flatline", "leads": ["II"]},),
+            _limited(
+                {"II": "bad", "III": "bad", "aVR": "bad", "aVL": "bad", "aVF": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="flatline_zero",
+                derived_leads_invalidated=["III", "aVR", "aVL", "aVF"],
+                reason_codes=[
+                    "LEAD_II_BAD",
+                    "DERIVED_LIMB_LEADS_CONTAMINATED",
+                    "FULL_12_LEAD_INTERPRETATION_NOT_ALLOWED",
+                ],
+            ),
+        ),
+        (
+            "electrode_ra_severe",
+            ({"op": "electrode", "electrode": "RA", "kind": "offset", "amplitude_mv": 5.0},),
+            {
+                "record_quality": "reject",
+                "lead_quality": {
+                    "default": "borderline",
+                    "overrides": {ld: "bad" for ld in ("I", "II", "III", "aVR", "aVL", "aVF")},
+                },
+                "noiseguard_discard": True,
+                "derived_leads_invalidated": ["III", "aVR", "aVL", "aVF"],
+                "reason_codes": ["BOTH_LIMB_LEADS_BAD", "GATE_REJECT"],
+            },
+        ),
+        (
+            "electrode_la_offset",
+            ({"op": "electrode", "electrode": "LA", "kind": "offset", "amplitude_mv": 4.0},),
+            _limited(
+                {
+                    "I": "bad",
+                    "III": "bad",
+                    "aVR": "bad",
+                    "aVL": "bad",
+                    "V1": "borderline",
+                    "V2": "borderline",
+                    "V3": "borderline",
+                    "V4": "borderline",
+                    "V5": "borderline",
+                    "V6": "borderline",
+                },
+                noiseguard_discard=True,
+                derived_leads_invalidated=["III", "aVR", "aVL"],
+                reason_codes=["LEAD_I_BAD", "DERIVED_LIMB_LEADS_CONTAMINATED"],
+            ),
+        ),
+        (
+            "electrode_ll_offset",
+            ({"op": "electrode", "electrode": "LL", "kind": "offset", "amplitude_mv": 4.0},),
+            _limited(
+                {
+                    "II": "bad",
+                    "III": "bad",
+                    "aVF": "bad",
+                    "V1": "borderline",
+                    "V4": "borderline",
+                    "V6": "borderline",
+                },
+                noiseguard_discard=True,
+                derived_leads_invalidated=["III", "aVR", "aVL", "aVF"],
+                reason_codes=["LEAD_II_BAD", "DERIVED_LIMB_LEADS_CONTAMINATED"],
+            ),
+        ),
+        (
+            "double_electrode_ra_ll",
+            (
+                {"op": "electrode", "electrode": "RA", "kind": "offset", "amplitude_mv": 3.0},
+                {"op": "electrode", "electrode": "LL", "kind": "offset", "amplitude_mv": 3.0},
+            ),
+            {
+                "record_quality": "reject",
+                "lead_quality": {
+                    "default": "borderline",
+                    "overrides": {ld: "bad" for ld in ("I", "II", "III", "aVR", "aVL", "aVF")},
+                },
+                "noiseguard_discard": True,
+                "derived_leads_invalidated": ["III", "aVR", "aVL", "aVF"],
+                "reason_codes": ["MULTIPLE_LIMB_ELECTRODES_BAD", "GATE_REJECT"],
+            },
+        ),
+        (
+            "baseline_swing_limb",
+            ({"op": "motion_swing", "leads": ["I", "II"], "p2p_mv": 10.0, "noise_type": "walk"},),
+            _limited(
+                {"I": "bad", "II": "bad"},
+                noiseguard_discard=True,
+                reason_codes=["BASELINE_EXCURSION_LIMB"],
+            ),
+        ),
+        (
+            "compound_wild2",
+            (
+                {"op": "electrode", "electrode": "LA", "kind": "motion", "amplitude_mv": 1.0},
+                {"op": "swing", "leads": ["V3"], "p2p_mv": 30.0, "rail_mv": 5.0},
+                {"op": "intermittent_lead_off", "leads": ["V6"]},
+                {"op": "step_recovery", "leads": ["II"], "step_mv": 4.0, "tau_s": 1.5},
+            ),
+            _limited(
+                {
+                    "I": "bad",
+                    "III": "bad",
+                    "aVL": "bad",
+                    "V3": "bad",
+                    "V6": "bad",
+                    "II": "borderline",
+                    "V1": "borderline",
+                    "V2": "borderline",
+                },
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="rail_saturation",
+                derived_leads_invalidated=["III", "aVR", "aVL"],
+                reason_codes=["MULTI_MODE_FAILURE"],
+            ),
+        ),
+        (
+            "mixed_integrity2",
+            (
+                {"op": "digital_missing", "leads": ["V3"]},
+                {"op": "flatline", "leads": ["V5"]},
+                {"op": "constant_adc", "leads": ["V1"], "value_mv": 1.5},
+            ),
+            _limited(
+                {"V1": "bad", "V3": "bad", "V5": "bad"},
+                noiseguard_discard=True,
+                data_integrity_failure=True,
+                integrity_failure_type="digital_missing_channel",
+            ),
+        ),
+        (
+            "reversal_ii_v1",
+            (
+                {"op": "opposite_polarity", "leads": ["II"]},
+                {"op": "opposite_polarity", "leads": ["V1"]},
+            ),
+            _limited(
+                {"II": "borderline", "V1": "borderline"},
+                reason_codes=["LEAD_REVERSAL_SUSPECTED"],
+            ),
+        ),
+        (
+            "catastrophic_integrity",
+            (
+                {"op": "flatline", "leads": ["I"]},
+                {"op": "digital_missing", "leads": ["V6"]},
+                {"op": "swing", "leads": ["V3"], "p2p_mv": 30.0, "rail_mv": 5.0},
+                {"op": "intermittent_lead_off", "leads": ["V4"]},
+            ),
+            {
+                "record_quality": "reject",
+                "lead_quality": {
+                    "default": "borderline",
+                    "overrides": {
+                        "I": "bad",
+                        "III": "bad",
+                        "aVR": "bad",
+                        "aVL": "bad",
+                        "aVF": "bad",
+                        "V3": "bad",
+                        "V4": "bad",
+                        "V6": "bad",
+                    },
+                },
+                "noiseguard_discard": True,
+                "data_integrity_failure": True,
+                "integrity_failure_type": "digital_missing_channel",
+                "derived_leads_invalidated": ["III", "aVR", "aVL", "aVF"],
+                "reason_codes": ["MULTIPLE_INTEGRITY_FAILURES", "GATE_REJECT"],
+            },
+        ),
+    ]
+
     specs: list[RecordSpec] = []
     idx = 0
-    for suffix, steps, expected in single + multi:
+    for suffix, steps, expected in single + multi + extreme:
         idx += 1
         specs.append(
             RecordSpec(
@@ -399,14 +682,14 @@ def _engineering() -> list[RecordSpec]:
 
 
 def build_corpus_specs() -> list[RecordSpec]:
-    """Return the full Artefaux v1 corpus definition (~67 records)."""
+    """Return the full Artefaux v2 corpus definition (85 records: 15 + 30 + 40)."""
     return _naturally_poor() + _real_noise() + _engineering()
 
 
 def specs_to_yaml(specs: list[RecordSpec], master_seed: int) -> str:
     """Serialize specs to the ``recipes/corpus.yaml`` format."""
     payload = {
-        "version": 1,
+        "version": 2,
         "master_seed": master_seed,
         "target_fs": 500,
         "records": [

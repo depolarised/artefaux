@@ -27,9 +27,9 @@ def test_corpus_composition():
     counts: dict[str, int] = {}
     for s in specs:
         counts[s.group] = counts.get(s.group, 0) + 1
-    assert counts == {"naturally_poor": 15, "real_noise": 30, "engineering": 22}
-    assert len(specs) == 67
-    assert len({s.record_id for s in specs}) == 67  # unique ids
+    assert counts == {"naturally_poor": 15, "real_noise": 30, "engineering": 40}
+    assert len(specs) == 85
+    assert len({s.record_id for s in specs}) == 85  # unique ids
 
 
 def test_every_spec_builds_and_labels_validly():
@@ -74,6 +74,7 @@ def test_generate_write_reload_and_manifest(tmp_path):
 def test_specs_serialize_to_yaml():
     text = specs_to_yaml(build_corpus_specs(), master_seed=MASTER_SEED)
     parsed = yaml.safe_load(text)
+    assert parsed["version"] == 2
     assert parsed["master_seed"] == MASTER_SEED
-    assert len(parsed["records"]) == 67
+    assert len(parsed["records"]) == 85
     assert parsed["records"][0]["group"] == "naturally_poor"

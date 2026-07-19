@@ -12,8 +12,8 @@ gates and noise detectors.
 
 ## What this is
 
-Artefaux v1 ships the **generation engine** and the **corpus definition** (recipes + manifest + labels +
-provenance) needed to regenerate a ~65–70 record stress corpus **bit-exactly** from open PhysioNet sources.
+Artefaux v2 ships the **generation engine** and the **corpus definition** (recipes + manifest + labels +
+provenance) needed to regenerate an 85-record stress corpus **bit-exactly** from open PhysioNet sources.
 It does **not** redistribute derived signals — you fetch the sources and regenerate locally:
 
 ```bash
@@ -25,15 +25,18 @@ make regenerate    # build the corpus (WFDB records + labels + manifest) into ./
 PTB-XL (500 Hz), PTB-XL+, and MACECGDB are read from a local PhysioNet mirror
 (`/data/physionet/...` by default; override the `PTBXL`/`MACECGDB` Make variables).
 
-## Corpus composition (v1)
+## Corpus composition (v2)
+
+v2 is an **85-record** corpus reweighted toward clinically-unusable ("discard") ECGs: the real-noise
+ladder drops the clean end for an aggressive low-SNR sweep, and the engineering group grows to 40.
 
 | Group | n | Source | Corruption |
 |---|---:|---|---|
 | Naturally poor | 15 | PTB-XL quality-flagged records | none (inherently noisy) |
-| Real-noise pairs | 30 | clean PTB-XL + NSTDB `em`/`ma`/`bw` | SNR ladder {−6, 0, 6, 12, 18} dB |
-| Engineering extremes | 22 | clean PTB-XL parents (+ MACECGDB motion) | single-lead + multi-lead mixed failures |
+| Real-noise pairs | 30 | clean PTB-XL + NSTDB `em`/`ma`/`bw` | SNR ladder {−6, −4, −2, 0, +2} dB |
+| Engineering extremes | 40 | clean PTB-XL parents (+ MACECGDB motion) | single + multi-lead + extreme failures |
 
-Each record carries three label layers: **clinical parent** (authored rhythm class + PTB-XL quality flags; the Uni-G statement field is reserved and empty in v1), **corruption truth**
+Each record carries three label layers: **clinical parent** (authored rhythm class + PTB-XL quality flags; the Uni-G statement field is reserved and empty in v2), **corruption truth**
 (electrodes/leads, SNR, seed, amplitude bookkeeping), and **expected behaviour** (per-lead and record-level,
 mapped to the internal `signalguard`/`noiseguard` vocabularies).
 

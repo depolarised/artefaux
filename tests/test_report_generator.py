@@ -30,12 +30,14 @@ gen_only = pytest.mark.skipif(
 
 
 @gen_only
-def test_report_enumerates_all_67_records():
+def test_report_enumerates_all_records():
     gen = _load_generator()
     text = gen.build_report()
     from artefaux.corpus import build_corpus_specs
 
-    for spec in build_corpus_specs():
+    specs = build_corpus_specs()
+    assert len(specs) == 85
+    for spec in specs:
         # ids are wrapped with zero-width spaces for line-breaking; strip them before matching.
         assert spec.record_id in text.replace("​", ""), f"{spec.record_id} missing from report"
 
@@ -64,4 +66,4 @@ def test_report_composition_counts():
     assert "## 5. Full record roster" in text
     for header in ("Naturally poor (15)", "Real-noise SNR-ladder pairs (30)"):
         assert header in text
-    assert "**67**" in text
+    assert "**85**" in text

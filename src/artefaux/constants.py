@@ -85,10 +85,13 @@ UNIT: str = "mV"
 
 # --- Noise stress ladder ---------------------------------------------------
 
-#: Signal-to-noise ratios (dB) used for real-noise mixing. Aggressive-robustness
-#: bias: 24 dB is de-emphasised; the ladder centres on the range that actually
-#: challenges a quality gate. See DATASHEET for rationale.
-SNR_LADDER_DB: tuple[int, ...] = (-6, 0, 6, 12, 18)
+#: Signal-to-noise ratios (dB) used for real-noise mixing. v2 drops the clean end
+#: (+12/+18 dB, which every gate trivially passes) and concentrates the ladder on the
+#: accept/reject decision region: four of the five levels are <= 0 dB (discard-grade),
+#: with +2 dB as a single near-boundary specificity anchor. This keeps a dose-response
+#: across the decision boundary instead of sampling one saturated extreme, following
+#: NSTDB-style graded-SNR methodology. See DATASHEET for rationale.
+SNR_LADDER_DB: tuple[int, ...] = (-6, -4, -2, 0, 2)
 
 # --- Reference thresholds for deterministic expected-label assignment ------
 # These mirror the internal ``signalguard`` catastrophic-artefact thresholds so

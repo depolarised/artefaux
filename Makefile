@@ -4,7 +4,7 @@ PY := .venv/bin/python
 PTBXL ?= /data/physionet/ptb-xl-1.0.3
 MACECGDB ?= /data/physionet/motion-artifact-contaminated-ecg-database-1.0.0
 NSTDB ?= data/sources/nstdb
-OUT ?= out/artefaux-v1
+OUT ?= out/artefaux-v2
 SEED ?= 20260713
 
 setup:  ## Create the uv environment and install (with dev + figures extras)
