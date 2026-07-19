@@ -77,10 +77,14 @@ report (`reports/artefaux_v2_corpus_report.{md,pdf}`, from `make report PDF=1`) 
 (`figures/*.png`, from `make figures`) are computed from the same definition but are unenforced — change
 the definition, forget to regenerate them, and they drift silently while CI stays green. So after any
 change to `corpus.py` / `recipes.py` / `labels.py`, the final check is: `make corpus && make report
-PDF=1 && make figures`, then `git diff` to confirm each derived artifact is consistent. **One caveat:**
-the report's §7 "Verification" numbers (test count, SNR error, byte-identical claim) are *hand-authored
-prose in `generate_corpus_report.py`, not computed* — regeneration does not refresh them, so update them
-by hand when the underlying facts change (e.g. the test count when tests are added). `render_ecg_review.py`'s
+PDF=1 && make figures && .venv/bin/python scripts/reports/generate_v2_explainer.py --pdf`, then `git
+diff` to confirm each derived artifact is consistent. The committed **explainer**
+(`reports/artefaux_v2_explainer.{md,pdf}`) is also derived from the definition (it reuses
+`_real_noise_expected` and `build_corpus_specs`) and equally unenforced by CI — it has no `make` target,
+so it is easy to forget; regenerate it in the same pass. **One caveat:** the report's §7 "Verification"
+numbers (test count, SNR error, byte-identical claim) are *hand-authored prose in
+`generate_corpus_report.py`, not computed* — regeneration does not refresh them, so update them by hand
+when the underlying facts change (e.g. the test count when tests are added). `render_ecg_review.py`'s
 outputs are untracked local-tool products, not part of this check.
 
 **Recipes are a declarative op interpreter.** A `RecordSpec.steps` is a tuple of op dicts dispatched in
@@ -112,7 +116,12 @@ the exact source segment is captured in the audit trail. Preserve this when edit
 - **Public generator vs. local tooling:** the core generator is self-contained. `scripts/reports/
   render_ecg_review.py` is a *local* tool that depends on the internal `ecg-suite` packages
   (`ecg_io` + `signalpaper`, installed via `uv pip install -e ../../ecg-suite/...`) and on a generated
-  corpus — it is not part of the shipped, self-contained pipeline.
+  corpus — it is not part of the shipped, self-contained pipeline. It renders one clinical review PDF
+  per corpus record; `--layout strip8` uses signalpaper's full-10 s-per-lead strip layout (default for
+  discard/noise packs) and `--overflow` lets traces exceed their per-lead band to show the true
+  amplitude extent (writes a `*_overflow.pdf` sibling). The tool and all `*_ecg_review*.{pdf,index.csv}`
+  outputs are gitignored — a committed test importing it would break CI, so its CLI wiring is verified
+  by running it, and the underlying rendering guarantees are tested in `signalpaper`.
 - **Source IDs are resolved separately from the definition.** `build_corpus_specs` leaves
   `source.record_id = None` so the definition is data-independent; `build.resolve_source_ids` binds
   concrete PTB-XL ids from `recipes/source_ids/*.csv` at generation time.
