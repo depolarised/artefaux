@@ -1,10 +1,10 @@
 {
   "counts_by_group": {
-    "engineering": 22,
+    "engineering": 40,
     "naturally_poor": 15,
     "real_noise": 30
   },
-  "n_records": 67,
+  "n_records": 85,
   "records": [
     {
       "corruption_ops": [],
@@ -275,11 +275,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 6,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_002_clean",
       "record_id": "nlf_noise_002",
       "rhythm_class": "afib",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_003_clean",
+      "record_id": "nlf_noise_003",
+      "rhythm_class": "pac_pvc",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_004_clean",
+      "record_id": "nlf_noise_004",
+      "rhythm_class": "bbb_conduction",
       "snr_db": [
         0.0
       ],
@@ -297,51 +337,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_003_clean",
-      "record_id": "nlf_noise_003",
-      "rhythm_class": "pac_pvc",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_004_clean",
-      "record_id": "nlf_noise_004",
-      "rhythm_class": "bbb_conduction",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_005_clean",
       "record_id": "nlf_noise_005",
       "rhythm_class": "st_t",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -375,11 +375,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 12,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_007_clean",
       "record_id": "nlf_noise_007",
       "rhythm_class": "sinus",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_008_clean",
+      "record_id": "nlf_noise_008",
+      "rhythm_class": "afib",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_009_clean",
+      "record_id": "nlf_noise_009",
+      "rhythm_class": "pac_pvc",
       "snr_db": [
         0.0
       ],
@@ -397,51 +437,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_008_clean",
-      "record_id": "nlf_noise_008",
-      "rhythm_class": "afib",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_009_clean",
-      "record_id": "nlf_noise_009",
-      "rhythm_class": "pac_pvc",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_010_clean",
       "record_id": "nlf_noise_010",
       "rhythm_class": "bbb_conduction",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -475,11 +475,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 6,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_012_clean",
       "record_id": "nlf_noise_012",
       "rhythm_class": "flutter_svt",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_013_clean",
+      "record_id": "nlf_noise_013",
+      "rhythm_class": "sinus",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_014_clean",
+      "record_id": "nlf_noise_014",
+      "rhythm_class": "afib",
       "snr_db": [
         0.0
       ],
@@ -497,51 +537,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_013_clean",
-      "record_id": "nlf_noise_013",
-      "rhythm_class": "sinus",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_014_clean",
-      "record_id": "nlf_noise_014",
-      "rhythm_class": "afib",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_015_clean",
       "record_id": "nlf_noise_015",
       "rhythm_class": "pac_pvc",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -575,11 +575,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 6,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_017_clean",
       "record_id": "nlf_noise_017",
       "rhythm_class": "st_t",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_018_clean",
+      "record_id": "nlf_noise_018",
+      "rhythm_class": "flutter_svt",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_019_clean",
+      "record_id": "nlf_noise_019",
+      "rhythm_class": "sinus",
       "snr_db": [
         0.0
       ],
@@ -597,51 +637,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_018_clean",
-      "record_id": "nlf_noise_018",
-      "rhythm_class": "flutter_svt",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_019_clean",
-      "record_id": "nlf_noise_019",
-      "rhythm_class": "sinus",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_020_clean",
       "record_id": "nlf_noise_020",
       "rhythm_class": "afib",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -675,11 +675,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 12,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_022_clean",
       "record_id": "nlf_noise_022",
       "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_023_clean",
+      "record_id": "nlf_noise_023",
+      "rhythm_class": "st_t",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_024_clean",
+      "record_id": "nlf_noise_024",
+      "rhythm_class": "flutter_svt",
       "snr_db": [
         0.0
       ],
@@ -697,51 +737,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_023_clean",
-      "record_id": "nlf_noise_023",
-      "rhythm_class": "st_t",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_024_clean",
-      "record_id": "nlf_noise_024",
-      "rhythm_class": "flutter_svt",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_025_clean",
       "record_id": "nlf_noise_025",
       "rhythm_class": "sinus",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -775,11 +775,51 @@
       "expected_record_quality": "limited",
       "fs": 500,
       "group": "real_noise",
-      "n_bad_leads": 0,
+      "n_bad_leads": 6,
       "n_samples": 5000,
       "parent_record_id": "nlf_noise_027_clean",
       "record_id": "nlf_noise_027",
       "rhythm_class": "pac_pvc",
+      "snr_db": [
+        -4.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 12,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_028_clean",
+      "record_id": "nlf_noise_028",
+      "rhythm_class": "bbb_conduction",
+      "snr_db": [
+        -2.0
+      ],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "nstdb_mix"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "real_noise",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_noise_029_clean",
+      "record_id": "nlf_noise_029",
+      "rhythm_class": "st_t",
       "snr_db": [
         0.0
       ],
@@ -797,51 +837,11 @@
       "group": "real_noise",
       "n_bad_leads": 0,
       "n_samples": 5000,
-      "parent_record_id": "nlf_noise_028_clean",
-      "record_id": "nlf_noise_028",
-      "rhythm_class": "bbb_conduction",
-      "snr_db": [
-        6.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
-      "parent_record_id": "nlf_noise_029_clean",
-      "record_id": "nlf_noise_029",
-      "rhythm_class": "st_t",
-      "snr_db": [
-        12.0
-      ],
-      "source_dataset": "ptbxl",
-      "source_record_id": null
-    },
-    {
-      "corruption_ops": [
-        "nstdb_mix"
-      ],
-      "data_integrity_failure": false,
-      "expected_noiseguard_discard": false,
-      "expected_record_quality": "diagnostic",
-      "fs": 500,
-      "group": "real_noise",
-      "n_bad_leads": 0,
-      "n_samples": 5000,
       "parent_record_id": "nlf_noise_030_clean",
       "record_id": "nlf_noise_030",
       "rhythm_class": "flutter_svt",
       "snr_db": [
-        18.0
+        2.0
       ],
       "source_dataset": "ptbxl",
       "source_record_id": null
@@ -1247,6 +1247,340 @@
       "n_samples": 5000,
       "parent_record_id": "nlf_eng_022_mixed_integrity_clean",
       "record_id": "nlf_eng_022_mixed_integrity",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "overload_swing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_023_saturate_v1v2v3_clean",
+      "record_id": "nlf_eng_023_saturate_v1v2v3",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "overload_swing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_024_saturate_precordial_all_clean",
+      "record_id": "nlf_eng_024_saturate_precordial_all",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "swing"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_025_emg_v2v3_severe_clean",
+      "record_id": "nlf_eng_025_emg_v2v3_severe",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "flatline"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_026_flatline_v5v6_clean",
+      "record_id": "nlf_eng_026_flatline_v5v6",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "constant_adc"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_027_constant_v2v3_clean",
+      "record_id": "nlf_eng_027_constant_v2v3",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "digital_missing"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_028_missing_v1v2v3_clean",
+      "record_id": "nlf_eng_028_missing_v1v2v3",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_029_leadoff_v4v5v6_clean",
+      "record_id": "nlf_eng_029_leadoff_v4v5v6",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "intermittent_lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_030_intermittent_v2v5_clean",
+      "record_id": "nlf_eng_030_intermittent_v2v5",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "flatline"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 5,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_031_flatline_ii_clean",
+      "record_id": "nlf_eng_031_flatline_ii",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_032_electrode_ra_severe_clean",
+      "record_id": "nlf_eng_032_electrode_ra_severe",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 4,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_033_electrode_la_offset_clean",
+      "record_id": "nlf_eng_033_electrode_la_offset",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_034_electrode_ll_offset_clean",
+      "record_id": "nlf_eng_034_electrode_ll_offset",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain",
+        "electrode_domain"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 6,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_035_double_electrode_ra_ll_clean",
+      "record_id": "nlf_eng_035_double_electrode_ra_ll",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "motion_swing"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 2,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_036_baseline_swing_limb_clean",
+      "record_id": "nlf_eng_036_baseline_swing_limb",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "electrode_domain",
+        "overload_swing",
+        "intermittent_lead_off",
+        "step_recovery"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 5,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_037_compound_wild2_clean",
+      "record_id": "nlf_eng_037_compound_wild2",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "digital_missing",
+        "flatline",
+        "constant_adc"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 3,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_038_mixed_integrity2_clean",
+      "record_id": "nlf_eng_038_mixed_integrity2",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "opposite_polarity",
+        "opposite_polarity"
+      ],
+      "data_integrity_failure": false,
+      "expected_noiseguard_discard": false,
+      "expected_record_quality": "limited",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 0,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_039_reversal_ii_v1_clean",
+      "record_id": "nlf_eng_039_reversal_ii_v1",
+      "rhythm_class": "sinus",
+      "snr_db": [],
+      "source_dataset": "ptbxl",
+      "source_record_id": null
+    },
+    {
+      "corruption_ops": [
+        "flatline",
+        "digital_missing",
+        "overload_swing",
+        "intermittent_lead_off"
+      ],
+      "data_integrity_failure": true,
+      "expected_noiseguard_discard": true,
+      "expected_record_quality": "reject",
+      "fs": 500,
+      "group": "engineering",
+      "n_bad_leads": 8,
+      "n_samples": 5000,
+      "parent_record_id": "nlf_eng_040_catastrophic_integrity_clean",
+      "record_id": "nlf_eng_040_catastrophic_integrity",
       "rhythm_class": "sinus",
       "snr_db": [],
       "source_dataset": "ptbxl",

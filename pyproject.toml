@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "artefaux"
-version = "1.0.0"
+version = "2.0.0"
 description = "Artefaux — a deterministic generator and reproducible corpus definition for ECG noise & lead-failure stress testing."
 readme = "README.md"
 requires-python = ">=3.10"

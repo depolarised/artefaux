@@ -1,4 +1,4 @@
-version: 1
+version: 2
 master_seed: 20260713
 target_fs: 500
 records:
@@ -358,7 +358,7 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: ma
       channel: 0
@@ -367,12 +367,12 @@ records:
     lead_quality:
       default: good
       overrides:
-        I: borderline
-        II: borderline
-        III: borderline
-        aVR: borderline
-        aVL: borderline
-        aVF: borderline
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_003
@@ -396,7 +396,7 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: bw
       channel: 0
@@ -405,13 +405,13 @@ records:
     lead_quality:
       default: good
       overrides:
-        V1: borderline
-        V2: borderline
-        V3: borderline
-        V4: borderline
-        V5: borderline
-        V6: borderline
-    noiseguard_discard: false
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_004
   group: real_noise
@@ -428,15 +428,15 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: em
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
-      default: good
-    noiseguard_discard: false
+      default: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_005
   group: real_noise
@@ -459,21 +459,21 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: ma
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        I: good
-        II: good
-        III: good
-        aVR: good
-        aVL: good
-        aVF: good
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_noise_006
@@ -529,14 +529,14 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: em
       channel: 0
   expected:
     record_quality: limited
     lead_quality:
-      default: borderline
+      default: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_008
@@ -560,7 +560,7 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: ma
       channel: 0
@@ -569,13 +569,13 @@ records:
     lead_quality:
       default: good
       overrides:
-        I: borderline
-        II: borderline
-        III: borderline
-        aVR: borderline
-        aVL: borderline
-        aVF: borderline
-    noiseguard_discard: false
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_009
   group: real_noise
@@ -598,22 +598,22 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: bw
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        V1: good
-        V2: good
-        V3: good
-        V4: good
-        V5: good
-        V6: good
-    noiseguard_discard: false
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_010
   group: real_noise
@@ -630,14 +630,14 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: em
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
-      default: good
+      default: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_noise_011
@@ -699,7 +699,7 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: bw
       channel: 0
@@ -708,12 +708,12 @@ records:
     lead_quality:
       default: good
       overrides:
-        V1: borderline
-        V2: borderline
-        V3: borderline
-        V4: borderline
-        V5: borderline
-        V6: borderline
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_013
@@ -731,15 +731,15 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: em
       channel: 0
   expected:
     record_quality: limited
     lead_quality:
-      default: borderline
-    noiseguard_discard: false
+      default: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_014
   group: real_noise
@@ -762,22 +762,22 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: ma
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        I: good
-        II: good
-        III: good
-        aVR: good
-        aVL: good
-        aVF: good
-    noiseguard_discard: false
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_015
   group: real_noise
@@ -800,21 +800,21 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: bw
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        V1: good
-        V2: good
-        V3: good
-        V4: good
-        V5: good
-        V6: good
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_noise_016
@@ -863,7 +863,7 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: ma
       channel: 0
@@ -872,12 +872,12 @@ records:
     lead_quality:
       default: good
       overrides:
-        I: borderline
-        II: borderline
-        III: borderline
-        aVR: borderline
-        aVL: borderline
-        aVF: borderline
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_018
@@ -901,7 +901,7 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: bw
       channel: 0
@@ -910,13 +910,13 @@ records:
     lead_quality:
       default: good
       overrides:
-        V1: borderline
-        V2: borderline
-        V3: borderline
-        V4: borderline
-        V5: borderline
-        V6: borderline
-    noiseguard_discard: false
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_019
   group: real_noise
@@ -933,15 +933,15 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: em
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
-      default: good
-    noiseguard_discard: false
+      default: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_020
   group: real_noise
@@ -964,21 +964,21 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: ma
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        I: good
-        II: good
-        III: good
-        aVR: good
-        aVL: good
-        aVF: good
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_noise_021
@@ -1034,14 +1034,14 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: em
       channel: 0
   expected:
     record_quality: limited
     lead_quality:
-      default: borderline
+      default: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_023
@@ -1065,7 +1065,7 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: ma
       channel: 0
@@ -1074,13 +1074,13 @@ records:
     lead_quality:
       default: good
       overrides:
-        I: borderline
-        II: borderline
-        III: borderline
-        aVR: borderline
-        aVL: borderline
-        aVF: borderline
-    noiseguard_discard: false
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_024
   group: real_noise
@@ -1103,22 +1103,22 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: bw
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        V1: good
-        V2: good
-        V3: good
-        V4: good
-        V5: good
-        V6: good
-    noiseguard_discard: false
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_025
   group: real_noise
@@ -1135,14 +1135,14 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: em
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
-      default: good
+      default: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_noise_026
@@ -1204,7 +1204,7 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 0
+    snr_db: -4
     noise_source:
       record: bw
       channel: 0
@@ -1213,12 +1213,12 @@ records:
     lead_quality:
       default: good
       overrides:
-        V1: borderline
-        V2: borderline
-        V3: borderline
-        V4: borderline
-        V5: borderline
-        V6: borderline
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
     noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_028
@@ -1236,15 +1236,15 @@ records:
   - op: nstdb_mix
     leads: all
     noise_type: em
-    snr_db: 6
+    snr_db: -2
     noise_source:
       record: em
       channel: 0
   expected:
     record_quality: limited
     lead_quality:
-      default: borderline
-    noiseguard_discard: false
+      default: bad
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_029
   group: real_noise
@@ -1267,22 +1267,22 @@ records:
     - aVL
     - aVF
     noise_type: ma
-    snr_db: 12
+    snr_db: 0
     noise_source:
       record: ma
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        I: good
-        II: good
-        III: good
-        aVR: good
-        aVL: good
-        aVF: good
-    noiseguard_discard: false
+        I: borderline
+        II: borderline
+        III: borderline
+        aVR: borderline
+        aVL: borderline
+        aVF: borderline
+    noiseguard_discard: true
   has_clean_parent: true
 - record_id: nlf_noise_030
   group: real_noise
@@ -1305,21 +1305,21 @@ records:
     - V5
     - V6
     noise_type: bw
-    snr_db: 18
+    snr_db: 2
     noise_source:
       record: bw
       channel: 0
   expected:
-    record_quality: diagnostic
+    record_quality: limited
     lead_quality:
       default: good
       overrides:
-        V1: good
-        V2: good
-        V3: good
-        V4: good
-        V5: good
-        V6: good
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
     noiseguard_discard: false
   has_clean_parent: true
 - record_id: nlf_eng_001_emg_v1
@@ -1957,4 +1957,628 @@ records:
         II: borderline
     data_integrity_failure: true
     integrity_failure_type: digital_missing_channel
+  has_clean_parent: true
+- record_id: nlf_eng_023_saturate_v1v2v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 323
+  steps:
+  - op: swing
+    leads:
+    - V1
+    - V2
+    - V3
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+  has_clean_parent: true
+- record_id: nlf_eng_024_saturate_precordial_all
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 324
+  steps:
+  - op: swing
+    leads:
+    - V1
+    - V2
+    - V3
+    - V4
+    - V5
+    - V6
+    p2p_mv: 32.0
+    rail_mv: 5.0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+    reason_codes:
+    - ALL_PRECORDIAL_SATURATED
+    - GATE_REJECT
+  has_clean_parent: true
+- record_id: nlf_eng_025_emg_v2v3_severe
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 325
+  steps:
+  - op: swing
+    leads:
+    - V2
+    - V3
+    p2p_mv: 12.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+        V3: bad
+    noiseguard_discard: true
+  has_clean_parent: true
+- record_id: nlf_eng_026_flatline_v5v6
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 326
+  steps:
+  - op: flatline
+    leads:
+    - V5
+    - V6
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: flatline_zero
+  has_clean_parent: true
+- record_id: nlf_eng_027_constant_v2v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 327
+  steps:
+  - op: constant_adc
+    leads:
+    - V2
+    - V3
+    value_mv: 2.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+        V3: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: constant_adc
+  has_clean_parent: true
+- record_id: nlf_eng_028_missing_v1v2v3
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 328
+  steps:
+  - op: digital_missing
+    leads:
+    - V1
+    - V2
+    - V3
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V2: bad
+        V3: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: digital_missing_channel
+  has_clean_parent: true
+- record_id: nlf_eng_029_leadoff_v4v5v6
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 329
+  steps:
+  - op: lead_off
+    leads:
+    - V4
+    - V5
+    - V6
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V4: bad
+        V5: bad
+        V6: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: lead_off
+  has_clean_parent: true
+- record_id: nlf_eng_030_intermittent_v2v5
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 330
+  steps:
+  - op: intermittent_lead_off
+    leads:
+    - V2
+    - V5
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V2: bad
+        V5: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: intermittent_lead_off
+  has_clean_parent: true
+- record_id: nlf_eng_031_flatline_ii
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 331
+  steps:
+  - op: flatline
+    leads:
+    - II
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: flatline_zero
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - LEAD_II_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+    - FULL_12_LEAD_INTERPRETATION_NOT_ALLOWED
+  has_clean_parent: true
+- record_id: nlf_eng_032_electrode_ra_severe
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 332
+  steps:
+  - op: electrode
+    electrode: RA
+    kind: offset
+    amplitude_mv: 5.0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: borderline
+      overrides:
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - BOTH_LIMB_LEADS_BAD
+    - GATE_REJECT
+  has_clean_parent: true
+- record_id: nlf_eng_033_electrode_la_offset
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 333
+  steps:
+  - op: electrode
+    electrode: LA
+    kind: offset
+    amplitude_mv: 4.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        V1: borderline
+        V2: borderline
+        V3: borderline
+        V4: borderline
+        V5: borderline
+        V6: borderline
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    reason_codes:
+    - LEAD_I_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+  has_clean_parent: true
+- record_id: nlf_eng_034_electrode_ll_offset
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 334
+  steps:
+  - op: electrode
+    electrode: LL
+    kind: offset
+    amplitude_mv: 4.0
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        II: bad
+        III: bad
+        aVF: bad
+        V1: borderline
+        V4: borderline
+        V6: borderline
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - LEAD_II_BAD
+    - DERIVED_LIMB_LEADS_CONTAMINATED
+  has_clean_parent: true
+- record_id: nlf_eng_035_double_electrode_ra_ll
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 335
+  steps:
+  - op: electrode
+    electrode: RA
+    kind: offset
+    amplitude_mv: 3.0
+  - op: electrode
+    electrode: LL
+    kind: offset
+    amplitude_mv: 3.0
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: borderline
+      overrides:
+        I: bad
+        II: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+    noiseguard_discard: true
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - MULTIPLE_LIMB_ELECTRODES_BAD
+    - GATE_REJECT
+  has_clean_parent: true
+- record_id: nlf_eng_036_baseline_swing_limb
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 336
+  steps:
+  - op: motion_swing
+    leads:
+    - I
+    - II
+    p2p_mv: 10.0
+    noise_type: walk
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        II: bad
+    noiseguard_discard: true
+    reason_codes:
+    - BASELINE_EXCURSION_LIMB
+  has_clean_parent: true
+- record_id: nlf_eng_037_compound_wild2
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 337
+  steps:
+  - op: electrode
+    electrode: LA
+    kind: motion
+    amplitude_mv: 1.0
+  - op: swing
+    leads:
+    - V3
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  - op: intermittent_lead_off
+    leads:
+    - V6
+  - op: step_recovery
+    leads:
+    - II
+    step_mv: 4.0
+    tau_s: 1.5
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        I: bad
+        III: bad
+        aVL: bad
+        V3: bad
+        V6: bad
+        II: borderline
+        V1: borderline
+        V2: borderline
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: rail_saturation
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    reason_codes:
+    - MULTI_MODE_FAILURE
+  has_clean_parent: true
+- record_id: nlf_eng_038_mixed_integrity2
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 338
+  steps:
+  - op: digital_missing
+    leads:
+    - V3
+  - op: flatline
+    leads:
+    - V5
+  - op: constant_adc
+    leads:
+    - V1
+    value_mv: 1.5
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        V1: bad
+        V3: bad
+        V5: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: digital_missing_channel
+  has_clean_parent: true
+- record_id: nlf_eng_039_reversal_ii_v1
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 339
+  steps:
+  - op: opposite_polarity
+    leads:
+    - II
+  - op: opposite_polarity
+    leads:
+    - V1
+  expected:
+    record_quality: limited
+    lead_quality:
+      default: good
+      overrides:
+        II: borderline
+        V1: borderline
+    reason_codes:
+    - LEAD_REVERSAL_SUSPECTED
+  has_clean_parent: true
+- record_id: nlf_eng_040_catastrophic_integrity
+  group: engineering
+  source:
+    dataset: ptbxl
+    record_id: null
+    rhythm_class: sinus
+    glasgow_statements: []
+    ptbxl_quality_flags: []
+    age_years: null
+    sex: null
+  seed_index: 340
+  steps:
+  - op: flatline
+    leads:
+    - I
+  - op: digital_missing
+    leads:
+    - V6
+  - op: swing
+    leads:
+    - V3
+    p2p_mv: 30.0
+    rail_mv: 5.0
+  - op: intermittent_lead_off
+    leads:
+    - V4
+  expected:
+    record_quality: reject
+    lead_quality:
+      default: borderline
+      overrides:
+        I: bad
+        III: bad
+        aVR: bad
+        aVL: bad
+        aVF: bad
+        V3: bad
+        V4: bad
+        V6: bad
+    noiseguard_discard: true
+    data_integrity_failure: true
+    integrity_failure_type: digital_missing_channel
+    derived_leads_invalidated:
+    - III
+    - aVR
+    - aVL
+    - aVF
+    reason_codes:
+    - MULTIPLE_INTEGRITY_FAILURES
+    - GATE_REJECT
   has_clean_parent: true

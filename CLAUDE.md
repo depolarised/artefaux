@@ -3,10 +3,12 @@
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 Artefaux is a **deterministic generator and reproducible corpus *definition*** for ECG noise &
-lead-failure stress testing. v1 ships the generation engine plus the corpus metadata (recipes +
-manifest + labels + provenance) that regenerates a **67-record** 12-lead stress corpus (15
-naturally-poor / 30 real-noise / 22 engineering, + 52 paired clean parents) **bit-exactly**
-from open PhysioNet sources. It deliberately **does not redistribute derived signals** — users fetch
+lead-failure stress testing. v2 ships the generation engine plus the corpus metadata (recipes +
+manifest + labels + provenance) that regenerates an **85-record** 12-lead stress corpus (15
+naturally-poor / 30 real-noise / 40 engineering, + 70 paired clean parents) **bit-exactly**
+from open PhysioNet sources. v2 is weighted toward clinically-unusable ("discard") records: the
+real-noise ladder is an aggressive-low `{-6,-4,-2,0,+2}` dB sweep and the engineering group grows to 40.
+It deliberately **does not redistribute derived signals** — users fetch
 sources and regenerate locally. It is a *stress-test set*, not a clinically representative cohort.
 
 > This project sits at `~/dev/ecg/noise-suite/artefaux`, a tree the parent `~/dev/ecg/CLAUDE.md`
@@ -20,7 +22,7 @@ Everything is driven through the `Makefile` (interpreter is `.venv/bin/python`):
 
 ```bash
 make setup       # uv venv .venv + uv pip install -e ".[dev,figures]"
-make test        # .venv/bin/python -m pytest   (61 tests, 14 files; needs no data)
+make test        # .venv/bin/python -m pytest   (74 tests, 16 files; needs no data)
 make lint        # ruff check + black --check   over src tests scripts
 make format      # ruff --fix + black
 make smoke       # synthetic end-to-end build (no download) — the fast sanity check
@@ -71,7 +73,7 @@ regenerate them.
 
 **Final check on any definition change — the corpus report and figures are also derived, but CI does
 NOT guard them.** CI only diff-checks `recipes/corpus.yaml` + `manifest.{json,csv}`. The committed
-report (`reports/artefaux_v1_corpus_report.{md,pdf}`, from `make report PDF=1`) and figures
+report (`reports/artefaux_v2_corpus_report.{md,pdf}`, from `make report PDF=1`) and figures
 (`figures/*.png`, from `make figures`) are computed from the same definition but are unenforced — change
 the definition, forget to regenerate them, and they drift silently while CI stays green. So after any
 change to `corpus.py` / `recipes.py` / `labels.py`, the final check is: `make corpus && make report

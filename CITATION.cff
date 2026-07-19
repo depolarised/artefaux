@@ -13,15 +13,15 @@ message: >-
   ATTRIBUTION.md.
 type: software
 license: GPL-3.0-or-later
-version: 1.0.0
-date-released: "2026-07-13"
+version: 2.0.0
+date-released: "2026-07-16"
 authors:
   - family-names: Valasakis
     given-names: Ioannis
     email: tungolcild@gmail.com
     alias: depolarised
 repository-code: "https://github.com/depolarised/artefaux"
-repository-artifact: "https://github.com/depolarised/artefaux/releases/tag/v1.0.0"
+repository-artifact: "https://github.com/depolarised/artefaux/releases/tag/v2.0.0"
 keywords:
   - ECG
   - electrocardiography
@@ -93,7 +93,7 @@ references:
     url: "https://physionet.org/content/ptb-xl-plus/1.0.1/"
     notes: >-
       Augmented Uni-G/Glasgow feature and interpretation layer for PTB-XL. Cited and
-      version-pinned; not consumed by Artefaux v1 (the glasgow_statements field is reserved
+      version-pinned; not consumed by Artefaux v2 (the glasgow_statements field is reserved
       and ships empty). PTB-XL quality flags come from PTB-XL itself, not this layer.
   - type: data
     title: "The MIT-BIH Noise Stress Test Database"

@@ -4,7 +4,7 @@
 """Resolve concrete PTB-XL parent record IDs from your local PTB-XL copy.
 
 Reads ``ptbxl_database.csv`` and writes deterministic selections to
-``recipes/source_ids/``: 52 clean parents (30 real-noise + 22 engineering) and 15
+``recipes/source_ids/``: 70 clean parents (30 real-noise + 40 engineering) and 15
 naturally-noisy records (the naturally-poor group). The selection is seeded and
 reproducible. Run once before ``make regenerate``.
 """
@@ -18,7 +18,7 @@ from pathlib import Path
 from artefaux.selection import quality_flags, select_ptbxl
 
 SEED = 20260713
-N_CLEAN = 30 + 22  # real-noise parents + engineering parents
+N_CLEAN = 30 + 40  # real-noise parents + engineering parents
 N_NOISY = 15  # naturally-poor group (all from PTB-XL quality flags)
 
 DEFAULT_PTBXL = "/data/physionet/ptb-xl-1.0.3"

@@ -36,7 +36,7 @@ def _make_source_ids(tmp_path, n_clean, n_noisy):
 
 
 def test_resolve_binds_every_spec_in_group_order(tmp_path):
-    d = _make_source_ids(tmp_path, n_clean=52, n_noisy=15)
+    d = _make_source_ids(tmp_path, n_clean=70, n_noisy=15)
     specs = resolve_source_ids(build_corpus_specs(), d)
 
     assert all(s.source.record_id is not None for s in specs)
@@ -49,12 +49,12 @@ def test_resolve_binds_every_spec_in_group_order(tmp_path):
     # real-noise + engineering <- clean pool, contiguous and in order.
     clean_consumers = [s for s in specs if s.group != "naturally_poor"]
     assert clean_consumers[0].source.record_id == "records500/00000/00000_hr"
-    assert clean_consumers[-1].source.record_id == "records500/00000/00051_hr"
+    assert clean_consumers[-1].source.record_id == "records500/00000/00069_hr"
     assert len({s.source.record_id for s in clean_consumers}) == len(clean_consumers)
 
 
 def test_resolve_is_pure_leaves_input_specs_untouched(tmp_path):
-    d = _make_source_ids(tmp_path, n_clean=52, n_noisy=15)
+    d = _make_source_ids(tmp_path, n_clean=70, n_noisy=15)
     original = build_corpus_specs()
     resolve_source_ids(original, d)
     assert all(s.source.record_id is None for s in original)  # frozen: no mutation

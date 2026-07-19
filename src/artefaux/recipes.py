@@ -6,7 +6,7 @@ A :class:`RecordSpec` says *what* to do to a parent (a list of corruption ``step
 and *what a good gate should do* about it (``expected``). :func:`apply_recipe`
 executes the steps; :func:`build_record` wraps that into a fully-labelled
 :class:`~artefaux.labels.RecordLabel`. :func:`build_corpus_specs` returns the whole
-Artefaux v1 corpus definition as data — source record IDs are resolved separately
+Artefaux v2 corpus definition as data — source record IDs are resolved separately
 against the user's PhysioNet copy (see ``scripts/`` and ``recipes/source_ids/``).
 """
 
