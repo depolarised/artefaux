@@ -1,0 +1,6 @@
+# Generated GRIASCII output — never committed (like the rest of the corpus data).
+# The default converter output lives under the repo-level /out/ (already ignored),
+# but ignore any local outputs written into this folder too.
+*.asc
+griasc_index.csv
+out/
