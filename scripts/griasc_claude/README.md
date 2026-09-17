@@ -33,16 +33,16 @@ uv pip install -e ../../ecg-suite/ecg-io    # ecg-io is not an Artefaux dependen
 
 ```bash
 # Convert the 85 stress records (default paths):
-.venv/bin/python griasc_claude/convert_to_griasc.py
+.venv/bin/python scripts/griasc_claude/convert_to_griasc.py
 
 # Include the 70 paired clean parents as well:
-.venv/bin/python griasc_claude/convert_to_griasc.py --include-clean
+.venv/bin/python scripts/griasc_claude/convert_to_griasc.py --include-clean
 
 # Smoke-check the first 3 records:
-.venv/bin/python griasc_claude/convert_to_griasc.py --limit 3
+.venv/bin/python scripts/griasc_claude/convert_to_griasc.py --limit 3
 
 # Custom locations:
-.venv/bin/python griasc_claude/convert_to_griasc.py \
+.venv/bin/python scripts/griasc_claude/convert_to_griasc.py \
     --corpus out/artefaux-v2 --manifest manifest.csv --out out/artefaux-v2-griasc
 ```
 
