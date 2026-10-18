@@ -62,3 +62,18 @@ select = ["E", "F", "I", "W", "UP", "B"]
 [tool.black]
 line-length = 100
 target-version = ["py310"]
+
+[dependency-groups]
+# Review-set scripts under scripts/ (not the published package) read ECGs and render review
+# pages with the ecg-suite packages. Dependency groups are not part of the published metadata.
+review = [
+    "ecg-io",
+    "signalpaper",
+]
+
+[tool.uv]
+default-groups = ["review"]
+
+[tool.uv.sources]
+ecg-io = { path = "../../ecg-suite/ecg-io", editable = true }
+signalpaper = { path = "../../ecg-suite/signalpaper", editable = true }
