@@ -48,7 +48,7 @@ from pathlib import Path
 
 import numpy as np
 from ecg_io import read_ecg
-from ecg_io._glasgow_ascii import parse_glasgow_ascii_file
+from ecg_io.glasgow import parse_glasgow_ascii_file
 
 # Canonical 12-lead order — the Artefaux signal invariant.
 CANONICAL_LEADS: tuple[str, ...] = (
