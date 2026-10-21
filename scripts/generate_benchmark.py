@@ -448,7 +448,27 @@ def render_and_package(args, seeds: dict) -> None:
         print(f"Prepared {target} ({target.stat().st_size / 1e6:.1f} MB)", flush=True)
 
 
-def write_commitment(args, seeds_path: Path) -> None:
+def tool_freeze(args) -> dict | None:
+    """Resolve the signalguard version under test to an exact commit, if one is given."""
+    if not args.signalguard_ref:
+        return None
+    commit = subprocess.run(
+        [
+            "git",
+            "-C",
+            str(args.signalguard_repo),
+            "rev-parse",
+            f"{args.signalguard_ref}^{{commit}}",
+        ],
+        capture_output=True,
+        text=True,
+    )
+    if commit.returncode != 0:
+        raise SystemExit(f"cannot resolve signalguard ref {args.signalguard_ref!r}")
+    return {"tool": "signalguard", "ref": args.signalguard_ref, "commit": commit.stdout.strip()}
+
+
+def write_commitment(args, seeds_path: Path, frozen_tool: dict | None) -> None:
     public = args.public_dir
     public.mkdir(parents=True, exist_ok=True)
     shutil.copy2(args.share_dir / "tool_inputs" / "inputs.csv", public / "inputs.csv")
@@ -460,6 +480,9 @@ def write_commitment(args, seeds_path: Path) -> None:
         "n_records": N_RECORDS,
         "created_utc": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
         "artefaux_commit": _git_commit(),
+        # The version under test must be fixed before any program runs on T1: here when it
+        # is known at generation, otherwise in tools_freeze.json committed before the run.
+        "tool_under_test": frozen_tool,
         "sha256": {
             "PRIVATE_seeds.json": sha256_file(seeds_path),
             "PRIVATE_blind_key.csv": sha256_file(args.out / "PRIVATE_blind_key.csv"),
@@ -523,6 +546,13 @@ def main() -> None:
     parser.add_argument(
         "--set2-sources", type=Path, default=REPO / "out/artefaux-review-set2/source_ids.csv"
     )
+    parser.add_argument(
+        "--signalguard-ref",
+        help="tag of the signalguard version under test, recorded in the commitment",
+    )
+    parser.add_argument(
+        "--signalguard-repo", type=Path, default=REPO.parents[1] / "ecg-suite/signalguard"
+    )
     parser.add_argument("--master-seed", type=int, help="dry runs only; default is secret")
     parser.add_argument("--blind-seed", type=int, help="dry runs only; default is secret")
     parser.add_argument(
@@ -533,6 +563,8 @@ def main() -> None:
     )
     args = parser.parse_args()
     _check_dry_run(args, parser)
+    # Resolve the tool version before writing anything, so a bad ref fails early.
+    frozen_tool = tool_freeze(args)
     args.out = REAL_OUT if args.out is None else args.out
     args.share_dir = REAL_SHARE if args.share_dir is None else args.share_dir
     args.public_dir = REAL_PUBLIC if args.public_dir is None else args.public_dir
@@ -556,7 +588,7 @@ def main() -> None:
         seeds_path.write_text(json.dumps(seeds, indent=2) + "\n")
         generate_signals(args, seeds)
     render_and_package(args, seeds)
-    write_commitment(args, seeds_path)
+    write_commitment(args, seeds_path, frozen_tool)
     print("Complete. Keep out/ private until unblinding; commit bench/ at freeze.", flush=True)
 
 

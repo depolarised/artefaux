@@ -100,8 +100,10 @@ No record is excluded after unblinding.
   metadata, the parent's diagnosis. A developer of either tool can therefore recognise
   some inputs, and tuning on the public parents cannot be excluded by design.
 - **Mitigations:**
-  1. The signalguard version is tagged before T1 is generated, and the tag is in the
-     commitment.
+  1. The signalguard version under test is fixed (tag and resolved commit) before any
+     program runs on T1: in the commitment when known at generation
+     (`--signalguard-ref`), otherwise in `bench/v1/T1/tools_freeze.json`, committed and
+     logged in `dev-log` before the first run.
   2. Both tools run by script, with no manual step; command lines and run manifests are
      fixed before the run.
   3. Prediction hashes (SHA-256 of each program's `predictions_records.csv` and
@@ -110,8 +112,6 @@ No record is excluded after unblinding.
      its developer, or by CI on the tagged version.
 - **Declared in the report:** the residual risk above (a developer-run tool may have seen
   public parents) is stated in the T1 report and is not claimed to be excluded.
-
-## Fixed mappings
 
 ## Fixed mappings
 

@@ -114,6 +114,14 @@ and a verified round trip. Blinded signal headers contain only neutral codes and
 technical acquisition metadata. Both sets start at `REV-001`, so their set numbers
 must accompany shared files.
 
+## Known issue: not valid Uni-G input
+
+The set-2 (and v2) GRIASCII exports leave header line 10, electrode positioning, blank
+and declare age 0 days. The Glasgow program then reads input V1–V3 as paediatric
+V4R/V1/V2 and applies neonatal thresholds, so any Uni-G output on these files is invalid.
+Files meant for Uni-G must pass a complete adult header (`header_lines`, as the
+benchmark's `UNIG_HEADER_LINES` does). The files remain valid for `ecg_io` round trips.
+
 ## Private verification
 
 `out/artefaux-review-set2/` contains clean parents, labels, recipes, source-selection

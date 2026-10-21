@@ -26,6 +26,9 @@ from .scoring import (
 )
 
 PREDICTION_SCHEMA_VERSION = 1
+#: Pre-registered bootstrap settings (docs/BENCHMARK_SAP.md); the defaults below use them.
+SAP_BOOTSTRAP_SEED = 20261021
+SAP_N_RESAMPLES = 2000
 RECORD_COLUMNS = (
     "schema_version",
     "bench_version",
@@ -137,7 +140,14 @@ def consensus_reference(
     Items that must agree: repeat-ECG and, when neither repeats, the unusable-lead set and
     the usable section. Every disagreement needs an adjudicated row, which then also
     supplies the grade. Where only the grade differs, the more severe grade is kept.
+    Adjudication may only settle disagreements: a row for an agreed record is refused, so
+    the reference cannot be changed after the fact.
     """
+    if set(first) != set(second):
+        raise ValueError("the two readers' sheets cover different blind codes")
+    unknown = set(adjudicated) - set(first)
+    if unknown:
+        raise ValueError(f"adjudicated rows for unknown codes: {sorted(unknown)[:5]}")
     out = {}
     for code in first:
         a, b = first[code], second[code]
@@ -148,7 +158,9 @@ def consensus_reference(
                 and a.usable_section == b.usable_section
             )
         )
-        if agree and code not in adjudicated:
+        if agree and code in adjudicated:
+            raise ValueError(f"{code}: readers agree; an adjudicated row may not override them")
+        if agree:
             out[code] = a if a.overall == b.overall else _merge_agreed(a, b)
         elif code in adjudicated:
             out[code] = adjudicated[code]
@@ -193,9 +205,9 @@ def lead_level(
     codes: Sequence[str],
     *,
     leads: Sequence[str] = DISPLAYED_LEADS,
-    seed: int,
+    seed: int = SAP_BOOTSTRAP_SEED,
     itd: bool = True,
-    n_resamples: int = 2000,
+    n_resamples: int = SAP_N_RESAMPLES,
 ) -> dict:
     """P1: per-lead unusable detection with record-clustered bootstrap CIs."""
     codes = _scored_codes(pred, codes, itd)
@@ -237,8 +249,8 @@ def paired_comparison(
     ref: Mapping[str, CodedResponse],
     codes: Sequence[str],
     *,
-    seed: int,
-    n_resamples: int = 2000,
+    seed: int = SAP_BOOTSTRAP_SEED,
+    n_resamples: int = SAP_N_RESAMPLES,
 ) -> dict:
     """Paired differences (first − second): record-level McNemar/Newcombe, lead-level bootstrap."""
     out = {}

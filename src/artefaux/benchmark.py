@@ -86,6 +86,9 @@ UNIG_HEADER_LINES: dict[int, str] = {
     17: "12Lead",
 }
 
+#: Parents must be adults (PTB-XL codes ages over 89 as 300, which still qualifies).
+MIN_AGE_YEARS = 18
+
 #: Confounder parents, selected by PTB-XL SCP code from quality-clean records
 #: (VCLVH: voltage criteria for LVH, i.e. high QRS amplitude).
 CONFOUNDER_CODES: dict[str, tuple[str, int]] = {
@@ -440,6 +443,13 @@ def _scp(row: Mapping[str, object]) -> dict:
     return value if isinstance(value, dict) else ast.literal_eval(str(value))
 
 
+def _age(row: Mapping[str, object]) -> float:
+    try:
+        return float(row.get("age", ""))
+    except ValueError:
+        return float("nan")
+
+
 def select_bench_sources(
     rows: Sequence[Mapping[str, object]],
     *,
@@ -452,7 +462,11 @@ def select_bench_sources(
     statements such as LVOLT with likelihood 0, so presence is the criterion);
     clean parents carry none of the confounder codes. Patients never repeat across strata.
     """
-    pool = [r for r in rows if r.get("patient_id") not in excluded_patients]
+    # Adults only: every Uni-G input declares adult positioning and an adult age, so a
+    # paediatric parent would be analysed under the wrong assumptions.
+    pool = [
+        r for r in rows if r.get("patient_id") not in excluded_patients and _age(r) >= MIN_AGE_YEARS
+    ]
     rng = np.random.default_rng([seed, 2])
     used: set = set()
 

@@ -60,7 +60,8 @@ The coding is a draft until verified by the coordinator; the figures below are f
 
 Generation rules (all in `src/artefaux/benchmark.py` and the recipe interpreter):
 
-- **Patients**: none of the 170 development-set patients; one ECG per patient across T1.
+- **Patients**: adults (age ≥ 18) only, because every Uni-G input declares adult
+  positioning and age; none of the 170 development-set patients; one ECG per patient.
 - **Noise segments**: development sets drew NSTDB offsets below 100 000 samples (the
   first 200 s of each record). T1 uses only later, non-overlapping 11 s slots.
 - **Physical consistency**: a change to I or II is carried into III/aVR/aVL/aVF
@@ -147,9 +148,9 @@ dropping the lead, so Uni-G's I/II decisions are only partly observable in its o
 
 ## Blinding, freeze and unblinding
 
-1. Tag the signalguard version to be tested; generate T1 with
-   `scripts/generate_benchmark.py` (seeds come from `secrets`; they and the blind key
-   stay in `out/artefaux-bench-v1/T1/`).
+1. Generate T1 with `scripts/generate_benchmark.py`, passing `--signalguard-ref <tag>` if
+   the version under test is already fixed (seeds come from `secrets`; they and the blind
+   key stay in `out/artefaux-bench-v1/T1/`).
 2. Commit `bench/v1/T1/{inputs.csv,commitment.json}` with this document and the SAP;
    tag `bench-v1.0.0`. The commitment holds SHA-256 of the private seeds and key.
 3. Send reader ZIPs (PDF + sheet + README, no signals) and the tool-input ZIP.
@@ -175,8 +176,13 @@ What is enforced by code, what rests on procedure, and what is declared in the r
 - **Tool blinding (procedural, not cryptographic).** Programs receive the tool-input ZIP,
   which carries codes but no key. The coordinator generates the signals, so tool blinding
   rests on these steps:
-  1. The signalguard version is tagged before T1 is generated, and the tag is recorded in
-     the commitment.
+  1. The signalguard version under test is fixed (tag and resolved commit) before any
+     program runs on T1: recorded in the commitment when known at generation
+     (`--signalguard-ref`, field `tool_under_test`), otherwise in
+     `bench/v1/T1/tools_freeze.json`, committed and logged in `dev-log` before the first
+     run. Generating early lets readers start while development continues on review
+     sets 1 and 2; the coordinator then holds T1 inputs while still tuning, which is
+     declared in the report.
   2. Both programs run by script, with no manual step, on the identical ZIP.
   3. Prediction hashes are committed to `dev-log` before unblinding, so outputs cannot be
      changed after the key is opened.

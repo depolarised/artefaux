@@ -11,6 +11,8 @@ import pytest
 from artefaux.bench_scoring import (
     LEAD_COLUMNS,
     RECORD_COLUMNS,
+    SAP_BOOTSTRAP_SEED,
+    SAP_N_RESAMPLES,
     consensus_reference,
     lead_level,
     load_predictions,
@@ -239,3 +241,23 @@ def test_load_predictions_rejects_other_bench_version():
     with pytest.raises(ValueError, match="bench_version"):
         load_predictions(stale, lead, CODES)
     assert load_predictions(rec, lead, CODES)  # the fixture's 1.0.0 is accepted
+
+
+def test_adjudication_cannot_override_an_agreed_record():
+    a = {"T1-001": ref("T1-001", ["V1"]), "T1-002": ref("T1-002")}
+    with pytest.raises(ValueError, match="may not override"):
+        consensus_reference(a, a, {"T1-001": ref("T1-001", ["V2"])})
+    with pytest.raises(ValueError, match="unknown codes"):
+        consensus_reference(a, a, {"T1-999": ref("T1-999")})
+    with pytest.raises(ValueError, match="different blind codes"):
+        consensus_reference(a, {"T1-001": a["T1-001"]}, {})
+
+
+def test_bootstrap_defaults_are_the_preregistered_ones():
+    import inspect
+
+    assert (SAP_BOOTSTRAP_SEED, SAP_N_RESAMPLES) == (20261021, 2000)
+    for fn in (lead_level, paired_comparison):
+        params = inspect.signature(fn).parameters
+        assert params["seed"].default == SAP_BOOTSTRAP_SEED
+        assert params["n_resamples"].default == SAP_N_RESAMPLES

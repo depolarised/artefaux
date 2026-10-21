@@ -174,7 +174,9 @@ def _electrode_nstdb(
     px = float(np.mean([_dc_removed_power(sig[i, start:end]) for i in ref]))
     pn = float(np.mean([_dc_removed_power(unit_noise[i, start:end]) for i in ref]))
     snr = float(step["snr_db"])
-    alpha = float(np.sqrt(px / (pn * 10.0 ** (snr / 10.0)))) if pn > 0 else 0.0
+    if pn <= 0 or px <= 0:
+        raise ValueError("electrode_nstdb: no signal or noise power on the reference leads")
+    alpha = float(np.sqrt(px / (pn * 10.0 ** (snr / 10.0))))
     res = corrupt_electrode_domain(sig, {e: alpha * art for e, art in unit.items()})
     added = res.signal - sig
     snr_measured = 10.0 * np.log10(

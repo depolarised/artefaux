@@ -186,3 +186,17 @@ def test_all_lead_step_without_propagation_still_changes_derived_leads(ecg12):
     out, log = apply_recipe(ecg12, steps, np.random.default_rng(0), FS, synthetic_noise_provider)
     assert "III" in log[0].leads_affected
     assert not np.array_equal(_lead(out, "III"), _lead(ecg12, "III"))
+
+
+def test_electrode_noise_with_no_power_is_refused(ecg12):
+    step = {
+        "op": "electrode_nstdb",
+        "electrodes": ["RA"],
+        "noise_type": "em",
+        "noise_sources": [{"record": "em", "channel": 0, "start_sample": 0}],
+        "interval_s": [0, 10],
+        "snr_db": 0,
+    }
+    silent = lambda step, n, rng: np.zeros(n)  # noqa: E731
+    with pytest.raises(ValueError, match="no signal or noise power"):
+        apply_recipe(ecg12, [step], np.random.default_rng(0), 500, silent)

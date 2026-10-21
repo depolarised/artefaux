@@ -149,3 +149,27 @@ def test_non_converged_fit_reports_no_snr50(monkeypatch):
     fit = fit_snr50(snr, unusable)
     assert fit["converged"] is False
     assert math.isnan(fit["snr50"])
+
+
+def test_paired_difference_ci_has_nominal_coverage():
+    # Newcombe's method 10 (with the continuity-corrected phi) should cover the true paired
+    # difference about 95% of the time; checked by simulation rather than a quoted table.
+    rng = np.random.default_rng(11)
+    probs = [0.30, 0.15, 0.05, 0.50]  # both, first only, second only, neither
+    truth = probs[1] - probs[2]
+    hits, n_sims, n = 0, 2000, 50
+    for _ in range(n_sims):
+        cell = rng.choice(4, size=n, p=probs)
+        first, second = np.isin(cell, (0, 1)), np.isin(cell, (0, 2))
+        _, lo, hi = paired_difference_ci(first, second)
+        hits += lo <= truth <= hi
+    assert 0.93 <= hits / n_sims <= 0.985
+
+
+def test_continuity_corrected_phi_never_narrows_the_interval():
+    # Positive association (ad > bc) shrinks the interval; the correction tempers that.
+    first = [True] * 20 + [True] * 6 + [False] * 2 + [False] * 22
+    second = [True] * 20 + [False] * 6 + [True] * 2 + [False] * 22
+    delta, lo, hi = paired_difference_ci(first, second)
+    assert delta == pytest.approx(4 / 50)
+    assert -1 <= lo < delta < hi <= 1

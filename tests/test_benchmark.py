@@ -231,6 +231,7 @@ def _row(i, patient, scp="{'NORM': 100.0}", **flags):
         "patient_id": str(patient),
         "filename_hr": f"records500/{i:05d}_hr",
         "scp_codes": scp,
+        "age": "50",
         **{k: "" for k in ("baseline_drift", "static_noise", "burst_noise", "electrodes_problems")},
         **flags,
     }
@@ -271,3 +272,25 @@ def test_half_record_noise_fades_in_without_a_step(ecg12):
     assert np.all(added[:2500] == 0)
     # The first added sample is a tiny fraction of the burst, not a baseline jump.
     assert abs(added[2500]) < 0.01 * np.max(np.abs(added))
+
+
+def test_source_selection_takes_adults_only():
+    rows = [_row(i, 5000 + i) for i in range(N_CLEAN_PARENTS + 30)]
+    for name, (code, n) in CONFOUNDER_CODES.items():
+        rows += [
+            _row(900 + k + 10 * len(name), 7000 + k + 10 * len(name), scp=f"{{'{code}': 0.0}}")
+            for k in range(n)
+        ]
+    for flag, n in NATURAL_FLAGS.items():
+        rows += [
+            _row(800 + k + 10 * len(flag), 8000 + k + 10 * len(flag), **{flag: "yes"})
+            for k in range(n)
+        ]
+    for row in rows[:30]:
+        row["age"] = "12"
+    clean, confounders, natural = select_bench_sources(rows, excluded_patients=set(), seed=3)
+    chosen = clean + [r for v in confounders.values() for r in v] + natural
+    assert all(float(r["age"]) >= 18 for r in chosen)
+    rows[40]["age"] = ""  # unknown age is not assumed adult
+    with pytest.raises(ValueError, match="eligible"):
+        select_bench_sources(rows, excluded_patients=set(), seed=3)

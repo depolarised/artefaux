@@ -146,7 +146,11 @@ def paired_difference_ci(
     l1, u1 = wilson_ci(a + b, n, z)
     l2, u2 = wilson_ci(a + c, n, z)
     den = (a + b) * (c + d) * (a + c) * (b + d)
-    phi = (a * d - b * c) / sqrt(den) if den else 0.0
+    # Newcombe's method 10 corrects the phi estimate for continuity when ad > bc.
+    cross = a * d - b * c
+    if cross > 0:
+        cross = max(cross - n / 2, 0.0)
+    phi = cross / sqrt(den) if den else 0.0
     delta = p1 - p2
     lo = delta - sqrt(max(0.0, (p1 - l1) ** 2 - 2 * phi * (p1 - l1) * (u2 - p2) + (u2 - p2) ** 2))
     hi = delta + sqrt(max(0.0, (u1 - p1) ** 2 - 2 * phi * (u1 - p1) * (p2 - l2) + (p2 - l2) ** 2))
