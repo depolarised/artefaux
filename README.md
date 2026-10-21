@@ -40,6 +40,19 @@ Each record carries three label layers: **clinical parent** (authored rhythm cla
 (electrodes/leads, SNR, seed, amplitude bookkeeping), and **expected behaviour** (per-lead and record-level,
 mapped to the internal `signalguard`/`noiseguard` vocabularies).
 
+## Local blinded review sets
+
+The additional review cohort contains **85 new ten-second ECGs**: 15 selective
+extreme cases confined to one five-second half and selected leads, followed by
+70 lower-noise examples, including 10 clean controls. It is defined separately
+from the released v2 corpus.
+
+Both review sets use **overflow plots** and **plain XLS** sheets with a heading row
+and data rows. Peter uses `PWM`; Derek uses `DTC`. Handoffs are generated locally
+under `reports/review_packs/`, with private keys and labels kept under `out/`.
+See [the review workflow](docs/REVIEW_SET_2.md) for generation, refresh commands,
+filenames, and verification, and [agent guidance](AGENTS.md) for the project rules.
+
 ## Licensing
 
 - **Code:** GPL-3.0-or-later (see `LICENSE`).

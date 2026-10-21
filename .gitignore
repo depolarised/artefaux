@@ -16,6 +16,10 @@ __pycache__/
 /scripts/reports/render_ecg_review.py
 /reports/*_ecg_review*.pdf
 /reports/*_ecg_review*.index.csv
+# Blinded-pack de-blinding key: the reviewer's answer sheet — never commit it.
+/reports/*_ecg_review*.key.csv
+# Local reviewer handoffs contain derived signals and independent responses.
+/reports/review_packs/
 
 # OS / editor
 .DS_Store
