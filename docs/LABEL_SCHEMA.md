@@ -40,6 +40,20 @@ Each step: `op`, `leads_affected`, `electrodes_affected`, `noise_type`,
 `snr_requested_db`, `snr_measured_db`, `alpha`, `amplitude` (per-lead p2p
 before/after + clip fraction/intervals), and `params`.
 
+Ops used only by the benchmark (`docs/BENCHMARK.md`):
+
+| `op` | What it records |
+|---|---|
+| `electrode_nstdb` | Recorded NSTDB noise on limb electrodes (RA/LA/LL), propagated through the lead algebra and the Wilson central terminal. `snr_*_db` is the power ratio over the I/II leads the electrodes change; `params.snr_measured_db_per_lead` has every changed lead. |
+| `electrode_swap` | Two limb electrodes exchanged (cable reversal), `params.lead_reversal` e.g. `LA/RA`. A non-noise confounder. |
+
+A step with `params.derived_leads_propagated` changed I or II in the acquisition
+channel and carried that change into III/aVR/aVL/aVF, as a cart deriving those leads
+would. `params.taper_s` marks noise faded in/out over edges inside the record.
+
+The `group` vocabulary adds `control` (clean parents and non-noise confounders) for the
+benchmark; the released v2 corpus does not use it.
+
 ## Layer 3 — expected behaviour
 
 How a well-behaved gate should respond, in the internal tools' vocabularies. These

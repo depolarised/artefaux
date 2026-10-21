@@ -1,6 +1,7 @@
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Shared agent instructions and confirmed review preferences are in `AGENTS.md`.
 
 Artefaux is a **deterministic generator and reproducible corpus *definition*** for ECG noise &
 lead-failure stress testing. v2 ships the generation engine plus the corpus metadata (recipes +
@@ -22,7 +23,7 @@ Everything is driven through the `Makefile` (interpreter is `.venv/bin/python`):
 
 ```bash
 make setup       # uv venv .venv + uv pip install -e ".[dev,figures]"
-make test        # .venv/bin/python -m pytest   (74 tests, 16 files; needs no data)
+make test        # .venv/bin/python -m pytest   (needs no source data)
 make lint        # ruff check + black --check   over src tests scripts
 make format      # ruff --fix + black
 make smoke       # synthetic end-to-end build (no download) — the fast sanity check
@@ -45,10 +46,52 @@ Full corpus build (needs the real sources):
 ```bash
 make download    # NSTDB only (the one source not in the local PhysioNet mirror)
 make select      # resolve PTB-XL parent ids from your local copy → recipes/source_ids/*.csv
-make regenerate  # scripts/generate.py → out/artefaux-v1/{records,labels,manifest,provenance}
+make regenerate  # scripts/generate.py → out/artefaux-v2/{records,labels,manifest,provenance}
 ```
 Sources: PTB-XL / PTB-XL+ / MACECGDB are read from a local mirror (`/data/physionet/...`, override
 via the `PTBXL` / `MACECGDB` / `NSTDB` Make vars). Master seed is `20260713` (`SEED` var).
+
+## Blinded review handoffs
+
+The supplementary 85-record set is separate from the released corpus definition.
+Its definition is `src/artefaux/review.py`; local generation and handoff packaging
+are in `scripts/generate_review_set.py`. See `docs/REVIEW_SET_2.md` for composition,
+dependencies, filenames, seeds, verification, and regeneration commands.
+
+Confirmed presentation requirements apply to both review sets:
+
+- Use **overflow** in the full-ten-second `strip8` layout at 25 mm/s and
+  10 mm/mV: `clip_waveform=False`, `show_clipping_banner=False`. The first set
+  retains its diagnostic filtering; the second uses raw signals to preserve its
+  localized five-second noise boundary. Preserve both blinded page/code mappings.
+- Keep **plain XLS** sheets: one column-heading row followed by the data, with
+  default cells and no colours, shading, theme, decorative borders, or title rows.
+  PWM is Peter; DTC is Derek. Preserve existing response cell values and CSV files.
+- Write handoffs to `reports/review_packs/`, with `*_blind_overflow.pdf` files and
+  individual PWM/DTC workbooks and ZIPs. Older `*_blind.pdf` handoff names are
+  refreshed copies of the overflow PDFs. Update ZIPs after changing PDFs or XLSs.
+- Keep labels, source identifiers, clean parents, and de-blinding keys private
+  under `out/artefaux-review-set2/`; do not include them in reviewer handoffs.
+
+To refresh the plots and packages without generating new signals:
+
+```bash
+MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/generate_review_set.py --reuse-corpus
+```
+
+## Blinded noise benchmark (`artefaux-bench` v1, block T1)
+
+Review sets 1 and 2 are **development** data; the benchmark's T1 block (120 records) is the
+held-out **test** set comparing signalguard and Uni-G against an adjudicated expert reference.
+Protocol, composition, input/output schema and versioning: `docs/BENCHMARK.md`; pre-registered
+analysis: `docs/BENCHMARK_SAP.md`. Definition `src/artefaux/benchmark.py`, generator
+`scripts/generate_benchmark.py` (one-shot, secret seeds, refuses to overwrite), scoring
+`src/artefaux/bench_scoring.py`. Review synthesis: `scripts/reports/synthesise_review.py`.
+
+- A tagged block is immutable; fixes are new versions. Never tune a tool on T1.
+- GRIASCII meant for Uni-G must carry `UNIG_HEADER_LINES` (adult positioning, adult age):
+  a blank line 10 makes Uni-G read V1-V3 as paediatric V4R/V1/V2. Older exports are invalid
+  for Uni-G.
 
 ## Architecture
 
