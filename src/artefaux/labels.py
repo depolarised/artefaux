@@ -26,7 +26,8 @@ from typing import Any
 
 QUALITY_LABELS = ("good", "borderline", "bad")
 RECORD_QUALITIES = ("diagnostic", "limited", "rhythm_only", "reject")
-CORPUS_GROUPS = ("naturally_poor", "real_noise", "engineering")
+#: ``control`` (clean parents and non-noise confounders) is used by the benchmark only.
+CORPUS_GROUPS = ("naturally_poor", "real_noise", "engineering", "control")
 
 
 @dataclass(frozen=True)

@@ -44,6 +44,7 @@ from __future__ import annotations
 import argparse
 import csv
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 
 import numpy as np
@@ -101,6 +102,7 @@ def signal_to_griasc_v15(
     record_id: str,
     lead_names: tuple[str, ...] = CANONICAL_LEADS,
     calibration_lsb_per_mv: int = CALIBRATION_LSB_PER_MV,
+    header_lines: Mapping[int, str] | None = None,
 ) -> str:
     """Render a canonical ``(n_leads, T)`` millivolt array as GRIASCII v1.5 text.
 
@@ -117,6 +119,14 @@ def signal_to_griasc_v15(
         Lead names for header line 18; must match ``signal`` row order.
     calibration_lsb_per_mv:
         ADC gain; samples are stored as ``round(mV * calibration)``.
+    header_lines:
+        Extra header values keyed by the **1-based line number** of the Glasgow v1.5
+        specification (e.g. ``{7: "18262", 10: "Adult", 17: "12Lead"}``). The default
+        leaves earlier exports unchanged. Uni-G acts on several lines this module leaves
+        blank: with no electrode positioning (line 10) it reads V1-V3 as paediatric
+        V4R/V1/V2, and age 0 days (line 7) selects paediatric thresholds, so files meant
+        for Uni-G analysis must set them. Lines owned by this module (1, 2, 18-23) cannot
+        be overridden.
 
     Returns
     -------
@@ -146,6 +156,10 @@ def signal_to_griasc_v15(
     for idx, value in _V15_SLOTS.items():
         header[idx] = value
     header[1] = record_id
+    for line, value in (header_lines or {}).items():
+        if line in (1, 2) or line >= 18 or line < 1:
+            raise ConversionError(f"{record_id}: header line {line} is not overridable")
+        header[line - 1] = str(value)
     header[18] = ",".join(lead_names)
     header[20] = str(sr_int)
     header[21] = str(n_samples)
@@ -192,6 +206,7 @@ def convert_record(
     out_dir: Path,
     *,
     calibration_lsb_per_mv: int = CALIBRATION_LSB_PER_MV,
+    header_lines: Mapping[int, str] | None = None,
 ) -> dict[str, object]:
     """Convert one WFDB record to GRIASCII and verify the round-trip.
 
@@ -206,6 +221,7 @@ def convert_record(
         record_id=record_id,
         lead_names=lead_names,
         calibration_lsb_per_mv=calibration_lsb_per_mv,
+        header_lines=header_lines,
     )
     asc_path = out_dir / f"{record_id}.asc"
     asc_path.write_text(text + "\n", encoding="utf-8")
