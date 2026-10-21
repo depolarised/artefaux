@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "bench_id": "artefaux-bench",
+  "bench_version": "1.0.0",
+  "block": "T1",
+  "n_records": 120,
+  "created_utc": "2026-10-21T15:28:14Z",
+  "artefaux_commit": "ae870c5baca2af8307e4afb8e284a1bbaaf51750",
+  "tool_under_test": null,
+  "sha256": {
+    "PRIVATE_seeds.json": "393f7728175a244e5c70ec80e89bd992806304172ad4003e407154b66574f106",
+    "PRIVATE_blind_key.csv": "798e2ef146785c0b7096893e56f7ce768610a755584cc1a64fcb6ef5a055fc90",
+    "inputs.csv": "e46f203dd7ad47ddd5a6a52f9fa833efc4c1974d5605cfd7d7e8f5b4c975ee17",
+    "src/artefaux/benchmark.py": "1ccb9891eab2b2686b440d1eb3fc2e1c65f4f5acf01dc99468482c448956ee08",
+    "src/artefaux/recipes.py": "4cc6480c94f32f047d7391da224d6d760009405da87155fb76d803dddee9ac25",
+    "scripts/generate_benchmark.py": "3cf3e82146bd76fe694edf56a655e59a0425caed69334774eb19da1c2a0dade8"
+  },
+  "note": "Commit-reveal: the private seeds and blind key stay with the coordinator until all reader sheets and program predictions are frozen; they are then published so anyone can verify these hashes and regenerate the block bit-exactly."
+}
