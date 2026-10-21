@@ -793,7 +793,7 @@ wheels = [
 
 [[package]]
 name = "ecg-io"
-version = "0.2.0"
+version = "0.3.0"
 source = { editable = "../../ecg-suite/ecg-io" }
 dependencies = [
     { name = "numpy", version = "2.2.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.11'" },
