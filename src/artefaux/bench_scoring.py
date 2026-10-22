@@ -3,8 +3,8 @@
 """Score program predictions on the blinded benchmark against the expert reference.
 
 Implements the pre-registered analysis in ``docs/BENCHMARK_SAP.md``. Inputs are plain
-CSV rows (no tool imports): each program writes the common prediction schema, the
-readers' coded sheets give the reference, and adjudication rows settle disagreements.
+CSV rows (no tool imports): each program writes the common prediction schema, and the
+reference is built from the two readers' confirmed (agreed or adjudicated) units.
 """
 
 from __future__ import annotations
@@ -130,61 +130,105 @@ def load_predictions(
     return out
 
 
-def consensus_reference(
+@dataclass(frozen=True)
+class Reference:
+    """The expert reference as confirmed units only.
+
+    A unit is confirmed when both readers agree on it, or when a disputed unit has been
+    settled by joint adjudication. Units still in dispute are absent from the scoring maps
+    and listed in ``disputed``, so every metric runs over exactly the confirmed units.
+
+    ``leads[(code, lead)]``: lead unusable (a repeat-ECG makes every displayed lead unusable).
+    ``repeat[code]``: repeat the ECG. ``section[code]``: usable section, only for records
+    neither reader would repeat. ``grade[code]``: overall grade where both grades agree.
+    """
+
+    leads: Mapping[tuple[str, str], bool]
+    repeat: Mapping[str, bool]
+    section: Mapping[str, str]
+    grade: Mapping[str, str]
+    disputed: Mapping[str, tuple[str, ...]]
+
+    @property
+    def codes(self) -> list[str]:
+        return sorted({c for c, _ in self.leads} | set(self.repeat) | set(self.disputed))
+
+    def lead_set(self, code: str) -> tuple[str, ...] | None:
+        """Confirmed unusable-lead set of a kept record, or ``None`` if any part is open."""
+        if self.repeat.get(code) is not False:
+            return None
+        if any((code, ld) not in self.leads for ld in DISPLAYED_LEADS):
+            return None
+        return tuple(ld for ld in DISPLAYED_LEADS if self.leads[(code, ld)])
+
+
+def _adjudicated_value(settled: CodedResponse, item: str):
+    if item == "repeat":
+        return settled.repeat_ecg
+    if item == "section":
+        return settled.usable_section
+    return settled.lead_unusable(item)
+
+
+def _settle(code: str, item: str, va, vb, settled: CodedResponse | None):
+    """Agreed value, adjudicated value for a dispute, or ``None`` while still open."""
+    if va == vb:
+        if settled is not None and _adjudicated_value(settled, item) != va:
+            raise ValueError(
+                f"{code}: readers agree on {item}; an adjudicated row may not override them"
+            )
+        return va
+    if settled is not None:
+        return _adjudicated_value(settled, item)
+    return None
+
+
+def confirmed_reference(
     first: Mapping[str, CodedResponse],
     second: Mapping[str, CodedResponse],
-    adjudicated: Mapping[str, CodedResponse],
-) -> dict[str, CodedResponse]:
-    """Agreement where both readers agree on the primary items, adjudication elsewhere.
+    adjudicated: Mapping[str, CodedResponse] | None = None,
+) -> Reference:
+    """Build the reference from two independent readers and optional adjudication.
 
-    Items that must agree: repeat-ECG and, when neither repeats, the unusable-lead set and
-    the usable section. Every disagreement needs an adjudicated row, which then also
-    supplies the grade. Where only the grade differs, the more severe grade is kept.
-    Adjudication may only settle disagreements: a row for an agreed record is refused, so
-    the reference cannot be changed after the fact.
+    Agreement is decided unit by unit: each displayed lead, the repeat decision, the usable
+    section (when neither reader repeats) and the grade. An adjudicated row settles only the
+    units in dispute for its record; if it contradicts a unit both readers agreed on it is
+    refused, so the reference cannot be changed after the fact.
     """
+    adjudicated = dict(adjudicated or {})
     if set(first) != set(second):
         raise ValueError("the two readers' sheets cover different blind codes")
     unknown = set(adjudicated) - set(first)
     if unknown:
         raise ValueError(f"adjudicated rows for unknown codes: {sorted(unknown)[:5]}")
-    out = {}
-    for code in first:
-        a, b = first[code], second[code]
-        agree = a.repeat_ecg == b.repeat_ecg and (
-            a.repeat_ecg
-            or (
-                set(a.unusable_leads) == set(b.unusable_leads)
-                and a.usable_section == b.usable_section
-            )
-        )
-        if agree and code in adjudicated:
-            raise ValueError(f"{code}: readers agree; an adjudicated row may not override them")
-        if agree:
-            out[code] = a if a.overall == b.overall else _merge_agreed(a, b)
-        elif code in adjudicated:
-            out[code] = adjudicated[code]
-        else:
-            raise ValueError(f"{code}: readers disagree and no adjudicated row exists")
-    return out
-
-
-def _merge_agreed(a: CodedResponse, b: CodedResponse) -> CodedResponse:
-    """Agreed items carry over; keep the more severe of two differing grades."""
-    grade = max(a.overall, b.overall, key=OVERALL.index)
-    return CodedResponse(
-        blind_code=a.blind_code,
-        reader="consensus",
-        unusable_leads=a.unusable_leads,
-        usable_section=a.usable_section,
-        overall=grade,
-        not_noise=tuple(sorted(set(a.not_noise) | set(b.not_noise))),
-        source="agreement",
-    )
-
-
-def _lead_units(codes: Sequence[str], leads: Sequence[str]):
-    return [(c, ld) for c in codes for ld in leads]
+    leads: dict[tuple[str, str], bool] = {}
+    repeat: dict[str, bool] = {}
+    section: dict[str, str] = {}
+    grade: dict[str, str] = {}
+    disputed: dict[str, tuple[str, ...]] = {}
+    for code in sorted(first):
+        a, b, settled = first[code], second[code], adjudicated.get(code)
+        open_items = []
+        items = [
+            (ld, a.lead_unusable(ld), b.lead_unusable(ld), leads, (code, ld))
+            for ld in DISPLAYED_LEADS
+        ]
+        items.append(("repeat", a.repeat_ecg, b.repeat_ecg, repeat, code))
+        if not a.repeat_ecg and not b.repeat_ecg:
+            items.append(("section", a.usable_section, b.usable_section, section, code))
+        for item, va, vb, store, key in items:
+            decided = _settle(code, item, va, vb, settled)
+            if decided is None:
+                open_items.append(item)
+            else:
+                store[key] = decided
+        if a.overall == b.overall:
+            grade[code] = a.overall
+        elif settled is not None:
+            grade[code] = settled.overall
+        if open_items:
+            disputed[code] = tuple(open_items)
+    return Reference(leads=leads, repeat=repeat, section=section, grade=grade, disputed=disputed)
 
 
 def _lead_pred(p: Prediction, lead: str, reference: bool) -> bool:
@@ -194,29 +238,33 @@ def _lead_pred(p: Prediction, lead: str, reference: bool) -> bool:
     return p.repeat_ecg or lead in p.unusable_leads
 
 
-def _scored_codes(pred: Mapping[str, Prediction], codes: Sequence[str], itd: bool) -> list[str]:
-    """All codes under intention-to-diagnose; otherwise failed records are excluded."""
-    return list(codes) if itd else [c for c in codes if not pred[c].failed]
+def _lead_units(
+    pred: Mapping[str, Prediction], ref: Reference, leads: Sequence[str], itd: bool
+) -> list[tuple[str, str]]:
+    """Confirmed lead units; without intention-to-diagnose, failed records are excluded."""
+    return [(c, ld) for (c, ld) in sorted(ref.leads) if ld in leads and (itd or not pred[c].failed)]
 
 
 def lead_level(
     pred: Mapping[str, Prediction],
-    ref: Mapping[str, CodedResponse],
-    codes: Sequence[str],
+    ref: Reference,
     *,
     leads: Sequence[str] = DISPLAYED_LEADS,
     seed: int = SAP_BOOTSTRAP_SEED,
     itd: bool = True,
     n_resamples: int = SAP_N_RESAMPLES,
 ) -> dict:
-    """P1: per-lead unusable detection with record-clustered bootstrap CIs."""
-    codes = _scored_codes(pred, codes, itd)
-    units = _lead_units(codes, leads)
-    r = np.array([ref[c].lead_unusable(ld) for c, ld in units])
-    p = np.array([_lead_pred(pred[c], ld, ref[c].lead_unusable(ld)) for c, ld in units])
+    """P1: per-lead unusable detection over confirmed units, record-clustered bootstrap CIs."""
+    units = _lead_units(pred, ref, leads, itd)
+    r = np.array([ref.leads[u] for u in units], dtype=bool)
+    p = np.array([_lead_pred(pred[c], ld, ref.leads[(c, ld)]) for c, ld in units], dtype=bool)
     clusters = [c for c, _ in units]
     counts = BinaryCounts.from_pairs(p, r)
-    out = {"counts": counts.__dict__, "n_units": len(units), "n_records": len(codes)}
+    out = {
+        "counts": counts.__dict__,
+        "n_units": len(units),
+        "n_records": len(set(clusters)),
+    }
     for name, fn in (
         ("sensitivity", lambda i: p[i][r[i]].mean() if r[i].any() else np.nan),
         ("specificity", lambda i: (~p[i][~r[i]]).mean() if (~r[i]).any() else np.nan),
@@ -228,17 +276,11 @@ def lead_level(
     return out
 
 
-def record_level(
-    pred: Mapping[str, Prediction],
-    ref: Mapping[str, CodedResponse],
-    codes: Sequence[str],
-    *,
-    itd: bool = True,
-) -> dict:
-    """P2: record-level repeat-ECG with Wilson CIs."""
-    codes = _scored_codes(pred, codes, itd)
-    r = [ref[c].repeat_ecg for c in codes]
-    p = [(not ref[c].repeat_ecg) if pred[c].failed else pred[c].repeat_ecg for c in codes]
+def record_level(pred: Mapping[str, Prediction], ref: Reference, *, itd: bool = True) -> dict:
+    """P2: repeat-ECG over confirmed records, with Wilson CIs."""
+    codes = [c for c in sorted(ref.repeat) if itd or not pred[c].failed]
+    r = [ref.repeat[c] for c in codes]
+    p = [(not ref.repeat[c]) if pred[c].failed else pred[c].repeat_ecg for c in codes]
     m = BinaryCounts.from_pairs(p, r).metrics()
     return {k: m[k] for k in ("sensitivity", "specificity", "ppv", "npv", "f1")}
 
@@ -246,8 +288,7 @@ def record_level(
 def paired_comparison(
     first: Mapping[str, Prediction],
     second: Mapping[str, Prediction],
-    ref: Mapping[str, CodedResponse],
-    codes: Sequence[str],
+    ref: Reference,
     *,
     seed: int = SAP_BOOTSTRAP_SEED,
     n_resamples: int = SAP_N_RESAMPLES,
@@ -255,8 +296,8 @@ def paired_comparison(
     """Paired differences (first − second): record-level McNemar/Newcombe, lead-level bootstrap."""
     out = {}
     for name, subset in (
-        ("sensitivity", [c for c in codes if ref[c].repeat_ecg]),
-        ("specificity", [c for c in codes if not ref[c].repeat_ecg]),
+        ("sensitivity", [c for c in sorted(ref.repeat) if ref.repeat[c]]),
+        ("specificity", [c for c in sorted(ref.repeat) if not ref.repeat[c]]),
     ):
         want = name == "sensitivity"
         # Correct means a non-failed prediction matching the reference (a failure is wrong).
@@ -275,11 +316,11 @@ def paired_comparison(
             "mcnemar_p": mcnemar_exact(n_b, n_c),
             "n": len(subset),
         }
-    units = _lead_units(codes, DISPLAYED_LEADS)
-    r = np.array([ref[c].lead_unusable(ld) for c, ld in units])
+    units = sorted(ref.leads)
+    r = np.array([ref.leads[u] for u in units], dtype=bool)
     # Per-unit correctness, so one formula serves sensitivity (r) and specificity (~r).
-    ca = np.array([_lead_pred(first[c], ld, ref[c].lead_unusable(ld)) for c, ld in units]) == r
-    cb = np.array([_lead_pred(second[c], ld, ref[c].lead_unusable(ld)) for c, ld in units]) == r
+    ca = np.array([_lead_pred(first[c], ld, ref.leads[(c, ld)]) for c, ld in units]) == r
+    cb = np.array([_lead_pred(second[c], ld, ref.leads[(c, ld)]) for c, ld in units]) == r
     clusters = [c for c, _ in units]
     for name, mask in (("lead_sensitivity", r), ("lead_specificity", ~r)):
 
@@ -293,25 +334,25 @@ def paired_comparison(
     return out
 
 
-def agreement_with_reference(
-    pred: Mapping[str, Prediction], ref: Mapping[str, CodedResponse], codes: Sequence[str]
-) -> dict:
-    """Secondary: graded agreement (weighted κ) and lead-set agreement where both keep."""
-    graded = [c for c in codes if pred[c].graded_quality in OVERALL]
+def agreement_with_reference(pred: Mapping[str, Prediction], ref: Reference) -> dict:
+    """Secondary: graded agreement (weighted κ) and lead-set agreement on confirmed records."""
+    graded = [c for c in sorted(ref.grade) if pred[c].graded_quality in OVERALL]
     kappa = (
         cohen_kappa(
             [pred[c].graded_quality for c in graded],
-            [ref[c].overall for c in graded],
+            [ref.grade[c] for c in graded],
             OVERALL,
             weights="linear",
         )
         if graded
         else float("nan")
     )
-    keep = [
-        c for c in codes if not ref[c].repeat_ecg and not pred[c].repeat_ecg and not pred[c].failed
-    ]
-    sets = [(set(pred[c].unusable_leads), set(ref[c].unusable_leads)) for c in keep]
+    sets = []
+    for code in ref.codes:
+        confirmed = ref.lead_set(code)
+        p = pred[code]
+        if confirmed is not None and not p.failed and not p.repeat_ecg:
+            sets.append((set(p.unusable_leads), set(confirmed)))
     return {
         "graded_weighted_kappa": kappa,
         "n_graded": len(graded),

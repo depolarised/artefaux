@@ -5,6 +5,13 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
 
 # Statistical analysis plan — `artefaux-bench` v1, block T1
 
+> **Applies to the phased comparison ([`PHASE1.md`](PHASE1.md)).** T1 was withdrawn before
+> handoff. Each phase uses the endpoints below on its **confirmed units**: units on which both
+> readers agree, plus disputed units settled by joint adjudication
+> (`bench_scoring.confirmed_reference`). Disputed units are excluded and their number is
+> reported with every metric. Phase 1 = review set 1 (85 records, 680 lead units);
+> Phase 2 = review set 2.
+
 Pre-registered: this plan is committed and tagged (`bench-v1.0.0`) before any program
 is run on T1 or any reader sheet is returned. Deviations are recorded with a date and
 reason in `CHANGELOG.md`. Implementation: `src/artefaux/bench_scoring.py` and

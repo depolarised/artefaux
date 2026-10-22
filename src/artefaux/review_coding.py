@@ -328,3 +328,66 @@ def read_overrides(path: Path) -> list[dict[str, str]]:
     if rows and tuple(rows[0]) != OVERRIDE_COLUMNS:
         raise ValueError(f"{path}: expected columns {OVERRIDE_COLUMNS}")
     return rows
+
+
+def read_coding(path: Path) -> dict[str, dict[str, CodedResponse]]:
+    """Load a coded table (``coding.csv``) as ``{reader: {blind_code: CodedResponse}}``."""
+    out: dict[str, dict[str, CodedResponse]] = {}
+    with path.open(newline="", encoding="utf-8") as handle:
+        for row in csv.DictReader(handle):
+            response = CodedResponse(
+                blind_code=row["blind_code"],
+                reader=row["reader"],
+                unusable_leads=_ordered(p for p in row["unusable_leads"].split(";") if p),
+                usable_section=row["usable_section"],
+                overall=row["overall"],
+                not_noise=tuple(p for p in row["not_noise"].split(";") if p),
+                source=row["source"],
+            )
+            if response.overall not in OVERALL or response.usable_section not in SECTIONS:
+                raise ValueError(f"{path}: invalid coded row for {row['blind_code']}")
+            out.setdefault(response.reader, {})[response.blind_code] = response
+    return out
+
+
+ADJUDICATION_COLUMNS = (
+    "Blind ECG code",
+    "Disputed",
+    "PWM answer",
+    "DTC answer",
+    "Agreed unusable leads",
+    "Agreed usable section",
+    "Agreed repeat ECG",
+    "Notes",
+)
+
+
+def code_adjudication(row: Mapping[str, str]) -> tuple[CodedResponse | None, list[str]]:
+    """Parse one joint adjudication row; blank rows return ``(None, [])`` (still open).
+
+    The agreed answer is complete for the record (all leads, section, repeat), so it can be
+    checked against every unit the readers had already agreed on.
+    """
+    code = row["Blind ECG code"]
+    cells = [row[c].strip() for c in ADJUDICATION_COLUMNS[4:7]]
+    if not any(cells):
+        return None, []
+    repeat_text = _norm(row["Agreed repeat ECG"])
+    repeat = {"yes": True, "no": False}.get(repeat_text)
+    form = {
+        "Blind ECG code": code,
+        "J Unusable leads": "all" if repeat else row["Agreed unusable leads"],
+        "J Usable section": "neither" if repeat else row["Agreed usable section"],
+        "J Overall": "not analysable" if repeat else "",
+        "J Not noise": "",
+    }
+    problems = [] if repeat is not None else [f"{code}: Agreed repeat ECG must be yes or no"]
+    if repeat is False:
+        leads_text = _norm(row["Agreed unusable leads"])
+        listed = leads_text not in ("none", "")
+        partial = listed or _norm(row["Agreed usable section"]) not in ("full", "")
+        form["J Overall"] = "partially analysable" if partial else "analysable"
+    response, more = code_bench(form, "J") if repeat is not None else (None, [])
+    if response is not None:
+        response = replace(response, reader="joint", source="adjudication")
+    return (None if problems else response), problems + more

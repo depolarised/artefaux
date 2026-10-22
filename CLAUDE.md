@@ -79,19 +79,23 @@ To refresh the plots and packages without generating new signals:
 MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/generate_review_set.py --reuse-corpus
 ```
 
-## Blinded noise benchmark (`artefaux-bench` v1, block T1)
+## Signalguard vs Uni-G comparison (phased, on the reviewed sets)
 
-Review sets 1 and 2 are **development** data; the benchmark's T1 block (120 records) is the
-held-out **test** set comparing signalguard and Uni-G against an adjudicated expert reference.
-Protocol, composition, input/output schema and versioning: `docs/BENCHMARK.md`; pre-registered
-analysis: `docs/BENCHMARK_SAP.md`. Definition `src/artefaux/benchmark.py`, generator
-`scripts/generate_benchmark.py` (one-shot, secret seeds, refuses to overwrite), scoring
-`src/artefaux/bench_scoring.py`. Review synthesis: `scripts/reports/synthesise_review.py`.
+The comparison runs on ECGs Peter and Derek have already reviewed, with their **confirmed**
+answers as reference: **Phase 1 = review set 1** (85 records), **Phase 2 = review set 2** when
+its sheets return. Protocol: `docs/PHASE1.md`; schema, mappings and trust model:
+`docs/BENCHMARK.md`; analysis: `docs/BENCHMARK_SAP.md`. Build Phase 1 inputs, the confirmed
+reference and the joint adjudication sheet with `scripts/build_phase1.py`; score with
+`src/artefaux/bench_scoring.py` (`confirmed_reference`: agreed units plus adjudicated ones;
+disputed units are reported, never scored).
 
-- A tagged block is immutable; fixes are new versions. Never tune a tool on T1.
+- Do not tune signalguard on a phase's ECGs once its version is frozen for that phase.
 - GRIASCII meant for Uni-G must carry `UNIG_HEADER_LINES` (adult positioning, adult age):
   a blank line 10 makes Uni-G read V1-V3 as paediatric V4R/V1/V2. Older exports are invalid
   for Uni-G.
+- The held-out T1 block was withdrawn before handoff (2026-10-22); its definition
+  (`src/artefaux/benchmark.py`) and one-shot generator (`scripts/generate_benchmark.py`) remain
+  for an optional replication on unseen ECGs.
 
 ## Architecture
 

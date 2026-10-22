@@ -7,6 +7,7 @@ from __future__ import annotations
 import pytest
 
 from artefaux.review_coding import (
+    DISPLAYED_LEADS,
     apply_overrides,
     code_dtc,
     code_pwm,
@@ -170,3 +171,46 @@ def test_repeat_grade_with_named_leads_is_not_flagged():
     assert problems == [] and named.usable_section == "none"
     consistent, problems = code_bench(_bench("none", "neither", "rhythm only"), "DTC")
     assert problems == [] and consistent.overall == "rhythm_only"
+
+
+def test_coding_table_round_trips(tmp_path):
+    import csv
+
+    from artefaux.review_coding import read_coding
+
+    rows = [
+        code_dtc(_dtc("take out V2", "analysable", "V2 absent")),
+        code_pwm(_pwm("Reject all leads")),
+    ]
+    path = tmp_path / "coding.csv"
+    with path.open("w", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0].as_row()))
+        writer.writeheader()
+        writer.writerows(r.as_row() for r in rows)
+    loaded = read_coding(path)
+    assert loaded["DTC"]["REV-900"] == rows[0]
+    assert loaded["PWM"]["REV-900"].repeat_ecg
+
+
+def _adj(leads, section, repeat):
+    return {
+        "Blind ECG code": "REV-010",
+        "Agreed unusable leads": leads,
+        "Agreed usable section": section,
+        "Agreed repeat ECG": repeat,
+    }
+
+
+def test_adjudication_rows_are_parsed_completely_or_left_open():
+    from artefaux.review_coding import code_adjudication
+
+    assert code_adjudication(_adj("", "", "")) == (None, [])
+    kept, problems = code_adjudication(_adj("V2, V3", "full", "no"))
+    assert problems == [] and kept.unusable_leads == ("V2", "V3") and not kept.repeat_ecg
+    assert kept.reader == "joint"
+    clean, _ = code_adjudication(_adj("none", "full", "No"))
+    assert clean.overall == "analysable"
+    repeat, problems = code_adjudication(_adj("", "", "yes"))
+    assert problems == [] and repeat.repeat_ecg and repeat.unusable_leads == DISPLAYED_LEADS
+    bad, problems = code_adjudication(_adj("V9", "full", "maybe"))
+    assert bad is None and problems
