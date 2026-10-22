@@ -46,12 +46,13 @@ Read `CLAUDE.md` for the generator architecture and regeneration rules. Read
   distinguish them. Source IDs, labels, clean parents, and keys stay outside reviewer
   PDFs, spreadsheets, signal headers, and ZIPs.
 
-## Benchmark (T1)
+## Signalguard vs Uni-G comparison
 
-- Read `docs/BENCHMARK.md` and `docs/BENCHMARK_SAP.md` before touching the benchmark.
-  Review sets 1 and 2 are development data; T1 is held out and never used for tuning.
-- T1 reader sheets use the coded seven-column form (`bench_review_columns`), still plain
-  XLS with one heading row. Tool inputs go in a separate ZIP; reader ZIPs carry no signals.
+- Read `docs/PHASE1.md` first. Phase 1 = review set 1 with the readers' confirmed answers;
+  Phase 2 = review set 2. Disputed units go to the joint adjudication sheet
+  (`reports/review_packs/phase1/`) and are never scored until settled.
+- The withdrawn T1 block's coded seven-column reader form (`bench_review_columns`) and
+  generator remain for a possible replication; they are not in use.
 
 ## Handoff locations and checks
 

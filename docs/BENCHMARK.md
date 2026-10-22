@@ -5,6 +5,12 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
 
 # Artefaux noise benchmark (`artefaux-bench` v1, block T1)
 
+> **Status (2026-10-22): block T1 withdrawn before handoff.** No reader or program saw it.
+> The comparison now runs in phases on the already-reviewed sets with the readers' confirmed
+> answers as reference — see [`PHASE1.md`](PHASE1.md). The schema, mappings, trust model and
+> analysis below apply to those phases; the T1 definition and generator are kept for an
+> optional later replication on unseen ECGs.
+
 A blinded, held-out test set for comparing ECG quality gates — **signalguard** and the
 **Glasgow program's (Uni-G) noise handling** — against an adjudicated expert reference.
 The analysis is pre-registered in [`BENCHMARK_SAP.md`](BENCHMARK_SAP.md).
