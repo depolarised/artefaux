@@ -130,7 +130,7 @@ the SHA-256 of `inputs.csv`. Validation: `artefaux.bench_scoring.load_prediction
 | Item | signalguard (`GateMode.FULL_12_LEAD`) | Uni-G (`GriAnlys -noisecheck`) |
 |---|---|---|
 | Lead unusable | label `bad` or in `rejected_leads` (`borderline` = usable; sensitivity analysis treats it as unusable) | `0` in the `-rhythm` availability line (input mask all `1`) |
-| `repeat_ecg` | `record_quality == reject` | all eight leads unavailable, or statement 2/68 "Technically unsatisfactory tracing" |
+| `repeat_ecg` | `record_quality == reject` | all eight leads unavailable, or statement 2/68 "Technically unsatisfactory tracing", or 13/3 "Recording unsuitable for analysis" (written with exit 100–104 when GriAnlys finds no analysable beats or leads; that is a decision, not a failure) |
 | `graded_quality` | diagnostic→`analysable`, limited→`partial`, rhythm_only→`rhythm_only`, reject→`not_analysable` | `not_emitted` |
 | `usable_section` | half chosen when every `bad_segment_intervals_s` interval lies in one half; else `full` | `not_emitted` (half flags are not written to any output) |
 

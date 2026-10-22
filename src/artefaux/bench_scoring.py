@@ -9,8 +9,10 @@ reference is built from the two readers' confirmed (agreed or adjudicated) units
 
 from __future__ import annotations
 
+import csv
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 
@@ -130,6 +132,42 @@ def load_predictions(
     return out
 
 
+def read_prediction_dir(
+    directory: Path,
+    codes: Sequence[str],
+    *,
+    bench_version: str = BENCH_VERSION,
+    unusable_labels: Iterable[str] = (),
+) -> dict[str, Prediction]:
+    """Load ``predictions_records.csv`` and ``predictions_leads.csv`` from one program's run.
+
+    ``unusable_labels``: native lead labels also counted as unusable (the pre-specified
+    sensitivity analysis counts signalguard ``borderline`` this way).
+    """
+    extra = set(unusable_labels)
+    with (directory / "predictions_records.csv").open(newline="", encoding="utf-8") as fh:
+        records = list(csv.DictReader(fh))
+    with (directory / "predictions_leads.csv").open(newline="", encoding="utf-8") as fh:
+        leads = [
+            {**row, "unusable": "true"} if row["native_label"] in extra else row
+            for row in csv.DictReader(fh)
+        ]
+    return load_predictions(records, leads, codes, bench_version=bench_version)
+
+
+def prediction_from_coded(response: CodedResponse, source: str) -> Prediction:
+    """A reader's coded answer as a prediction, to score one reader against the other."""
+    return Prediction(
+        blind_code=response.blind_code,
+        source=source,
+        repeat_ecg=response.repeat_ecg,
+        graded_quality=response.overall,
+        usable_section=response.usable_section,
+        unusable_leads=response.unusable_leads,
+        failed=False,
+    )
+
+
 @dataclass(frozen=True)
 class Reference:
     """The expert reference as confirmed units only.
@@ -160,6 +198,17 @@ class Reference:
         if any((code, ld) not in self.leads for ld in DISPLAYED_LEADS):
             return None
         return tuple(ld for ld in DISPLAYED_LEADS if self.leads[(code, ld)])
+
+    def restrict(self, codes: Iterable[str]) -> Reference:
+        """The same reference over a subset of records (for stratified tables)."""
+        keep = set(codes)
+        return Reference(
+            leads={u: v for u, v in self.leads.items() if u[0] in keep},
+            repeat={c: v for c, v in self.repeat.items() if c in keep},
+            section={c: v for c, v in self.section.items() if c in keep},
+            grade={c: v for c, v in self.grade.items() if c in keep},
+            disputed={c: v for c, v in self.disputed.items() if c in keep},
+        )
 
 
 def _adjudicated_value(settled: CodedResponse, item: str):

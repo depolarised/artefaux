@@ -87,7 +87,9 @@ its sheets return. Protocol: `docs/PHASE1.md`; schema, mappings and trust model:
 `docs/BENCHMARK.md`; analysis: `docs/BENCHMARK_SAP.md`. Build Phase 1 inputs, the confirmed
 reference and the joint adjudication sheet with `scripts/build_phase1.py`; score with
 `src/artefaux/bench_scoring.py` (`confirmed_reference`: agreed units plus adjudicated ones;
-disputed units are reported, never scored).
+disputed units are reported, never scored) and report with `scripts/reports/phase_report.py`.
+Phase 1 has no adjudication round. The programs run from their own repos
+(`run_artefaux_phase.py` in signalguard `scripts/` and unigue `tools/scripts/`).
 
 - Do not tune signalguard on a phase's ECGs once its version is frozen for that phase.
 - GRIASCII meant for Uni-G must carry `UNIG_HEADER_LINES` (adult positioning, adult age):
