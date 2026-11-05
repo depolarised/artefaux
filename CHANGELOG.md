@@ -18,6 +18,8 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
 - Phase 1 has no adjudication round (2026-10-22): its reference is the agreed units only.
 - Uni-G repeat mapping names statement 13/3 ("Recording unsuitable for analysis", written
   with GriAnlys exit 100–104) alongside 2/68; recorded before the Phase 1 run.
+- `docs/PHASE1.md` records the one design-informed signalguard v0.3.0 run on set 1 (2026-11-05,
+  ADR 0018 amendments 2 to 4) and the pending Glasgow-side Uni-G run.
 
 ### Added
 - `calib-v1`, a private calibration corpus on patients disjoint from review sets 1 and 2

@@ -79,3 +79,13 @@ Both programs ran by script on the 85 records with versions frozen beforehand in
 Five records Uni-G judged unanalysable (exit 100/103 with statement 13/3) are repeat-ECG
 decisions under the mapping in `BENCHMARK.md`. The scored tables are private
 (`out/phase1/report/results.md`); every row reports its denominator.
+
+signalguard v0.3.0 then ran once on the same 85 records with the unchanged runner and scorer
+(ADR 0018 amendments 2 to 4): commit `d8f3739`, package tree `5c62d2c7`, which equals tag v0.3.0.
+Its manifest reads `v0.2.0-10-gd8f3739` because the run predates the tag. Set 1 informed the choice of
+metrics, so this result is design-informed, not held-out, and a miss triggers no re-tuning. Tables are
+private (`out/phase1/report_v030/results.md`). Only Phase 2 tests v0.3.0 on unseen ECGs; it freezes
+both v0.2.0 and v0.3.0.
+
+The Glasgow-side Uni-G run on the Set 1 pack is pending. No script yet converts its results sheet
+to the prediction schema.
