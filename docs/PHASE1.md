@@ -10,7 +10,7 @@ Derek (DTC) have **already reviewed**, with their **confirmed** answers as the r
 
 | Phase | ECGs | Reference | Status |
 |---|---|---|---|
-| 1 | Review set 1: the 85 v2 records, `REV-001`…`REV-085` (set-1 codes) | Set-1 answers, confirmed unit by unit | Reference ready once the coding is verified; disputed units go to joint adjudication |
+| 1 | Review set 1: the 85 v2 records, `REV-001`…`REV-085` (set-1 codes) | Set-1 answers, agreed units only (no adjudication round) | Both programs run and scored (draft until the coding is verified) |
 | 2 | Review set 2: 85 records (set-2 codes) | Set-2 answers, same rules | Waiting for the returned sheets |
 
 The input files, output schema, native-to-common mappings and trust model are those of
@@ -26,8 +26,10 @@ The reference is built **unit by unit** (`artefaux.bench_scoring.confirmed_refer
 
 - a lead judgement, a repeat decision or a usable section is **confirmed** when both readers
   give the same answer (a repeat makes every displayed lead unusable);
-- a unit they disagree on is **disputed**: it is left out of scoring until Peter and Derek
-  settle it jointly on the adjudication sheet, which may not change an agreed unit;
+- a unit they disagree on is **disputed** and is left out of scoring. A joint adjudication
+  sheet could settle disputed units (never agreed ones), but Phase 1 has **no adjudication
+  round** (owner decision, 2026-10-22, ADR 0018 amendment 1): its reference is the agreed
+  units only;
 - every metric reports how many units it used and how many remained disputed.
 
 Set 1, before adjudication (coding not yet verified):
@@ -63,6 +65,17 @@ the same dead channel. Programs return the common prediction schema with
 ```sh
 MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/reports/synthesise_review.py --set 1
 MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/build_phase1.py [--coding-verified]
-# after the joint adjudication sheet returns (CSV export of the XLS):
-.venv/bin/python scripts/build_phase1.py --coding-verified --adjudication <returned.csv>
+# run both programs on tool_inputs/inputs.csv (each refuses uncommitted package changes):
+#   signalguard repo:  scripts/run_artefaux_phase.py --inputs <inputs.csv> --out out/phase1/predictions/signalguard
+#   unigue repo:       tools/scripts/run_artefaux_phase.py --inputs <inputs.csv> --out out/phase1/predictions/unig
+.venv/bin/python scripts/reports/phase_report.py [--coding-verified]   # -> out/phase1/report/
 ```
+
+## Runs
+
+Both programs ran by script on the 85 records with versions frozen beforehand in dev-log
+(ADR 0018 amendment 1): signalguard v0.2.0 (package tree identical to the tag),
+`GateMode.FULL_12_LEAD`; Uni-G 30.4.3-wizofe, `-noisecheck`. Neither failed on any record.
+Five records Uni-G judged unanalysable (exit 100/103 with statement 13/3) are repeat-ECG
+decisions under the mapping in `BENCHMARK.md`. The scored tables are private
+(`out/phase1/report/results.md`); every row reports its denominator.

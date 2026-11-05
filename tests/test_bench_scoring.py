@@ -19,6 +19,8 @@ from artefaux.bench_scoring import (
     lead_level,
     load_predictions,
     paired_comparison,
+    prediction_from_coded,
+    read_prediction_dir,
     record_level,
 )
 from artefaux.review_coding import DISPLAYED_LEADS, CodedResponse
@@ -210,3 +212,65 @@ def test_bootstrap_defaults_are_the_preregistered_ones():
         params = inspect.signature(fn).parameters
         assert params["seed"].default == SAP_BOOTSTRAP_SEED
         assert params["n_resamples"].default == SAP_N_RESAMPLES
+
+
+def _write_run(directory, decisions, labels=None):
+    import csv
+
+    rec, lead = rows("toolA", decisions)
+    for row in lead:
+        row["native_label"] = (labels or {}).get((row["blind_code"], row["lead"]), "good")
+    for name, cols, data in (
+        ("predictions_records.csv", RECORD_COLUMNS, rec),
+        ("predictions_leads.csv", LEAD_COLUMNS, lead),
+    ):
+        with (directory / name).open("w", newline="") as fh:
+            writer = csv.DictWriter(fh, fieldnames=cols)
+            writer.writeheader()
+            writer.writerows(data)
+
+
+def test_read_prediction_dir_counts_extra_native_labels_as_unusable(tmp_path):
+    _write_run(tmp_path, PERFECT, labels={("T1-001", "V3"): "borderline"})
+    plain = read_prediction_dir(tmp_path, CODES, bench_version="1.0.0")
+    assert plain["T1-001"].unusable_leads == ()
+    strict = read_prediction_dir(
+        tmp_path, CODES, bench_version="1.0.0", unusable_labels=("borderline",)
+    )
+    assert strict["T1-001"].unusable_leads == ("V3",)
+    assert strict["T1-002"].unusable_leads == ("V1", "V2")
+
+
+def test_prediction_from_coded_scores_a_reader_like_a_program():
+    pred = {c: prediction_from_coded(r, "PWM") for c, r in READER.items()}
+    assert pred["T1-003"].repeat_ecg and not pred["T1-003"].failed
+    lead = lead_level(pred, REFERENCE, seed=1, n_resamples=50)
+    assert lead["counts"]["fp"] == lead["counts"]["fn"] == 0
+
+
+def test_restrict_keeps_only_the_named_records():
+    other = dict(READER)
+    other["T1-002"] = coded("T1-002", ["V1"])
+    sub = confirmed_reference(READER, other).restrict(["T1-002", "T1-003"])
+    assert sub.codes == ["T1-002", "T1-003"]
+    assert set(sub.repeat) == {"T1-002", "T1-003"} and set(sub.disputed) == {"T1-002"}
+    pred = load_predictions(*rows("toolA", PERFECT), CODES)
+    assert lead_level(pred, sub, seed=1, n_resamples=50)["n_records"] == 2
+
+
+def test_lead_level_without_reject_propagation_uses_the_lead_rows_only():
+    """Sensitivity row: a rejected record keeps only the leads its own rows mark unusable."""
+    decisions = {
+        "T1-001": (True, []),  # tool repeats a record the readers keep: 8 false positives
+        "T1-002": (False, ["V1", "V2"]),
+        "T1-003": (True, ["I"]),  # tool repeats a repeated record: only I counts directly
+        "T1-004": (False, ["I"]),
+    }
+    pred = load_predictions(*rows("tool", decisions), CODES)
+
+    propagated = lead_level(pred, REFERENCE, n_resamples=20)["counts"]
+    assert (propagated["tp"], propagated["fp"], propagated["fn"]) == (11, 8, 0)
+
+    direct = lead_level(pred, REFERENCE, n_resamples=20, reject_propagates=False)["counts"]
+    # The reference is unchanged: a reader's repeat still makes all 8 of T1-003 unusable.
+    assert (direct["tp"], direct["fp"], direct["fn"]) == (4, 0, 7)

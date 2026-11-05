@@ -9,8 +9,10 @@ reference is built from the two readers' confirmed (agreed or adjudicated) units
 
 from __future__ import annotations
 
+import csv
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
+from pathlib import Path
 
 import numpy as np
 
@@ -130,6 +132,42 @@ def load_predictions(
     return out
 
 
+def read_prediction_dir(
+    directory: Path,
+    codes: Sequence[str],
+    *,
+    bench_version: str = BENCH_VERSION,
+    unusable_labels: Iterable[str] = (),
+) -> dict[str, Prediction]:
+    """Load ``predictions_records.csv`` and ``predictions_leads.csv`` from one program's run.
+
+    ``unusable_labels``: native lead labels also counted as unusable (the pre-specified
+    sensitivity analysis counts signalguard ``borderline`` this way).
+    """
+    extra = set(unusable_labels)
+    with (directory / "predictions_records.csv").open(newline="", encoding="utf-8") as fh:
+        records = list(csv.DictReader(fh))
+    with (directory / "predictions_leads.csv").open(newline="", encoding="utf-8") as fh:
+        leads = [
+            {**row, "unusable": "true"} if row["native_label"] in extra else row
+            for row in csv.DictReader(fh)
+        ]
+    return load_predictions(records, leads, codes, bench_version=bench_version)
+
+
+def prediction_from_coded(response: CodedResponse, source: str) -> Prediction:
+    """A reader's coded answer as a prediction, to score one reader against the other."""
+    return Prediction(
+        blind_code=response.blind_code,
+        source=source,
+        repeat_ecg=response.repeat_ecg,
+        graded_quality=response.overall,
+        usable_section=response.usable_section,
+        unusable_leads=response.unusable_leads,
+        failed=False,
+    )
+
+
 @dataclass(frozen=True)
 class Reference:
     """The expert reference as confirmed units only.
@@ -160,6 +198,17 @@ class Reference:
         if any((code, ld) not in self.leads for ld in DISPLAYED_LEADS):
             return None
         return tuple(ld for ld in DISPLAYED_LEADS if self.leads[(code, ld)])
+
+    def restrict(self, codes: Iterable[str]) -> Reference:
+        """The same reference over a subset of records (for stratified tables)."""
+        keep = set(codes)
+        return Reference(
+            leads={u: v for u, v in self.leads.items() if u[0] in keep},
+            repeat={c: v for c, v in self.repeat.items() if c in keep},
+            section={c: v for c, v in self.section.items() if c in keep},
+            grade={c: v for c, v in self.grade.items() if c in keep},
+            disputed={c: v for c, v in self.disputed.items() if c in keep},
+        )
 
 
 def _adjudicated_value(settled: CodedResponse, item: str):
@@ -231,11 +280,17 @@ def confirmed_reference(
     return Reference(leads=leads, repeat=repeat, section=section, grade=grade, disputed=disputed)
 
 
-def _lead_pred(p: Prediction, lead: str, reference: bool) -> bool:
-    """Intention-to-diagnose: a failed record is discordant with the reference."""
+def _lead_pred(
+    p: Prediction, lead: str, reference: bool, *, reject_propagates: bool = True
+) -> bool:
+    """Intention-to-diagnose: a failed record is discordant with the reference.
+
+    The pre-registered P1 counts every displayed lead of a rejected record as unusable.
+    ``reject_propagates=False`` is the sensitivity analysis that scores the lead rows alone.
+    """
     if p.failed:
         return not reference
-    return p.repeat_ecg or lead in p.unusable_leads
+    return (reject_propagates and p.repeat_ecg) or lead in p.unusable_leads
 
 
 def _lead_units(
@@ -253,11 +308,22 @@ def lead_level(
     seed: int = SAP_BOOTSTRAP_SEED,
     itd: bool = True,
     n_resamples: int = SAP_N_RESAMPLES,
+    reject_propagates: bool = True,
 ) -> dict:
-    """P1: per-lead unusable detection over confirmed units, record-clustered bootstrap CIs."""
+    """P1: per-lead unusable detection over confirmed units, record-clustered bootstrap CIs.
+
+    ``reject_propagates`` applies to the program side only; a reader's repeat always makes
+    every displayed lead unusable in the reference (see :class:`Reference`).
+    """
     units = _lead_units(pred, ref, leads, itd)
     r = np.array([ref.leads[u] for u in units], dtype=bool)
-    p = np.array([_lead_pred(pred[c], ld, ref.leads[(c, ld)]) for c, ld in units], dtype=bool)
+    p = np.array(
+        [
+            _lead_pred(pred[c], ld, ref.leads[(c, ld)], reject_propagates=reject_propagates)
+            for c, ld in units
+        ],
+        dtype=bool,
+    )
     clusters = [c for c, _ in units]
     counts = BinaryCounts.from_pairs(p, r)
     out = {

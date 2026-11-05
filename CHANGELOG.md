@@ -15,7 +15,25 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
 - Scoring uses a unit-level confirmed reference (`confirmed_reference`, `Reference`):
   agreed units plus jointly adjudicated ones; disputed units are reported, not scored.
 
+- Phase 1 has no adjudication round (2026-10-22): its reference is the agreed units only.
+- Uni-G repeat mapping names statement 13/3 ("Recording unsuitable for analysis", written
+  with GriAnlys exit 100–104) alongside 2/68; recorded before the Phase 1 run.
+
 ### Added
+- `calib-v1`, a private calibration corpus on patients disjoint from review sets 1 and 2
+  (`artefaux.calib`, `scripts/generate_calib_corpus.py`, `docs/CALIB_V1.md`): noise type crossed
+  with lead scope, independent NSTDB segments per lead, labels from ADR-0018 amendment 2 and a
+  mined repeat rule, hash-frozen before any tool runs on it. `--verify` checks the exact file
+  list and a pinned manifest digest. Existing corpora are unchanged.
+- `artefaux.ptbxl_curator`, `scripts/build_curator_table.py`: per-lead table of the PTB-XL
+  curators' quality strings. Strings that cannot be read are unknown, never clean; an absent
+  column or cell raises. The table leaves out the calibration corpus's patients as well as those
+  of review sets 1 and 2.
+- Sensitivity row "reject not propagated" in `phase_report.py`
+  (`lead_level(reject_propagates=False)`); P1 is unchanged and the rule is now stated next to it.
+- `scripts/reports/phase_report.py`: Phase 1 scoring (P1, P2, paired differences,
+  pre-specified sensitivity analyses, reader-vs-reader benchmark, by corpus group).
+  `bench_scoring.read_prediction_dir`, `prediction_from_coded` and `Reference.restrict`.
 - `scripts/build_phase1.py`: Phase 1 tool inputs (WFDB + adult-header GRIASCII), confirmed
   reference units and the joint adjudication sheet. `review_coding.read_coding` and
   `code_adjudication`.
