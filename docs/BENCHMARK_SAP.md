@@ -82,6 +82,9 @@ All tables are stratified by stratum, noise type, scope, SNR and lead.
   interest; Peter alone addresses the coordinator's signalguard conflict).
 - P1 restricted to V1–V6 (Uni-G's I/II noise decisions are only partly in its output).
 - signalguard `borderline` counted as unusable.
+- A program's reject not propagated to its lead rows (`reject_propagates=False`): P1 from the
+  lead rows alone, reference unchanged. Added 2026-11-04, before any Phase 2 run; exploratory
+  on Phase 1, already scored (`BENCHMARK.md`, "Reject counts all leads").
 - Failures excluded instead of counted as discordant (`itd=False`). A record on which
   the program failed is removed from that program's lead-level and record-level
   denominators, so it is neither a positive nor a negative prediction. The record stays

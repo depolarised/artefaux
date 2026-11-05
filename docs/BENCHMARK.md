@@ -137,6 +137,17 @@ the SHA-256 of `inputs.csv`. Validation: `artefaux.bench_scoring.load_prediction
 Uni-G limitation, to be reported: noise in I or II sets internal flags rather than
 dropping the lead, so Uni-G's I/II decisions are only partly observable in its output.
 
+**Reject counts all leads (P1, frozen with the SAP).** A record a program rejects counts all
+eight displayed leads as unusable for that program, whatever its lead rows say
+(`bench_scoring._lead_pred`), and a reader's repeat does the same for the reference. One false
+reject is therefore eight lead false positives. Two sensitivity rows in `phase_report.py` show
+how much of P1 this rule and the label mapping carry (the primary endpoint is unchanged):
+`signalguard, borderline = unusable` counts that label as unusable, and `<program>, reject not
+propagated` scores the program's lead rows alone. The second changes the program side only,
+because a reader who repeats an ECG does not grade its leads one by one. Both rows are
+pre-registered for Phase 2 (recorded 2026-11-04, before any Phase 2 run). On Phase 1, which was
+already scored, the second is exploratory.
+
 ## Reader protocol
 
 - Readers: Peter (PWM) and Derek (DTC), independently, blinded to recipe truth, program

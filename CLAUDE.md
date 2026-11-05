@@ -99,6 +99,14 @@ Phase 1 has no adjudication round. The programs run from their own repos
   (`src/artefaux/benchmark.py`) and one-shot generator (`scripts/generate_benchmark.py`) remain
   for an optional replication on unseen ECGs.
 
+## Calibration corpus (`calib-v1`)
+
+Gate thresholds are fitted on a separate private corpus, never on the reviewed ECGs. Definition:
+`src/artefaux/calib.py`; generator and integrity check: `scripts/generate_calib_corpus.py`
+(`--verify`); design, labels and hash freeze: `docs/CALIB_V1.md`. The label file is computed from
+the definition alone, and `tests/test_calib.py` checks its hash against the doc, so changing a
+label or a cell fails the suite. PTB-XL curator strings per lead: `artefaux.ptbxl_curator`.
+
 ## Architecture
 
 Full detail lives in `docs/ARCHITECTURE.md`, `docs/GENERATION.md`, `docs/LABEL_SCHEMA.md`, and

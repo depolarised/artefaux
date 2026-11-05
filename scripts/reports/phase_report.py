@@ -6,8 +6,9 @@
 Implements ``docs/BENCHMARK_SAP.md`` on the confirmed units of one phase
 (``docs/PHASE1.md``): P1 (lead unusable), P2 (repeat ECG), the paired differences
 signalguard - Uni-G, the pre-specified sensitivity analyses (each reader alone, V1-V6
-only, signalguard ``borderline`` as unusable, failures excluded), each reader scored
-against the other as the human benchmark, and the primary endpoints by corpus group.
+only, signalguard ``borderline`` as unusable, failures excluded, a program's reject not
+propagated to its lead rows), each reader scored against the other as the human benchmark,
+and the primary endpoints by corpus group.
 
 Inputs: the coded reader answers (``coding.csv``), the private blind key (for the corpus
 group) and each program's run directory (``predictions_{records,leads}.csv`` plus
@@ -52,11 +53,12 @@ def _clean(value):
     return value
 
 
-def endpoints(pred, ref, *, itd=True) -> dict:
+def endpoints(pred, ref, *, itd=True, reject_propagates=True) -> dict:
+    p1 = {"itd": itd, "reject_propagates": reject_propagates}
     return {
-        "P1_all": lead_level(pred, ref, itd=itd),
-        "P1_V1_V6": lead_level(pred, ref, leads=CHEST, itd=itd),
-        "P1_I_II": lead_level(pred, ref, leads=LIMB, itd=itd),
+        "P1_all": lead_level(pred, ref, **p1),
+        "P1_V1_V6": lead_level(pred, ref, leads=CHEST, **p1),
+        "P1_I_II": lead_level(pred, ref, leads=LIMB, **p1),
         "P2": record_level(pred, ref, itd=itd),
     }
 
@@ -119,6 +121,9 @@ def build(args) -> dict:
             "reference_DTC_alone": {src: endpoints(p, ref_dtc) for src, p in preds.items()},
             "signalguard_borderline_unusable": endpoints(sg_borderline, ref),
             "failures_excluded": {src: endpoints(p, ref, itd=False) for src, p in preds.items()},
+            "reject_not_propagated": {
+                src: endpoints(p, ref, reject_propagates=False) for src, p in preds.items()
+            },
         },
         "readers": {
             "PWM_vs_DTC": endpoints(
@@ -244,6 +249,8 @@ def markdown(r: dict) -> str:
     )
     for src, e in s["failures_excluded"].items():
         lines += _endpoint_rows(f"{LABELS.get(src, src)}, failures excluded", e)
+    for src, e in s["reject_not_propagated"].items():
+        lines += _endpoint_rows(f"{LABELS.get(src, src)}, reject not propagated", e)
     lines += ["", "## By corpus group", "", HEAD]
     for group, block in r["by_group"].items():
         for src in r["primary"]:

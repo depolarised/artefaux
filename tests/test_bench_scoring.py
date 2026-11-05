@@ -256,3 +256,21 @@ def test_restrict_keeps_only_the_named_records():
     assert set(sub.repeat) == {"T1-002", "T1-003"} and set(sub.disputed) == {"T1-002"}
     pred = load_predictions(*rows("toolA", PERFECT), CODES)
     assert lead_level(pred, sub, seed=1, n_resamples=50)["n_records"] == 2
+
+
+def test_lead_level_without_reject_propagation_uses_the_lead_rows_only():
+    """Sensitivity row: a rejected record keeps only the leads its own rows mark unusable."""
+    decisions = {
+        "T1-001": (True, []),  # tool repeats a record the readers keep: 8 false positives
+        "T1-002": (False, ["V1", "V2"]),
+        "T1-003": (True, ["I"]),  # tool repeats a repeated record: only I counts directly
+        "T1-004": (False, ["I"]),
+    }
+    pred = load_predictions(*rows("tool", decisions), CODES)
+
+    propagated = lead_level(pred, REFERENCE, n_resamples=20)["counts"]
+    assert (propagated["tp"], propagated["fp"], propagated["fn"]) == (11, 8, 0)
+
+    direct = lead_level(pred, REFERENCE, n_resamples=20, reject_propagates=False)["counts"]
+    # The reference is unchanged: a reader's repeat still makes all 8 of T1-003 unusable.
+    assert (direct["tp"], direct["fp"], direct["fn"]) == (4, 0, 7)
