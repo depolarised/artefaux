@@ -82,8 +82,11 @@ MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/generate_review_s
 ## Signalguard vs Uni-G comparison (phased, on the reviewed sets)
 
 The comparison runs on ECGs Peter and Derek have already reviewed, with their **confirmed**
-answers as reference: **Phase 1 = review set 1** (85 records), **Phase 2 = review set 2** when
-its sheets return. Protocol: `docs/PHASE1.md`; schema, mappings and trust model:
+answers as reference: **Phase 1 = review set 1** (85 records), **Phase 2 = the short set 2** (30 of
+the 85 set-2 records, drawn from the recipes by `review.select_short_set`, packaged by
+`scripts/generate_review_set_short.py`) when its sheets return. **Set 1 is out with Brian (Glasgow)
+for an independent Uni-G run, pending his response**; keep Phase 1 scores unpublished until then.
+Never choose Phase 2 records by a program's output. Protocol: `docs/PHASE1.md`; schema, mappings and trust model:
 `docs/BENCHMARK.md`; analysis: `docs/BENCHMARK_SAP.md`. Build Phase 1 inputs, the confirmed
 reference and the joint adjudication sheet with `scripts/build_phase1.py`; score with
 `src/artefaux/bench_scoring.py` (`confirmed_reference`: agreed units plus adjudicated ones;

@@ -280,3 +280,68 @@ def write_bench_review_files(
         sheet_name=f"{block} {reviewer}",
         widths=BENCH_WIDTHS,
     )
+
+
+# --- Short set 2: a pre-set, recipe-only subset for the readers -----------------------
+
+SHORT_SEED = 20261111
+#: Records drawn per stratum (30 of 85). Fixed from the recipe alone, before either
+#: program runs on set 2. Enriched for partial-lead NSTDB noise at low SNR, the condition
+#: where Uni-G's lead sensitivity was lowest on set 1; clean, near-clean and all-lead
+#: reject anchors keep specificity and the repeat decision estimable.
+SHORT_QUOTAS = {
+    "extreme": 10,
+    "low_partial": 10,
+    "boundary": 4,
+    "reject_all": 2,
+    "high_snr": 2,
+    "control": 2,
+}
+
+
+def review_stratum(steps: Sequence[dict]) -> str:
+    """Selection stratum of a set-2 record, from its recipe steps only."""
+    if not steps:
+        return "control"
+    if len(steps) != 1 or steps[0].get("op") != "nstdb_mix":
+        raise ValueError("set-2 records carry at most one nstdb_mix step")
+    step = steps[0]
+    snr = step["snr_db"]
+    if snr in EXTREME_SNR_DB:
+        return "extreme"
+    if snr not in LOWER_NOISE_SNR_DB:
+        raise ValueError(f"unexpected set-2 SNR: {snr}")
+    if snr <= 0:
+        whole = len(step["leads"]) == 12 and list(step["interval_s"]) == [0, 10]
+        return "reject_all" if whole else "low_partial"
+    return "boundary" if snr < 12 else "high_snr"
+
+
+def select_short_set(
+    steps_by_record: dict[str, Sequence[dict]],
+    *,
+    quotas: dict[str, int] = SHORT_QUOTAS,
+    seed: int = SHORT_SEED,
+) -> list[tuple[str, str, float]]:
+    """Stratified random subset: ``(record_id, stratum, inclusion probability)``.
+
+    Deterministic for a seed and independent of input order; the inclusion
+    probability lets an analysis reweight the subset back to the full set.
+    """
+    import numpy as np
+
+    strata: dict[str, list[str]] = {name: [] for name in quotas}
+    for record_id, steps in steps_by_record.items():
+        name = review_stratum(steps)
+        if name not in strata:
+            raise ValueError(f"no quota for stratum {name!r}")
+        strata[name].append(record_id)
+    rng = np.random.default_rng(seed)
+    chosen = []
+    for name, quota in quotas.items():
+        pool = sorted(strata[name])
+        if quota > len(pool):
+            raise ValueError(f"stratum {name!r} has {len(pool)} records, quota {quota}")
+        picks = rng.choice(len(pool), size=quota, replace=False)
+        chosen += [(pool[i], name, quota / len(pool)) for i in sorted(picks)]
+    return chosen

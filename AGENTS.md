@@ -49,7 +49,8 @@ Read `CLAUDE.md` for the generator architecture and regeneration rules. Read
 ## Signalguard vs Uni-G comparison
 
 - Read `docs/PHASE1.md` first. Phase 1 = review set 1 with the readers' confirmed answers;
-  Phase 2 = review set 2. Disputed units go to the joint adjudication sheet
+  Phase 2 = the short set 2 (30 recipe-drawn set-2 records). Set 1 is out with Brian for an
+  independent Uni-G run, pending his response. Disputed units go to the joint adjudication sheet
   (`reports/review_packs/phase1/`) and are never scored until settled.
 - The withdrawn T1 block's coded seven-column reader form (`bench_review_columns`) and
   generator remain for a possible replication; they are not in use.

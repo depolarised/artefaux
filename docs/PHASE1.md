@@ -11,7 +11,8 @@ Derek (DTC) have **already reviewed**, with their **confirmed** answers as the r
 | Phase | ECGs | Reference | Status |
 |---|---|---|---|
 | 1 | Review set 1: the 85 v2 records, `REV-001`…`REV-085` (set-1 codes) | Set-1 answers, agreed units only (no adjudication round) | Both programs run and scored (draft until the coding is verified) |
-| 2 | Review set 2: 85 records (set-2 codes) | Set-2 answers, same rules | Waiting for the returned sheets |
+| 1, Uni-G by Glasgow | The set-1 GRIASCII pack, run by Brian with Uni-G | Same as Phase 1 | Out with Brian; pending his response |
+| 2 | Short set 2: 30 of the 85 set-2 records (set-2 codes kept) | Set-2 answers, same rules | Short pack ready for Peter and Derek; replaces the full 85 |
 
 The input files, output schema, native-to-common mappings and trust model are those of
 [`BENCHMARK.md`](BENCHMARK.md); the endpoints and statistics are those of
@@ -87,5 +88,44 @@ metrics, so this result is design-informed, not held-out, and a miss triggers no
 private (`out/phase1/report_v030/results.md`). Only Phase 2 tests v0.3.0 on unseen ECGs; it freezes
 both v0.2.0 and v0.3.0.
 
-The Glasgow-side Uni-G run on the Set 1 pack is pending. No script yet converts its results sheet
-to the prediction schema.
+**Set 1 is out with Brian (Glasgow) for an independent Uni-G run, pending his response.** He has
+the set-1 GRIASCII pack only (`reports/review_packs/brian_unig_set1/`, private) and runs Uni-G his own
+way; he sees no reader answers or scores until the owner hands over the dataset and report. Do not
+publish the Phase 1 tables until his results are back. No script yet converts his results sheet to
+the prediction schema.
+
+## Phase 2: short set 2
+
+Peter and Derek review **30 of the 85 set-2 ECGs** instead of all 85 (owner decision, 2026-11-11,
+ADR 0018 amendment 5). The subset is `artefaux.review.select_short_set`: a stratified random draw
+(seed `SHORT_SEED = 20261111`) from the **recipes alone**, fixed before either program runs on set 2.
+It never depends on a program's output, so Phase 2 remains a held-out test.
+
+| Stratum (from the recipe) | In set 2 | Drawn |
+|---|---:|---:|
+| Selective extreme: −18/−14/−10 dB, some leads, one 5 s half | 15 | 10 |
+| Low SNR, partial: −2/0 dB, one lead, a lead subset or one half | 20 | 10 |
+| Boundary: +6 dB, any scope | 12 | 4 |
+| All-lead reject: −2/0 dB, all 12 leads, 10 s | 4 | 2 |
+| Near-clean: +12/+18 dB | 24 | 2 |
+| Clean controls | 10 | 2 |
+
+The quotas enrich for partial-lead NSTDB noise at low SNR, where Uni-G's lead sensitivity was lowest
+on set 1, and keep clean and reject anchors so specificity and the repeat decision stay estimable.
+Caveats, declared in the report:
+
+- The subset is **enriched**, so prevalence-dependent results (and any comparison with Phase 1) are
+  not representative. Each record's inclusion probability is stored with the selection; a
+  pre-specified sensitivity analysis reweights by its inverse to the full 85.
+- The enrichment was chosen knowing Phase 1, where Uni-G did worse on this kind of noise. It
+  favours conditions that are hard for Uni-G, which is stated alongside every Phase 2 result.
+- To draw the subset the coordinator read the set-2 recipe steps and the page/code key (no
+  expected-behaviour labels, no program output). signalguard v0.2.0 and v0.3.0 were already tagged.
+- Pages are copied unchanged from the set-2 PDF already handed out and keep their set-2 codes.
+
+```sh
+.venv/bin/python scripts/generate_review_set_short.py   # -> reports/review_packs/artefaux30{PWM,DTC}_set2_review.zip
+```
+
+The private selection (codes, strata, inclusion probabilities, hashes) is
+`out/artefaux-review-set2/short/selection.{csv,json}`.

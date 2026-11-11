@@ -114,6 +114,17 @@ and a verified round trip. Blinded signal headers contain only neutral codes and
 technical acquisition metadata. Both sets start at `REV-001`, so their set numbers
 must accompany shared files.
 
+## Short version (30 records)
+
+To save the readers' time, Peter and Derek review 30 of these 85 ECGs instead of all of them
+(`scripts/generate_review_set_short.py`; selection rule and caveats in `PHASE1.md`, "Phase 2:
+short set 2"). It copies the 30 pages from `artefaux85_set2_blind_overflow.pdf` unchanged, keeps
+their set-2 `REV` codes (so codes are not consecutive), and writes plain XLS/CSV sheets with only
+those rows, carrying over any answers already entered. Reviewer ZIPs
+`reports/review_packs/artefaux30{PWM,DTC}_set2_review.zip` hold the PDF, README and that reviewer's
+sheets; they carry no signal files, so the old set-2 GRIASCII (invalid for Uni-G) is not resent.
+The script refuses to overwrite existing sheets and checks that the full set-2 handoff is unchanged.
+
 ## Known issue: not valid Uni-G input
 
 The set-2 (and v2) GRIASCII exports leave header line 10, electrode positioning, blank
