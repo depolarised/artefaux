@@ -22,6 +22,11 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
   ADR 0018 amendments 2 to 4) and the pending Glasgow-side Uni-G run.
 
 ### Added
+- **Short set 2 (2026-11-11).** Peter and Derek review 30 of the 85 set-2 ECGs:
+  `review.select_short_set` (recipe-only stratified draw, seed 20261111) and
+  `scripts/generate_review_set_short.py` (pages copied from the set-2 PDF, set-2 codes kept).
+  Phase 2 is scored on these 30, with an inverse-probability-weighted row to the full 85
+  (ADR 0018 amendment 5). Set 1 is out with Brian for an independent Uni-G run, pending his response.
 - `calib-v1`, a private calibration corpus on patients disjoint from review sets 1 and 2
   (`artefaux.calib`, `scripts/generate_calib_corpus.py`, `docs/CALIB_V1.md`): noise type crossed
   with lead scope, independent NSTDB segments per lead, labels from ADR-0018 amendment 2 and a

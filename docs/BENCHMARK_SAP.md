@@ -10,7 +10,9 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
 > readers agree, plus disputed units settled by joint adjudication
 > (`bench_scoring.confirmed_reference`). Disputed units are excluded and their number is
 > reported with every metric. Phase 1 = review set 1 (85 records, 680 lead units);
-> Phase 2 = review set 2.
+> Phase 2 = the short set 2: 30 of the 85 set-2 records, a recipe-stratified draw enriched for
+> low-SNR partial-lead noise (`PHASE1.md`). Phase 2 tables also report each endpoint reweighted
+> by inverse inclusion probability to the full 85 (added 2026-11-11, before any Phase 2 run).
 
 Pre-registered: this plan is committed and tagged (`bench-v1.0.0`) before any program
 is run on T1 or any reader sheet is returned. Deviations are recorded with a date and

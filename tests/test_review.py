@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 import csv
+from collections import Counter
 
 import numpy as np
 import pytest
@@ -15,7 +16,11 @@ from artefaux.recipes import SourceSpec, build_record
 from artefaux.review import (
     LOWER_NOISE_SNR_DB,
     MASTER_SEED,
+    SHORT_QUOTAS,
+    SHORT_SEED,
     build_review_specs,
+    review_stratum,
+    select_short_set,
     write_review_files,
 )
 
@@ -128,3 +133,43 @@ def test_bench_form_has_coded_columns_and_stays_plain(tmp_path):
         assert sheet.row_values(0) == columns
         # One default cell format for every cell: no fills, borders or bold headings.
         assert len({sheet.cell_xf_index(r, c) for r in range(3) for c in range(7)}) == 1
+
+
+def _steps_by_record():
+    return {s.record_id: s.steps for s in review_specs()}
+
+
+def test_every_set2_record_has_a_stratum_and_quotas_fit():
+    counts = Counter(review_stratum(steps) for steps in _steps_by_record().values())
+    assert counts == {
+        "extreme": 15,
+        "low_partial": 20,
+        "boundary": 12,
+        "reject_all": 4,
+        "high_snr": 24,
+        "control": 10,
+    }
+    assert sum(SHORT_QUOTAS.values()) == 30
+    assert all(SHORT_QUOTAS[name] <= n for name, n in counts.items())
+
+
+def test_short_set_is_deterministic_stratified_and_order_free():
+    steps = _steps_by_record()
+    chosen = select_short_set(steps)
+    assert len(chosen) == 30 and len({rid for rid, _, _ in chosen}) == 30
+    assert Counter(name for _, name, _ in chosen) == SHORT_QUOTAS
+    assert all(review_stratum(steps[rid]) == name for rid, name, _ in chosen)
+    assert select_short_set(dict(reversed(list(steps.items())))) == chosen
+    assert select_short_set(steps, seed=SHORT_SEED + 1) != chosen
+    probs = {name: p for _, name, p in chosen}
+    assert probs["extreme"] == pytest.approx(10 / 15)
+    assert probs["control"] == pytest.approx(2 / 10)
+
+
+def test_short_set_refuses_unknown_shapes():
+    with pytest.raises(ValueError, match="SNR"):
+        review_stratum([{"op": "nstdb_mix", "snr_db": 3, "leads": ["V1"], "interval_s": [0, 10]}])
+    with pytest.raises(ValueError, match="at most one"):
+        review_stratum([{"op": "flatline"}])
+    with pytest.raises(ValueError, match="quota"):
+        select_short_set(_steps_by_record(), quotas={**SHORT_QUOTAS, "control": 11})
