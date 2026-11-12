@@ -22,6 +22,11 @@ Copyright (C) 2026 Ioannis Valasakis <tungolcild@gmail.com>
   ADR 0018 amendments 2 to 4) and the pending Glasgow-side Uni-G run.
 
 ### Added
+- **Phase 2 run (2026-11-12).** Short-set-2 sheets coded before any program ran (`--set 2s`,
+  `fill_blank_codes`, `unspecified` section, never confirmed); `build_phase1.py` takes
+  `--selection`/`--phase-version`; signalguard v0.2.0 and v0.3.0 scored; `weighted_endpoints`
+  (inverse-probability rows in `phase_report.py --selection`); `scripts/package_glasgow_pack.py`
+  builds Brian's Uni-G pack (ADR 0018 amendment 6).
 - **Short set 2 (2026-11-11).** Peter and Derek review 30 of the 85 set-2 ECGs:
   `review.select_short_set` (recipe-only stratified draw, seed 20261111) and
   `scripts/generate_review_set_short.py` (pages copied from the set-2 PDF, set-2 codes kept).

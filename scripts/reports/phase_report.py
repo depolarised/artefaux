@@ -34,12 +34,17 @@ from artefaux.bench_scoring import (
     prediction_from_coded,
     read_prediction_dir,
     record_level,
+    weighted_endpoints,
 )
 from artefaux.review_coding import read_coding
 
 REPO = Path(__file__).resolve().parents[2]
 LIMB, CHEST = ("I", "II"), ("V1", "V2", "V3", "V4", "V5", "V6")
-LABELS = {"signalguard": "signalguard", "unig": "Uni-G"}
+LABELS = {
+    "signalguard": "signalguard",
+    "signalguard_v030": "signalguard v0.3.0",
+    "unig": "Uni-G",
+}
 
 
 def _clean(value):
@@ -79,8 +84,16 @@ def run_info(directory: Path) -> dict:
 
 
 def build(args) -> dict:
-    with args.key.open(newline="") as fh:
-        key = list(csv.DictReader(fh))
+    weights: dict[str, float] = {}
+    if getattr(args, "selection", None):  # short set 2: strata and inclusion probabilities
+        with args.selection.open(newline="") as fh:
+            key = list(csv.DictReader(fh))
+        for row in key:
+            row["group"] = row["stratum"]
+            weights[row["blind_code"]] = 1 / float(row["inclusion_probability"])
+    else:
+        with args.key.open(newline="") as fh:
+            key = list(csv.DictReader(fh))
     codes = [r["blind_code"] for r in key]
     groups: dict[str, list[str]] = {}
     for row in key:
@@ -125,6 +138,12 @@ def build(args) -> dict:
                 src: endpoints(p, ref, reject_propagates=False) for src, p in preds.items()
             },
         },
+        "weighted": (
+            {src: weighted_endpoints(p, ref, weights) for src, p in preds.items()}
+            if weights
+            else {}
+        ),
+        "short_set": bool(weights),
         "readers": {
             "PWM_vs_DTC": endpoints(
                 {c: prediction_from_coded(r, "PWM") for c, r in pwm.items()}, ref_dtc
@@ -173,6 +192,24 @@ HEAD = (
     "| | Lead sensitivity | Lead specificity | TP/FP/FN/TN | Repeat sensitivity "
     "| Repeat specificity |\n|---|---|---|---|---|---|"
 )
+
+
+SET1_CAVEATS = [
+    "- Set 1 informed the design and its key is known to the coordinator, who develops",
+    "  signalguard and ran both programs (by script, versions frozen in dev-log ADR 0018).",
+    "- Readers saw filtered set-1 PDFs; the programs received the raw signals.",
+    "- Uni-G's I/II noise decisions are only partly visible in its output (internal flags).",
+    "- Peter co-developed Uni-G: see the Derek-alone analysis.",
+]
+SHORT_SET_CAVEATS = [
+    "- 30 of the 85 set-2 records, a recipe-stratified draw enriched for low-SNR partial-lead",
+    "  noise, chosen knowing Phase 1 (where Uni-G did worse on such noise). Unweighted rows",
+    "  describe the enriched subset; the reweighted rows refer to the full 85.",
+    "- To draw the subset the coordinator read the set-2 recipe steps and page/code key",
+    "  (ADR 0018 amendment 5). Readers' answers were coded before any program ran (amendment 6).",
+    "- Readers saw raw-signal PDFs, as the programs received.",
+    "- Peter co-developed Uni-G: see the Derek-alone analysis.",
+]
 
 
 def markdown(r: dict) -> str:
@@ -251,7 +288,27 @@ def markdown(r: dict) -> str:
         lines += _endpoint_rows(f"{LABELS.get(src, src)}, failures excluded", e)
     for src, e in s["reject_not_propagated"].items():
         lines += _endpoint_rows(f"{LABELS.get(src, src)}, reject not propagated", e)
-    lines += ["", "## By corpus group", "", HEAD]
+    if r.get("weighted"):
+        lines += [
+            "",
+            "## Reweighted to the full set 2 (inverse inclusion probability, point estimates)",
+            "",
+            "| | Lead sens | Lead spec | Repeat sens | Repeat spec |",
+            "|---|---|---|---|---|",
+        ]
+        for src, w in r["weighted"].items():
+            cells = [
+                "–" if w[k] is None else f"{w[k]:.2f}"
+                for k in (
+                    "lead_sensitivity",
+                    "lead_specificity",
+                    "repeat_sensitivity",
+                    "repeat_specificity",
+                )
+            ]
+            lines.append(f"| {LABELS.get(src, src)} | " + " | ".join(cells) + " |")
+    group_title = "By selection stratum" if r.get("short_set") else "By corpus group"
+    lines += ["", f"## {group_title}", "", HEAD]
     for group, block in r["by_group"].items():
         for src in r["primary"]:
             lines += _endpoint_rows(
@@ -261,11 +318,7 @@ def markdown(r: dict) -> str:
         "",
         "## Caveats",
         "",
-        "- Set 1 informed the design and its key is known to the coordinator, who develops",
-        "  signalguard and ran both programs (by script, versions frozen in dev-log ADR 0018).",
-        "- Readers saw filtered set-1 PDFs; the programs received the raw signals.",
-        "- Uni-G's I/II noise decisions are only partly visible in its output (internal flags).",
-        "- Peter co-developed Uni-G: see the Derek-alone analysis.",
+        *(SHORT_SET_CAVEATS if r.get("short_set") else SET1_CAVEATS),
         "",
     ]
     return "\n".join(lines)
@@ -283,6 +336,9 @@ def main() -> None:
     parser.add_argument("--predictions", type=Path, default=REPO / "out/phase1/predictions")
     parser.add_argument("--sources", nargs=2, default=["signalguard", "unig"])
     parser.add_argument("--out", type=Path, default=REPO / "out/phase1/report")
+    parser.add_argument(
+        "--selection", type=Path, help="short set 2 selection.csv: strata and IPW weights"
+    )
     parser.add_argument("--coding-verified", action="store_true")
     args = parser.parse_args()
     results = build(args)

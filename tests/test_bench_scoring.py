@@ -22,6 +22,7 @@ from artefaux.bench_scoring import (
     prediction_from_coded,
     read_prediction_dir,
     record_level,
+    weighted_endpoints,
 )
 from artefaux.review_coding import DISPLAYED_LEADS, CodedResponse
 
@@ -274,3 +275,35 @@ def test_lead_level_without_reject_propagation_uses_the_lead_rows_only():
     direct = lead_level(pred, REFERENCE, n_resamples=20, reject_propagates=False)["counts"]
     # The reference is unchanged: a reader's repeat still makes all 8 of T1-003 unusable.
     assert (direct["tp"], direct["fp"], direct["fn"]) == (4, 0, 7)
+
+
+def test_unspecified_section_is_never_confirmed():
+    a = {"T1-001": coded("T1-001", section="unspecified", reader="PWM")}
+    ref = confirmed_reference(a, {"T1-001": coded("T1-001", section="unspecified")})
+    assert ref.disputed["T1-001"] == ("section",) and "T1-001" not in ref.section
+    settled = {"T1-001": coded("T1-001", section="first_half", reader="joint")}
+    assert confirmed_reference(a, a, settled).section["T1-001"] == "first_half"
+
+
+def test_weighted_endpoints_reweight_records_hand_computed():
+    pred = load_predictions(
+        *rows(
+            "toolA",
+            {
+                "T1-001": (False, ["V6"]),  # 1 FP of 8 negatives
+                "T1-002": (False, ["V1"]),  # 1 TP, 1 FN; 6 TN
+                "T1-003": (True, []),  # 8 TP; repeat caught
+                "T1-004": (False, []),  # 1 FN; 7 TN
+            },
+        ),
+        CODES,
+    )
+    flat = weighted_endpoints(pred, REFERENCE, dict.fromkeys(CODES, 1.0))
+    assert flat["lead_sensitivity"] == pytest.approx(9 / 11)
+    assert flat["lead_specificity"] == pytest.approx(20 / 21)
+    heavy = weighted_endpoints(pred, REFERENCE, {**dict.fromkeys(CODES, 1.0), "T1-001": 3.0})
+    assert heavy["lead_specificity"] == pytest.approx((21 + 13) / (24 + 13))
+    assert heavy["repeat_sensitivity"] == 1.0 and heavy["repeat_specificity"] == 1.0
+    none_repeat = confirmed_reference({"T1-001": READER["T1-001"]}, {"T1-001": READER["T1-001"]})
+    only = {"T1-001": pred["T1-001"]}
+    assert weighted_endpoints(only, none_repeat, {"T1-001": 1.0})["repeat_sensitivity"] is None

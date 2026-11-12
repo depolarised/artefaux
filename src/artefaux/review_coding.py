@@ -27,6 +27,10 @@ DISPLAYED_LEADS: tuple[str, ...] = ("I", "II", "V1", "V2", "V3", "V4", "V5", "V6
 CHEST = DISPLAYED_LEADS[2:]
 OVERALL = ("analysable", "partial", "rhythm_only", "not_analysable")
 SECTIONS = ("full", "first_half", "second_half", "none")
+#: A reader chose to use one half but did not say which. Coded by override only; it is never
+#: confirmed, so the section unit stays disputed (``bench_scoring.confirmed_reference``).
+UNSPECIFIED_SECTION = "unspecified"
+READER_SECTIONS = (*SECTIONS, UNSPECIFIED_SECTION)
 NOT_NOISE = ("lead_reversal", "missing_or_flat", "amplitude_limit", "other")
 
 
@@ -192,6 +196,29 @@ def code_pwm(row: Mapping[str, str]) -> CodedResponse:
 
 
 CODERS = {"DTC": code_dtc, "PWM": code_pwm}
+
+
+def fill_blank_codes(
+    rows: list[dict[str, str]], issued: list[str]
+) -> tuple[list[dict[str, str]], list[str]]:
+    """Restore blind codes a reader deleted, by row position in the sheet as issued.
+
+    Rows must be in the issued order: a non-blank code that differs from the issued code at
+    the same position raises, so a re-sorted sheet is never mapped by position.
+    """
+    if len(rows) != len(issued):
+        raise ValueError(f"sheet has {len(rows)} rows; {len(issued)} were issued")
+    out, filled = [], []
+    for row, code in zip(rows, issued, strict=True):
+        given = row.get("Blind ECG code", "").strip()
+        if given and given != code:
+            raise ValueError(f"row order changed: {given!r} where {code!r} was issued")
+        if not given:
+            filled.append(code)
+        out.append({**row, "Blind ECG code": code})
+    return out, filled
+
+
 OVERRIDE_COLUMNS = ("reader", "blind_code", "field", "value", "note")
 
 
@@ -212,7 +239,7 @@ def apply_overrides(
                 raise ValueError(f"{key}: invalid {field} {value!r}")
             parsed = _ordered(parts) if field == "unusable_leads" else parts
         elif field == "usable_section":
-            if value not in SECTIONS:
+            if value not in READER_SECTIONS:
                 raise ValueError(f"{key}: invalid usable_section {value!r}")
             parsed = value
         elif field == "overall":
@@ -344,7 +371,7 @@ def read_coding(path: Path) -> dict[str, dict[str, CodedResponse]]:
                 not_noise=tuple(p for p in row["not_noise"].split(";") if p),
                 source=row["source"],
             )
-            if response.overall not in OVERALL or response.usable_section not in SECTIONS:
+            if response.overall not in OVERALL or response.usable_section not in READER_SECTIONS:
                 raise ValueError(f"{path}: invalid coded row for {row['blind_code']}")
             out.setdefault(response.reader, {})[response.blind_code] = response
     return out
