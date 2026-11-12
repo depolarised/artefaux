@@ -17,7 +17,13 @@ from pathlib import Path
 import numpy as np
 
 from .benchmark import BENCH_VERSION
-from .review_coding import DISPLAYED_LEADS, OVERALL, SECTIONS, CodedResponse
+from .review_coding import (
+    DISPLAYED_LEADS,
+    OVERALL,
+    SECTIONS,
+    UNSPECIFIED_SECTION,
+    CodedResponse,
+)
 from .scoring import (
     BinaryCounts,
     cluster_bootstrap_ci,
@@ -221,7 +227,7 @@ def _adjudicated_value(settled: CodedResponse, item: str):
 
 def _settle(code: str, item: str, va, vb, settled: CodedResponse | None):
     """Agreed value, adjudicated value for a dispute, or ``None`` while still open."""
-    if va == vb:
+    if va == vb and va != UNSPECIFIED_SECTION:
         if settled is not None and _adjudicated_value(settled, item) != va:
             raise ValueError(
                 f"{code}: readers agree on {item}; an adjudicated row may not override them"
@@ -349,6 +355,48 @@ def record_level(pred: Mapping[str, Prediction], ref: Reference, *, itd: bool = 
     p = [(not ref.repeat[c]) if pred[c].failed else pred[c].repeat_ecg for c in codes]
     m = BinaryCounts.from_pairs(p, r).metrics()
     return {k: m[k] for k in ("sensitivity", "specificity", "ppv", "npv", "f1")}
+
+
+def weighted_endpoints(
+    pred: Mapping[str, Prediction],
+    ref: Reference,
+    weights: Mapping[str, float],
+    *,
+    leads: Sequence[str] = DISPLAYED_LEADS,
+) -> dict:
+    """Inverse-probability-weighted point estimates for an enriched subset.
+
+    Each record counts with ``weights[code]`` (1 / inclusion probability), so the estimate
+    refers to the full set the subset was drawn from. Intention-to-diagnose, reject
+    propagates. Point estimates only: no CI, and ``None`` where a class has no weight.
+    """
+
+    def ratio(hits: float, total: float) -> float | None:
+        return hits / total if total > 0 else None
+
+    tp = fn = tn = fp = 0.0
+    for c, ld in _lead_units(pred, ref, leads, itd=True):
+        truth = ref.leads[(c, ld)]
+        called = _lead_pred(pred[c], ld, truth)
+        w = weights[c]
+        if truth:
+            tp, fn = tp + w * called, fn + w * (not called)
+        else:
+            tn, fp = tn + w * (not called), fp + w * called
+    rp = rn = sp = sn = 0.0
+    for c, truth in ref.repeat.items():
+        called = (not truth) if pred[c].failed else pred[c].repeat_ecg
+        w = weights[c]
+        if truth:
+            rp, rn = rp + w * called, rn + w * (not called)
+        else:
+            sn, sp = sn + w * (not called), sp + w * called
+    return {
+        "lead_sensitivity": ratio(tp, tp + fn),
+        "lead_specificity": ratio(tn, tn + fp),
+        "repeat_sensitivity": ratio(rp, rp + rn),
+        "repeat_specificity": ratio(sn, sn + sp),
+    }
 
 
 def paired_comparison(

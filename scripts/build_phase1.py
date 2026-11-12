@@ -94,7 +94,7 @@ def build_tool_inputs(args, key: list[dict]) -> None:
         inputs.append(
             {
                 "schema_version": SCHEMA_VERSION,
-                "bench_version": PHASE_VERSION,
+                "bench_version": args.phase_version,
                 "blind_code": code,
                 "wfdb_hea": f"wfdb/{hea.name}",
                 "wfdb_dat": f"wfdb/{dat.name}",
@@ -114,7 +114,7 @@ def build_tool_inputs(args, key: list[dict]) -> None:
     write_csv(tool_dir / "inputs.csv", inputs)
     args.public_dir.mkdir(parents=True, exist_ok=True)
     (args.public_dir / "inputs.csv").write_bytes((tool_dir / "inputs.csv").read_bytes())
-    target = args.share_dir / "phase1_set1_tool_inputs.zip"
+    target = args.share_dir / args.zip_name
     files = [tool_dir / "inputs.csv", *sorted((tool_dir / "wfdb").glob("*"))]
     files += sorted((tool_dir / "griasc").glob("*.asc"))
     with ZipFile(target, "w", compression=ZIP_DEFLATED) as archive:
@@ -165,7 +165,7 @@ def build_reference(args, readers, codes) -> dict:
     write_csv(args.private_dir / "reference_units.csv", units)
     lead_units = [u for u in units if u["item"] in DISPLAYED_LEADS]
     summary = {
-        "phase": PHASE_VERSION,
+        "phase": args.phase_version,
         "n_records": len(codes),
         "coding_verified": args.coding_verified,
         "lead_units_confirmed": sum(u["value"] != "" for u in lead_units),
@@ -259,6 +259,12 @@ def main() -> None:
     parser.add_argument("--share-dir", type=Path, default=REPO / "reports/review_packs/phase1")
     parser.add_argument("--private-dir", type=Path, default=REPO / "out/phase1")
     parser.add_argument("--public-dir", type=Path, default=REPO / "bench/phase1")
+    parser.add_argument("--phase-version", default=PHASE_VERSION)
+    parser.add_argument("--zip-name", default="phase1_set1_tool_inputs.zip")
+    parser.add_argument(
+        "--selection", type=Path, help="restrict to the blind codes of this CSV (short set 2)"
+    )
+    parser.add_argument("--no-adjudication", action="store_true")
     parser.add_argument(
         "--coding-verified",
         action="store_true",
@@ -266,16 +272,22 @@ def main() -> None:
     )
     args = parser.parse_args()
     key = read_csv(args.key)
+    expected = 85
+    if args.selection:
+        chosen = [r["blind_code"] for r in read_csv(args.selection)]
+        expected = len(chosen)
+        key = [r for r in key if r["blind_code"] in set(chosen)]
     codes = [r["blind_code"] for r in key]
-    if len(codes) != 85 or len(set(codes)) != 85:
-        raise ValueError("expected the 85 set-1 blind codes")
+    if len(codes) != expected or len(set(codes)) != expected:
+        raise ValueError(f"expected {expected} distinct blind codes, got {len(set(codes))}")
     readers = read_coding(args.coding)
     for reader in ("PWM", "DTC"):
         if set(readers.get(reader, {})) != set(codes):
-            raise ValueError(f"{args.coding}: {reader} coding does not cover the 85 codes")
+            raise ValueError(f"{args.coding}: {reader} coding does not cover the {expected} codes")
     args.share_dir.mkdir(parents=True, exist_ok=True)
     built = build_reference(args, readers, codes)
-    build_adjudication_sheet(args, readers, built["ref"], reader_words(args, key))
+    if not args.no_adjudication:
+        build_adjudication_sheet(args, readers, built["ref"], reader_words(args, key))
     build_tool_inputs(args, key)
     print(json.dumps(built["summary"], indent=2), flush=True)
     if not args.coding_verified:

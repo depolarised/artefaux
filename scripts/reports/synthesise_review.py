@@ -34,6 +34,7 @@ from artefaux.review_coding import (
     DISPLAYED_LEADS,
     CodedResponse,
     apply_overrides,
+    fill_blank_codes,
     read_overrides,
 )
 from artefaux.scoring import (
@@ -57,6 +58,18 @@ SETS = {
         "dtc": None,
         "key": REPO / "out/artefaux-review-set2/PRIVATE_blind_key.csv",
         "corpus": REPO / "out/artefaux-review-set2",
+    },
+    # Short set 2: the 30 records of out/artefaux-review-set2/short/selection.csv.
+    "2s": {
+        "pwm": REPO / "reports/review_packs/set2_short/artefaux30PWM_set2_reviewed.xls",
+        "dtc": REPO / "reports/review_packs/set2_short/artefaux30DTC_set2_reviewed.xls",
+        "key": REPO / "out/artefaux-review-set2/PRIVATE_blind_key.csv",
+        "corpus": REPO / "out/artefaux-review-set2",
+        "selection": REPO / "out/artefaux-review-set2/short/selection.csv",
+        "issued": {
+            "PWM": REPO / "reports/review_packs/set2_short/artefaux30PWM_set2.csv",
+            "DTC": REPO / "reports/review_packs/set2_short/artefaux30DTC_set2.csv",
+        },
     },
 }
 DECISION3 = ("analysable", "partial", "repeat")
@@ -225,9 +238,17 @@ def main() -> None:
 
     hashes = {r: sha256_file(p) for r, p in paths.items()}
     key = {r["blind_code"]: r for r in csv.DictReader(cfg["key"].open(encoding="utf-8"))}
-    coded = []
+    if "selection" in cfg:
+        chosen = {r["blind_code"] for r in csv.DictReader(cfg["selection"].open(encoding="utf-8"))}
+        key = {code: row for code, row in key.items() if code in chosen}
+    coded, restored = [], {}
     for reader, path in paths.items():
-        for row in read_sheet(path):
+        rows = read_sheet(path)
+        if "issued" in cfg:
+            with cfg["issued"][reader].open(encoding="utf-8") as fh:
+                issued = [r["Blind ECG code"] for r in csv.DictReader(fh)]
+            rows, restored[reader] = fill_blank_codes(rows, issued)
+        for row in rows:
             if row.get("Blind ECG code") in key:
                 coded.append(CODERS[reader](row))
     overrides = read_overrides(out / "overrides.csv")
@@ -282,6 +303,12 @@ def main() -> None:
         f"- Coding: automatic draft from `artefaux.review_coding`, {len(overrides)} explicit "
         "override rows (`overrides.csv`). **Verify `coding.csv` before citing any number.**",
         "- Per-lead convention: a repeat-ECG decision makes every displayed lead unusable.",
+        *(
+            f"- {r}: blind code left blank in the returned sheet, restored by row position "
+            f"from the issued sheet: {', '.join(c)}."
+            for r, c in restored.items()
+            if c
+        ),
         "",
         "## 1. Reader decisions",
         "",

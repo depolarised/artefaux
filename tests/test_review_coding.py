@@ -11,6 +11,7 @@ from artefaux.review_coding import (
     apply_overrides,
     code_dtc,
     code_pwm,
+    fill_blank_codes,
     parse_leads,
     parse_section,
 )
@@ -214,3 +215,31 @@ def test_adjudication_rows_are_parsed_completely_or_left_open():
     assert problems == [] and repeat.repeat_ecg and repeat.unusable_leads == DISPLAYED_LEADS
     bad, problems = code_adjudication(_adj("V9", "full", "maybe"))
     assert bad is None and problems
+
+
+def test_blank_codes_are_restored_by_issued_position_only():
+    rows = [{"Blind ECG code": "REV-002", "x": "a"}, {"Blind ECG code": " ", "x": "b"}]
+    fixed, filled = fill_blank_codes(rows, ["REV-002", "REV-018"])
+    assert [r["Blind ECG code"] for r in fixed] == ["REV-002", "REV-018"] and filled == ["REV-018"]
+    with pytest.raises(ValueError, match="order changed"):
+        fill_blank_codes(rows[::-1], ["REV-002", "REV-018"])
+    with pytest.raises(ValueError, match="issued"):
+        fill_blank_codes(rows[:1], ["REV-002", "REV-018"])
+
+
+def test_unspecified_section_is_an_override_value_only():
+    response = code_pwm(
+        {
+            "Blind ECG code": "REV-013",
+            "PWM Leads unsuitable": "I, V1",
+            "PWM 50% OK?": "Yes",
+            "PWM comments": "",
+            "PWM decision": "Remove 50%",
+        }
+    )
+    assert response.usable_section == "full"
+    row = {"reader": "PWM", "blind_code": "REV-013", "field": "usable_section", "note": ""}
+    (fixed,) = apply_overrides([response], [{**row, "value": "unspecified"}])
+    assert fixed.usable_section == "unspecified"
+    with pytest.raises(ValueError, match="invalid usable_section"):
+        apply_overrides([response], [{**row, "value": "somewhere"}])

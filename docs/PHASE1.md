@@ -12,7 +12,8 @@ Derek (DTC) have **already reviewed**, with their **confirmed** answers as the r
 |---|---|---|---|
 | 1 | Review set 1: the 85 v2 records, `REV-001`…`REV-085` (set-1 codes) | Set-1 answers, agreed units only (no adjudication round) | Both programs run and scored (draft until the coding is verified) |
 | 1, Uni-G by Glasgow | The set-1 GRIASCII pack, run by Brian with Uni-G | Same as Phase 1 | Out with Brian; pending his response |
-| 2 | Short set 2: 30 of the 85 set-2 records (set-2 codes kept) | Set-2 answers, same rules | Short pack ready for Peter and Derek; replaces the full 85 |
+| 2, Uni-G by Glasgow | The short-set-2 GRIASCII pack, run by Brian with Uni-G | Same as Phase 2 | Ready to send to Brian |
+| 2 | Short set 2: 30 of the 85 set-2 records (set-2 codes kept) | Set-2 answers, same rules | Readers returned 2026-11-12; signalguard v0.2.0 and v0.3.0 run and scored (draft until the coding is verified) |
 
 The input files, output schema, native-to-common mappings and trust model are those of
 [`BENCHMARK.md`](BENCHMARK.md); the endpoints and statistics are those of
@@ -129,3 +130,39 @@ Caveats, declared in the report:
 
 The private selection (codes, strata, inclusion probabilities, hashes) is
 `out/artefaux-review-set2/short/selection.{csv,json}`.
+
+### Phase 2 coding and runs
+
+The readers' sheets were coded before any program ran (ADR 0018 amendment 6). Set-2 wording
+differs from set 1, so most answers are coded by documented override
+(`out/review-synthesis/set2s/overrides.csv`): Derek gave no lead list and called most ECGs
+interpretable, so those rows keep all leads; where Peter chose to use one half without naming it,
+the section is coded `unspecified`, which is never confirmed. One returned row had its code
+deleted; it is restored from the issued sheet by row position (`fill_blank_codes`).
+
+signalguard v0.2.0 and v0.3.0 (versions frozen beforehand, ADR 0018 amendment 6) each ran once on
+the 30 records, with no failures. The confirmed reference holds few positives, so sensitivity is
+barely estimable on this phase; specificity carries most of the information. Tables are private
+(`out/phase2/report/results.md`) and include rows reweighted to the full 85. Uni-G for Phase 2 is
+run by Brian on `artefaux30_set2_griasc.tar.zst.gpg` in `reports/review_packs/brian_unig_set2/`
+(built by `scripts/package_glasgow_pack.py`; symmetric gpg with a locally generated passphrase that
+is kept under `out/` and sent separately).
+
+```sh
+MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/reports/synthesise_review.py --set 2s
+MPLCONFIGDIR=/tmp/artefaux-matplotlib .venv/bin/python scripts/build_phase1.py \
+    --key out/artefaux-review-set2/PRIVATE_blind_key.csv --corpus out/artefaux-review-set2 \
+    --coding out/review-synthesis/set2s/coding.csv \
+    --selection out/artefaux-review-set2/short/selection.csv \
+    --phase-version phase2-set2short-1.0 --zip-name phase2_set2short_tool_inputs.zip \
+    --no-adjudication --share-dir reports/review_packs/phase2 --private-dir out/phase2 \
+    --public-dir bench/phase2
+# signalguard repo (each worktree at its frozen version):
+#   scripts/run_artefaux_phase.py --inputs <inputs.csv> --out out/phase2/predictions/<signalguard|signalguard_v030>
+.venv/bin/python scripts/reports/phase_report.py --phase phase2-set2short-1.0 \
+    --coding out/review-synthesis/set2s/coding.csv \
+    --selection out/artefaux-review-set2/short/selection.csv \
+    --predictions out/phase2/predictions --sources signalguard_v030 signalguard --out out/phase2/report
+.venv/bin/python scripts/package_glasgow_pack.py \
+    --tool-inputs reports/review_packs/phase2/tool_inputs --set 2 --date 2026-11-12
+```
